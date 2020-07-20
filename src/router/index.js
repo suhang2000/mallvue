@@ -8,6 +8,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'Default',
+      redirect: '/login',
+      component: Login
+    },
+    {
       path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld
@@ -16,6 +22,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/admin',
+      name: 'AdminLogin',
+      component: () => import('../components/admin/AdminLogin')
     }
   ]
 })
