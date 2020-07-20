@@ -9,7 +9,7 @@
     </el-form-item>
     <el-form-item>
       <el-input type="password" v-model="loginForm.password"
-                auto-complete="off" placeholder="密码"></el-input>
+                auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">普通用户登录</el-button>
@@ -77,7 +77,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/user.jpg") no-repeat center;
+    background: url("../../../src/assets/user.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

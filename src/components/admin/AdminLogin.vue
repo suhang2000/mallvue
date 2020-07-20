@@ -26,7 +26,7 @@
 <script>
 // 复制代码后选中多行shift + tab调整格式
 export default {
-  name: 'admin',
+  name: 'AdminLogin',
   // 括号前须有空格，否则Missing space before function parentheses报错
   data () {
     return {
