@@ -77,7 +77,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../../../src/assets/user.jpg") no-repeat center;
+    background: url("../../assets/user.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
