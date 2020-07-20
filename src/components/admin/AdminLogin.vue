@@ -39,8 +39,7 @@ export default {
   },
   methods: {
     login () {
-      // '_this' is assigned a value but never used
-      // const _this = this
+      var _this = this
 
       // console.log(this.$store.state)
       this.$axios
@@ -56,7 +55,7 @@ export default {
             // var data = this.loginForm
             // _this.$store.commit('login', _this.loginForm)
             const path = this.$route.query.redirect
-            this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/index/dashboard' : path})
           } else if (successResponse.data.code === 400) {
             alert('账号或密码错误')
           }
@@ -89,7 +88,7 @@ export default {
 
   #poster {
     /*记得要改文件路径*/
-    background: url("../../assets/user.jpg") no-repeat center;
+    background: url("../../assets/admin/loginBG.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
