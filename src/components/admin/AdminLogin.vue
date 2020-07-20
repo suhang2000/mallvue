@@ -6,7 +6,7 @@
     <el-form-item>
 
       <!--需要改动v-model-->
-      <el-input type="text" v-model="loginForm.uname"
+      <el-input type="text" v-model="loginForm.aname"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item>
