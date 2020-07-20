@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
+import List from '../components/List'
 import Login from '../components/user/Login'
 import AdminLogin from '../components/admin/AdminLogin'
 import AdminIndex from '../components/admin/surface/AdminIndex'
@@ -11,12 +12,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Default',
-      redirect: '/login',
-      component: Login
-    },
-    {
       path: '/hello',
       name: 'HelloWorld',
       component: HelloWorld
@@ -25,6 +20,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
     },
     {
       path: '/admin',

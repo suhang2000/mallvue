@@ -13,7 +13,7 @@
 
       <!--需要改动v-model-->
       <el-input type="password" v-model="loginForm.password"
-                auto-complete="off" placeholder="密码"></el-input>
+                auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">管理人员登录
