@@ -33,7 +33,7 @@ export default {
       loginForm: {
         aname: '',
         password: ''
-      },
+      }
       // loading: false
     }
   },
