@@ -4,8 +4,8 @@
 
 <script>
 import echarts from 'echarts'
-import resize from '../mixins/resize'
-require('echarts/theme/macarons') // echarts theme
+import resize from './resize'
+require('echarts/theme/macarons')
 
 const animationDuration = 6000
 
@@ -49,8 +49,10 @@ export default {
       this.chart.setOption({
         tooltip: {
           trigger: 'axis',
-          axisPointer: { // 坐标轴指示器，坐标轴触发有效
-            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          // 坐标轴指示器，坐标轴触发有效
+          axisPointer: {
+            // 默认为直线，可选为：'line' | 'shadow'
+            type: 'shadow'
           }
         },
         grid: {
@@ -73,22 +75,23 @@ export default {
             show: false
           }
         }],
+        // 假数据
         series: [{
-          name: 'pageA',
+          name: 'user',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
           data: [79, 52, 200, 334, 390, 330, 220],
           animationDuration
         }, {
-          name: 'pageB',
+          name: 'saler',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
           data: [80, 52, 200, 334, 390, 330, 220],
           animationDuration
         }, {
-          name: 'pageC',
+          name: 'order',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',

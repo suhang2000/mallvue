@@ -1,7 +1,6 @@
 <template>
   <el-card class="admin-header">
     <a href="/index">
-
       <!--须得修改文件路径-->
       <img src="../../../assets/admin/admin.jpg" alt="" width="55px" style="float: left;margin-top: -5px;">
     </a>
@@ -11,22 +10,27 @@
 </template>
 
 <script>
-import {createRouter} from '../../../router'
+import {createRouter} from '../../../router/index.js'
 
 export default {
   name: 'Header',
   methods: {
     logout () {
       var _this = this
-      this.$axios.get('/logout').then(resp => {
-        if (resp && resp.data.code === 200) {
-          _this.$store.commit('logout')
-          _this.$router.replace('/index')
-          // 清空路由，防止路由重复加载
-          const newRouter = createRouter()
-          _this.$router.matcher = newRouter.matcher
-        }
-      }).catch(failResponse => {})
+      this.$axios
+        .get('/logout')
+        .then(resp => {
+          if (resp && resp.data.code === 200) {
+            // _this.$store.commit('logout')
+            // _this.$router.replace('/index')
+            // 清空路由，防止路由重复加载
+            const newRouter = createRouter()
+            _this.$router.matcher = newRouter.matcher
+            var path = _this.$route.query.redirect
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/login' : path})
+          }
+        })
+        .catch(failResponse => {})
     }
   }
 }

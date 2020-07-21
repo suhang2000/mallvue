@@ -30,9 +30,6 @@
           <a :class="{ selected: visibility === key }" @click.prevent="visibility = key">{{ key | capitalize }}</a>
         </li>
       </ul>
-      <!-- <button class="clear-completed" v-show="todos.length > remaining" @click="clearCompleted">
-        Clear completed
-      </button> -->
     </footer>
   </section>
 </template>
@@ -47,14 +44,14 @@ const filters = {
   completed: todos => todos.filter(todo => todo.done)
 }
 const defalutList = [
-  { text: 'star this repository', done: false },
-  { text: 'fork this repository', done: false },
-  { text: 'follow author', done: false },
-  { text: 'vue-element-admin', done: true },
-  { text: 'vue', done: true },
-  { text: 'element-ui', done: true },
-  { text: 'axios', done: true },
-  { text: 'webpack', done: true }
+  { text: '物理设计', done: true },
+  { text: '视图设计', done: true },
+  { text: '逻辑设计', done: true },
+  { text: '前后交互', done: true },
+  { text: '项目总结', done: true },
+  { text: '项目答辩', done: false },
+  { text: '演示功能', done: false },
+  { text: '获得高分', done: false }
 ]
 export default {
   components: { Todo },
@@ -96,20 +93,16 @@ export default {
       }
       e.target.value = ''
     },
-    toggleTodo (val) {
-      val.done = !val.done
+    editTodo ({ todo, value }) {
+      todo.text = value
       this.setLocalStorage()
     },
     deleteTodo (todo) {
       this.todos.splice(this.todos.indexOf(todo), 1)
       this.setLocalStorage()
     },
-    editTodo ({ todo, value }) {
-      todo.text = value
-      this.setLocalStorage()
-    },
-    clearCompleted () {
-      this.todos = this.todos.filter(todo => !todo.done)
+    toggleTodo (val) {
+      val.done = !val.done
       this.setLocalStorage()
     },
     toggleAll ({ done }) {
