@@ -4,20 +4,15 @@
            label-width="0px">
     <h3 class="login_title">管理人员登录</h3>
     <el-form-item>
-
-      <!--需要改动v-model-->
       <el-input type="text" v-model="loginForm.aname"
                 auto-complete="off" placeholder="姓名"></el-input>
     </el-form-item>
     <el-form-item>
-
-      <!--需要改动v-model-->
       <el-input type="password" v-model="loginForm.password"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">管理人员登录
-      </el-button>
+      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">管理人员登录</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -34,19 +29,17 @@ export default {
         aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
-      checked: true,
+      // checked: true,
       loginForm: {
         aname: '',
         password: ''
       },
-      loading: false
+      // loading: false
     }
   },
   methods: {
     login () {
       var _this = this
-
-      // console.log(this.$store.state)
       this.$axios
         .post('/admin/login', {
           aname: this.loginForm.aname,
