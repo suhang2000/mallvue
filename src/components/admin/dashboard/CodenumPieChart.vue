@@ -4,8 +4,8 @@
 
 <script>
 import echarts from 'echarts'
-import resize from '../mixins/resize'
-require('echarts/theme/macarons') // echarts theme
+import resize from './resize'
+require('echarts/theme/macarons')
 
 export default {
   mixins: [resize],
@@ -52,21 +52,20 @@ export default {
         legend: {
           left: 'center',
           bottom: '10',
-          data: ['Industries', 'Technology', 'Forex', 'Gold', 'Forecasts']
+          data: ['李苏航', '胡文哲', '胡万龙', '刘音']
         },
         series: [
           {
-            name: 'WEEKLY WRITE ARTICLES',
+            name: '前端代码量',
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
             center: ['50%', '38%'],
             data: [
-              { value: 320, name: 'Industries' },
-              { value: 240, name: 'Technology' },
-              { value: 149, name: 'Forex' },
-              { value: 100, name: 'Gold' },
-              { value: 59, name: 'Forecasts' }
+              { value: 320, name: '李苏航' },
+              { value: 240, name: '胡文哲' },
+              { value: 149, name: '胡万龙' },
+              { value: 100, name: '刘音' },
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600

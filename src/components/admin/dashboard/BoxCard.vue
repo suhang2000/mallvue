@@ -4,8 +4,6 @@
       <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png">
     </div>
     <div style="position:relative;">
-      <!--<pan-thumb :image="avatar" class="panThumb" />-->
-      <!--<mallki class-name="mallki-text" text="vue-element-admin" />-->
       <div style="padding-top:35px;" class="progress-item">
         <span>Vue</span>
         <el-progress :percentage="70" />
@@ -28,12 +26,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import PanThumb from '@/components/PanThumb'
-// import Mallki from '@/components/TextHoverEffect/Mallki'
 
 export default {
-  // components: { PanThumb, Mallki },
-
   filters: {
     statusFilter (status) {
       const statusMap = {
@@ -64,7 +58,7 @@ export default {
 <style lang="scss" >
 .box-card-component{
   .el-card__header {
-    padding: 0px!important;
+    padding: 0!important;
   }
 }
 </style>
@@ -85,8 +79,8 @@ export default {
   }
   .mallki-text {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
     font-size: 20px;
     font-weight: bold;
   }
@@ -96,7 +90,7 @@ export default {
     width: 70px!important;
     position: absolute!important;
     top: -45px;
-    left: 0px;
+    left: 0;
     border: 5px solid #ffffff;
     background-color: #fff;
     margin: auto;

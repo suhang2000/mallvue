@@ -38,7 +38,7 @@ export default new Router({
       component: AdminRegister
     },
     {
-      path: '/admin/index',
+      path: '/admin',
       name: 'Admin',
       component: AdminIndex,
       meta: {
@@ -46,7 +46,57 @@ export default new Router({
       },
       children: [
         {
-          path: '/admin/index/dashboard',
+          path: '/admin/dashboard',
+          name: 'Dashboard',
+          component: AdminDashboard,
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
+    }
+  ]
+})
+
+// 用于创建默认路由
+export const createRouter = routes => new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/hello',
+      name: 'HelloWorld',
+      component: HelloWorld
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/list',
+      name: 'List',
+      component: List
+    },
+    {
+      path: '/admin/login',
+      name: 'AdminLogin',
+      component: AdminLogin
+    },
+    {
+      path: '/admin/register',
+      name: 'AdminRegister',
+      component: AdminRegister
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminIndex,
+      meta: {
+        requireAuth: true
+      },
+      children: [
+        {
+          path: '/admin/dashboard',
           name: 'Dashboard',
           component: AdminDashboard,
           meta: {

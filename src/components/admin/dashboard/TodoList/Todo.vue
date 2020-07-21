@@ -9,7 +9,6 @@
         style="left: 0px;"
       >
       <label @dblclick="editing = true" v-text="todo.text" />
-      <button class="destroy" @click="deleteTodo( todo )" />
     </div>
     <input
       v-show="editing"

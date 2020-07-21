@@ -50,7 +50,7 @@ export default {
             // var data = resp.data.result
             // _this.$store.commit('login', data)
             var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/index/dashboard' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/dashboard' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

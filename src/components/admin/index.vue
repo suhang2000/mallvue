@@ -45,7 +45,7 @@
 // 须得修改路径
 import PanelGroup from './dashboard/PanelGroup'
 import RaddarChart from './dashboard/RaddarChart'
-import PieChart from './dashboard/PieChart'
+import PieChart from './dashboard/CodenumPieChart'
 import LineChart from './dashboard/LineChart'
 import BarChart from './dashboard/BarChart'
 import TransactionTable from './dashboard/TransactionTable'
