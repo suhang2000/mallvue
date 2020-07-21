@@ -61,7 +61,8 @@ export default {
           if (resp.data.code === 200) {
             // var data = resp.data.result
             // _this.$store.commit('login', data)
-            var path = _this.$route.query.redirect
+            _this.$store.commit('login', _this.loginForm)
+            const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
@@ -69,7 +70,9 @@ export default {
             })
           }
         })
-        .catch(failResponse => {})
+        .catch(failResponse => {
+          this.$message('服务器异常')
+        })
     }
   }
 }
