@@ -6,15 +6,17 @@
       :data="products"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange">
+      @selection-change="handleSelectionChange"
+      border stripe>
       <el-table-column
         type="selection"
         width="55">
-      </el-table-column>
+      </el-table-column >
       <el-table-column
         prop="pname"
         label="商品名"
-        width="250">
+        width="250"
+        @click="showDetailedInfo()">
       </el-table-column>
       <el-table-column
         prop="price"
@@ -30,11 +32,15 @@
         prop="description"
         label="描述"
         show-overflow-tooltip>
-      </el-table-column><el-table-column
+      </el-table-column>
+      <el-table-column
       label="操作"
       width="400">
-      <el-button class="el-icon-shopping-cart-2" @click.once="加入购物车"></el-button>
-    </el-table-column>
+        <template slot-scope="scope">
+            <el-button type = "danger" icon = "el-icon-delete"
+                 size = "mini" @click="dropGoods(scope.row)"></el-button>
+        </template>>
+      </el-table-column>
     </el-table>
     <div style="margin-top: 20px;float: left">
       <el-button @click="toggleSelection()">取消选择</el-button>
@@ -45,24 +51,23 @@
 <script>
 export default {
   name: 'List',
-  data () {
+  data() {
     return {
       products: [],
+
       multipleSelection: []
     }
   },
-  created () {
+  created() {
     this.showGoodsList()
   },
   methods: {
     // 分页式展示商品信息
-    async showGoodsList () {
+    async showGoodsList() {
       const _this = this
       this.$axios
-        .get('/list/product')
+        .post('/list/product')
         .then(successResponse => {
-          // console.log(successResponse)
-          // console.log(successResponse.data[0])
           if (successResponse && successResponse.status === 200) {
             _this.products = successResponse.data
             console.log(_this.products)
@@ -72,7 +77,8 @@ export default {
           alert('服务器异常')
         })
     },
-    toggleSelection (rows) {
+
+    toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
           this.$refs.multipleTable.toggleRowSelection(row)
@@ -81,10 +87,46 @@ export default {
         this.$refs.multipleTable.clearSelection()
       }
     },
-    handleSelectionChange (val) {
+    handleSelectionChange(val) {
       this.multipleSelection = val
+      console.log(val)
+    },
+    showDetailedInfo() {
+      console.log()
+    },
+    async dropGoods(row) {
+      const confirmResult = await
+        this.$confirm("是否删除"+row.pname+"?","提示",{
+        confirmButtonText:"确认",
+        cancelButtonText:"取消",
+        type:'warning'
+      }).catch(err => err)
+
+      if(confirmResult !== 'confirm'){
+        return this.$message.info("已取消删除")
+      }
+
+      console.log("pid为"+row.pid)
+      var _this = this
+      this.$axios
+        .post('/list/dropGoodsById', {
+          pid : row.pid,
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+
+      //this.showGoodsList()
     }
-  }
+  },
 }
 </script>
 
