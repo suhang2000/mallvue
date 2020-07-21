@@ -12,12 +12,17 @@
         type="selection"
         width="55">
       </el-table-column >
+
       <el-table-column
-        prop="pname"
         label="商品名"
         width="250"
-        @click="showDetailedInfo()">
-      </el-table-column>
+        prop = "pname"
+        >
+        <template slot-scope="scope">
+          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"
+                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
+        </template>
+      </el-table-column>>
       <el-table-column
         prop="price"
         label="价格"
@@ -38,8 +43,9 @@
       width="400">
         <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
-                 size = "mini" @click="dropGoods(scope.row)"></el-button>
-        </template>>
+                 size = "mini" @click="dropGoods(scope.row)">
+            </el-button>
+        </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 20px;float: left">
@@ -54,7 +60,7 @@ export default {
   data() {
     return {
       products: [],
-
+      url: "www.baidu.com",
       multipleSelection: []
     }
   },
@@ -91,8 +97,10 @@ export default {
       this.multipleSelection = val
       console.log(val)
     },
-    showDetailedInfo() {
-      console.log()
+    showDetailedInfo (row) {
+      console.log(row)
+      //  var path = _this.$route.query.redirect
+      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
     async dropGoods(row) {
       const confirmResult = await
@@ -124,12 +132,13 @@ export default {
           }
         })
 
-      //this.showGoodsList()
+      this.showGoodsList()
     }
   },
 }
 </script>
 
 <style scoped>
+
 
 </style>
