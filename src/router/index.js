@@ -4,6 +4,7 @@ import HelloWorld from '../components/HelloWorld'
 import List from '../components/List'
 import Login from '../components/user/Login'
 import AdminLogin from '../components/admin/AdminLogin'
+import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 
@@ -27,9 +28,14 @@ export default new Router({
       component: List
     },
     {
-      path: '/admin',
+      path: '/admin/login',
       name: 'AdminLogin',
       component: AdminLogin
+    },
+    {
+      path: '/admin/register',
+      name: 'AdminRegister',
+      component: AdminRegister
     },
     {
       path: '/admin/index',

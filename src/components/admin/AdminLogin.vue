@@ -7,7 +7,7 @@
 
       <!--需要改动v-model-->
       <el-input type="text" v-model="loginForm.aname"
-                auto-complete="off" placeholder="账号"></el-input>
+                auto-complete="off" placeholder="姓名"></el-input>
     </el-form-item>
     <el-form-item>
 
@@ -30,11 +30,16 @@ export default {
   // 括号前须有空格，否则Missing space before function parentheses报错
   data () {
     return {
+      rules: {
+        aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
+      },
+      checked: true,
       loginForm: {
         aname: '',
         password: ''
       },
-      responseResult: []
+      loading: false
     }
   },
   methods: {
@@ -43,26 +48,23 @@ export default {
 
       // console.log(this.$store.state)
       this.$axios
-        .post('/login/admin', {
+        .post('/admin/login', {
           aname: this.loginForm.aname,
           password: this.loginForm.password
         })
-        .then(successResponse => {
-          console.log(successResponse.data)
-
-          // 响应码根据后端代码变化
-          if (successResponse.data.code === 200) {
-            // var data = this.loginForm
-            // _this.$store.commit('login', _this.loginForm)
-            const path = this.$route.query.redirect
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // var data = resp.data.result
+            // _this.$store.commit('login', data)
+            var path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/admin/index/dashboard' : path})
-          } else if (successResponse.data.code === 400) {
-            alert('账号或密码错误')
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
           }
         })
-        .catch(failResponse => {
-          alert('服务器异常')
-        })
+        .catch(failResponse => {})
     }
   }
 }

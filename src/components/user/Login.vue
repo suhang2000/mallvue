@@ -27,7 +27,8 @@ export default {
         uname: '',
         password: ''
       },
-      responseResult: []
+      // responseResult: []
+      loading: false
     }
   },
   methods: {
@@ -36,25 +37,39 @@ export default {
       // const _this = this
 
       // console.log(this.$store.state)
+      var _this = this
       this.$axios
         .post('/login/user', {
           uname: this.loginForm.uname,
           password: this.loginForm.password
         })
-        .then(successResponse => {
-          console.log(successResponse.data)
-          if (successResponse.data.code === 200) {
-            // var data = this.loginForm
-            // _this.$store.commit('login', _this.loginForm)
-            const path = this.$route.query.redirect
-            this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-          } else if (successResponse.data.code === 400) {
-            alert('账号或密码错误')
+        // .then(successResponse => {
+        //   console.log(successResponse.data)
+        //   if (successResponse.data.code === 200) {
+        //     // var data = this.loginForm
+        //     // _this.$store.commit('login', _this.loginForm)
+        //     const path = this.$route.query.redirect
+        //     this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+        //   } else if (successResponse.data.code === 400) {
+        //     alert('账号或密码错误')
+        //   }
+        // })
+        // .catch(failResponse => {
+        //   alert('服务器异常')
+        // })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // var data = resp.data.result
+            // _this.$store.commit('login', data)
+            var path = _this.$route.query.redirect
+            _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
           }
         })
-        .catch(failResponse => {
-          alert('服务器异常')
-        })
+        .catch(failResponse => {})
     }
   }
 }
