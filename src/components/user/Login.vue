@@ -40,7 +40,6 @@ export default {
       // '_this' is assigned a value but never used
       // const _this = this
 
-      // console.log(this.$store.state)
       var _this = this
       this.$axios
         .post('/login/user', {
