@@ -99,7 +99,7 @@ export default{
     color: #505458;
   }
   #paper {
-    background: url("../../assets/admin/adminBG.jpg") no-repeat center;
+    background: url("../../assets/admin.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
