@@ -9,7 +9,12 @@ import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 import SalerRegister from '../components/saler/SalerRegister'
 import UserRegister from '../components/user/UserRegister'
+// import SalerLogin from '../components/saler/SalerLogin'
 import Home from '../components/user/Home'
+import Index from '../components/user/common/Index'
+import Cart from '../components/user/common/Cart'
+import Order from '../components/user/common/Order'
+import UserInfo from '../components/user/common/UserInfo'
 
 Vue.use(Router)
 
@@ -46,7 +51,30 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      redirect: '/home/index',
+      children: [
+        {
+          path: '/home/index',
+          name: 'Index',
+          component: Index
+        },
+        {
+          path: '/home/cart',
+          name: 'Cart',
+          component: Cart
+        },
+        {
+          path: '/home/order',
+          name: 'Order',
+          component: Order
+        },
+        {
+          path: '/home/userinfo',
+          name: 'UserInfo',
+          component: UserInfo
+        }
+      ]
     },
     {
       path: '/list',

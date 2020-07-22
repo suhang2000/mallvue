@@ -4,11 +4,10 @@
       @keyup.enter.native="searchClick"
       placeholder="输入商品名或商品信息搜索..."
       prefix-icon="el-icon-search"
-      size="small"
-      style="width: 400px;margin-right: 10px"
+      style="width: 400px;margin-right: 10px;margin-top: 20px"
       v-model="keywords">
     </el-input>
-    <el-button size="small" type="info" icon="el-icon-search" @click="searchClick" round>搜索</el-button>
+    <el-button style="margin-top: 20px" type="primary" plain icon="el-icon-search" @click="searchClick" round>搜索</el-button>
   </div>
 </template>
 
