@@ -16,8 +16,11 @@
       <el-button type="primary" class="el-icon-goods" style="width: 25%;background: #505458;border: none" v-on:click="saler_login">商家</el-button>
       <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" v-on:click="admin_login">管理</el-button>
     </el-form-item>
-    <el-link href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
-    <el-link href="http://localhost:8080/#/register/saler" icon="el-icon-s-goods" type="primary">注册成为商家</el-link>
+    <el-form-item>
+      <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
+      <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-goods" type="primary">注册成为商家</el-link>
+    </el-form-item>
+    <el-link :underline="false" href="http://localhost:8080/#/pwdreset" icon="el-icon-s-help" type="warning">找回密码</el-link>
   </el-form>
   </body>
 </template>

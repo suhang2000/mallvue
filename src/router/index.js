@@ -3,12 +3,12 @@ import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
 import List from '../components/saler/List'
 import Login from '../components/Login'
+import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 import SalerRegister from '../components/saler/SalerRegister'
 import UserRegister from '../components/user/UserRegister'
-import SalerLogin from '../components/saler/SalerLogin'
 import Home from '../components/user/Home'
 
 Vue.use(Router)
@@ -27,6 +27,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/pwdReset',
+      name: 'PwdReset',
+      component: PwdReset
     },
     {
       path: '/register/user',
