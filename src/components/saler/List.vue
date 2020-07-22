@@ -1,6 +1,19 @@
 <template>
   <div>
     <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+    <el-card>
+      <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input placeholder="请输入内容"
+        v-model="queryInfo.query" clearable @clear="clearInput">
+          <el-button slot="append" icon="el-icon-search"
+                     @click="showGoodsList">
+          </el-button>
+        </el-input>
+      </el-col>
+      </el-row>
+    </el-card>
+
     <el-table
       ref="multipleTable"
       :data="products"
@@ -48,9 +61,17 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div style="margin-top: 20px;float:left">
+      <el-button type = "primary" icon = "el-icon-plus"
+                 size = "mini"   @click="addGoods(scope.row)">
+      </el-button>
+    </div>
     <div style="margin-top: 20px;float: left">
       <el-button @click="toggleSelection()">取消选择</el-button>
-    </div>
+    </div >
+
+
   </div>
 </template>
 
