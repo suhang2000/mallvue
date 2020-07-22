@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
 import List from '../components/saler/List'
-import Login from '../components/user/Login'
-import AdminLogin from '../components/admin/AdminLogin'
+import Login from '../components/Login'
+import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
-import SalerLogin from '../components/saler/SalerLogin'
+import SalerRegister from '../components/saler/SalerRegister'
+import UserRegister from '../components/user/UserRegister'
+import Home from '../components/user/Home'
 
 Vue.use(Router)
 
@@ -27,9 +29,24 @@ export default new Router({
       component: Login
     },
     {
-      path: '/saler/login',
-      name: 'SalerLogin',
-      component: SalerLogin
+      path: '/pwdReset',
+      name: 'PwdReset',
+      component: PwdReset
+    },
+    {
+      path: '/register/user',
+      name: 'UserRegister',
+      component: UserRegister
+    },
+    {
+      path: '/register/saler',
+      name: 'SalerRegister',
+      component: SalerRegister
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home
     },
     {
       path: '/list',
@@ -37,12 +54,7 @@ export default new Router({
       component: List
     },
     {
-      path: '/admin/login',
-      name: 'AdminLogin',
-      component: AdminLogin
-    },
-    {
-      path: '/admin/register',
+      path: '/register/admin',
       name: 'AdminRegister',
       component: AdminRegister
     },

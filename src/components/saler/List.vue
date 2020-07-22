@@ -1,22 +1,21 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">全部商品</p>
     <el-card>
+    <p style="font-size: xx-large;font-family: Arial">全部商品</p>
       <el-row :gutter="20">
-      <el-col :span="8">
-        <el-input placeholder="请输入内容"
-        v-model="queryInfo.query" clearable @clear="clearInput">
-          <el-button slot="append" icon="el-icon-search"
+        <el-col :span="8">
+          <el-input placeholder="请输入内容" type="text" auto-complete="off"
+          v-model="product.pname" clearable @clear="clearInput">
+              <el-button slot="append" icon="el-icon-search"
                      @click="showGoodsList">
-          </el-button>
-        </el-input>
-      </el-col>
+              </el-button>
+          </el-input>
+        </el-col>
       </el-row>
-    </el-card>
 
     <el-table
       ref="multipleTable"
-      :data="products"
+      :data="goodsList"
       tooltip-effect="dark"
       style="width: 100%"
       @selection-change="handleSelectionChange"
@@ -35,7 +34,7 @@
           <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"
                        style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
         </template>
-      </el-table-column>>
+      </el-table-column>
       <el-table-column
         prop="price"
         label="价格"
@@ -71,6 +70,7 @@
       <el-button @click="toggleSelection()">取消选择</el-button>
     </div >
 
+    </el-card>
 
   </div>
 </template>
@@ -80,10 +80,14 @@ export default {
   name: 'List',
   data () {
     return {
-      products: [],
-      url: 'www.baidu.com',
-      multipleSelection: []
+      goodsList:[],
+      multipleSelection: [],
+      product:{
+        pid:0,
+        pname:'',
+      }
     }
+
   },
   created () {
     this.showGoodsList()
@@ -92,12 +96,18 @@ export default {
     // 分页式展示商品信息
     async showGoodsList () {
       const _this = this
+      console.log(_this.product)
       this.$axios
-        .post('/list/product')
+        .post('/list/product',{
+          pid: this.product.pid,
+          sid: this.product.sid,
+          pname: this.product.pname,
+
+        })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
-            _this.products = successResponse.data
-            console.log(_this.products)
+            _this.goodsList= successResponse.data
+            console.log(_this.goodsList)
           }
         })
         .catch(failResponse => {
@@ -123,7 +133,11 @@ export default {
       //  var path = _this.$route.query.redirect
       // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
+    clearInput(){
+    },
+
     async dropGoods (row) {
+      console.log(row)
       const confirmResult = await
       this.$confirm('是否删除' + row.pname + '?', '提示', {
         confirmButtonText: '确认',
@@ -136,7 +150,6 @@ export default {
       }
 
       console.log('pid为' + row.pid)
-      // var _this = this
       this.$axios
         .post('/list/dropGoodsById', {
           pid: row.pid

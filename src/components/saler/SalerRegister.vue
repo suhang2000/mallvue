@@ -2,11 +2,11 @@
   <body id="paper">
   <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
-    <h3 class="regis_title">管理人员注册</h3>
+    <h3 class="regis_title">商家注册</h3>
     <!--使用Prop在父组件内向子组件传递参数!!!prop应为此界面具有的子组件-->
-    <el-form-item prop="aname">
-      <el-input type="text" v-model="regisForm.aname"
-                auto-complete="off" placeholder="真实姓名"></el-input>
+    <el-form-item prop="sname">
+      <el-input type="text" v-model="regisForm.sname"
+                auto-complete="off" placeholder="登录昵称"></el-input>
     </el-form-item>
     <el-form-item prop="password">
       <el-input type="password" v-model="regisForm.password"
@@ -20,6 +20,18 @@
       <el-input type="text" v-model="regisForm.phone"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
+    <el-form-item prop="bank_num">
+      <el-input type="text" v-model="regisForm.bank_num"
+                auto-complete="off" placeholder="银行卡号"></el-input>
+    </el-form-item>
+    <el-form-item prop="email">
+      <el-input type="text" v-model="regisForm.email"
+                auto-complete="off" placeholder="邮箱（选填）"></el-input>
+    </el-form-item>
+    <el-form-item prop="address">
+      <el-input type="text" v-model="regisForm.address"
+                auto-complete="off" placeholder="地址（选填）"></el-input>
+    </el-form-item>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" v-on:click="register">注册</el-button>
     </el-form-item>
@@ -28,6 +40,8 @@
 </template>
 <script>
 import {validatePhone} from '../../utils/validate'
+import {validateEmail} from '../../utils/validate'
+import {validateBanknum} from '../../utils/validate'
 
 export default{
   data () {
@@ -42,16 +56,21 @@ export default{
     }
     return {
       rules: {
-        aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        sname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword,trigger: 'blur'}],
-        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
+        phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
+        bank_num: [{required: true, validator: validateBanknum, trigger: 'blur'}],
+        email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       regisForm: {
-        aname: '',
+        sname: '',
         password: '',
         verifypwd:'',
-        phone: ''
+        phone: '',
+        bank_num: '',
+        email: '',
+        address: '',
       },
     }
   },
@@ -59,10 +78,13 @@ export default{
     register () {
       var _this = this
       this.$axios
-        .post('/register/admin', {
-          aname: this.regisForm.aname,
+        .post('/register/saler', {
+          sname: this.regisForm.sname,
           password: this.regisForm.password,
           phone: this.regisForm.phone,
+          bank_num: this.regisForm.bank_num,
+          email: this.regisForm.email,
+          address: this.regisForm.address,
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -99,7 +121,7 @@ export default{
     color: #505458;
   }
   #paper {
-    background: url("../../assets/admin/adminBG.jpg") no-repeat center;
+    background: url("../../assets/admin/normalBG.jpeg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
@@ -107,9 +129,5 @@ export default{
   }
   body{
     margin: -5px 0;
-  }
-  .login_remember {
-    margin: 0 0 35px 0;
-    text-align: left;
   }
 </style>
