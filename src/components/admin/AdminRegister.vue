@@ -70,7 +70,7 @@ export default{
               confirmButtonText: '确定'
             })
             var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/login/admin' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

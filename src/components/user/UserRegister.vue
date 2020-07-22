@@ -2,10 +2,12 @@
   <body id="paper">
   <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
-    <h3 class="regis_title">商家注册</h3>
-    <!--使用Prop在父组件内向子组件传递参数!!!prop应为此界面具有的子组件-->
-    <el-form-item prop="sname">
-      <el-input type="text" v-model="regisForm.sname"
+    <h3 class="regis_title">用户注册</h3>
+    <div class="block">
+      <el-avatar :size="50" icon="el-icon-user-solid"></el-avatar>
+    </div>
+    <el-form-item prop="uname">
+      <el-input type="text" v-model="regisForm.uname"
                 auto-complete="off" placeholder="登录昵称"></el-input>
     </el-form-item>
     <el-form-item prop="password">
@@ -20,11 +22,7 @@
       <el-input type="text" v-model="regisForm.phone"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
-    <el-form-item prop="bank_num">
-      <el-input type="text" v-model="regisForm.bank_num"
-                auto-complete="off" placeholder="银行卡号"></el-input>
-    </el-form-item>
-    <el-form-item prop="email">
+      <el-form-item prop="email">
       <el-input type="text" v-model="regisForm.email"
                 auto-complete="off" placeholder="邮箱（选填）"></el-input>
     </el-form-item>
@@ -32,6 +30,9 @@
       <el-input type="text" v-model="regisForm.address"
                 auto-complete="off" placeholder="地址（选填）"></el-input>
     </el-form-item>
+    <el-radio v-model="regisForm.gender" label="男">男</el-radio>
+    <el-radio v-model="regisForm.gender" label="女">女</el-radio>
+    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" ></el-date-picker>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" v-on:click="register">注册</el-button>
     </el-form-item>
@@ -41,7 +42,6 @@
 <script>
 import {validatePhone} from '../../utils/validate'
 import {validateEmail} from '../../utils/validate'
-import {validateBanknum} from '../../utils/validate'
 
 export default{
   data () {
@@ -56,21 +56,22 @@ export default{
     }
     return {
       rules: {
-        sname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{required: true, validator: validatePassword,trigger: 'blur'}],
         phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
-        bank_num: [{required: true, validator: validateBanknum, trigger: 'blur'}],
         email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       regisForm: {
-        sname: '',
+        uname: '',
         password: '',
         verifypwd:'',
         phone: '',
-        bank_num: '',
         email: '',
         address: '',
+        icon: '',
+        gender: '',
+        birthday: ''
       },
     }
   },
@@ -78,13 +79,15 @@ export default{
     register () {
       var _this = this
       this.$axios
-        .post('/register/saler', {
-          sname: this.regisForm.sname,
+        .post('/register/user', {
+          uname: this.regisForm.uname,
           password: this.regisForm.password,
           phone: this.regisForm.phone,
-          bank_num: this.regisForm.bank_num,
           email: this.regisForm.email,
           address: this.regisForm.address,
+          icon: this.regisForm.icon,
+          gender: this.regisForm.gender,
+          birthday: this.regisForm.birthday,
         })
         .then(resp => {
           if (resp.data.code === 200) {

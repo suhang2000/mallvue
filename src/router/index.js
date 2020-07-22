@@ -7,6 +7,7 @@ import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 import SalerRegister from '../components/saler/SalerRegister'
+import UserRegister from '../components/user/UserRegister'
 
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register/user',
+      name: 'UserRegister',
+      component: UserRegister
     },
     {
       path: '/register/saler',
