@@ -3,7 +3,8 @@
   <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">管理人员注册</h3>
-    <el-form-item prop="username">
+    <!--使用Prop在父组件内向子组件传递参数!!!prop应为此界面具有的子组件-->
+    <el-form-item prop="aname">
       <el-input type="text" v-model="regisForm.aname"
                 auto-complete="off" placeholder="真实姓名"></el-input>
     </el-form-item>
@@ -11,11 +12,11 @@
       <el-input type="password" v-model="regisForm.password"
                 auto-complete="off" placeholder="登录密码"></el-input>
     </el-form-item>
-    <el-form-item prop="password">
+    <el-form-item prop="verifypwd">
       <el-input type="password" v-model="regisForm.verifypwd"
                 auto-complete="off" placeholder="再次输入登录密码"></el-input>
     </el-form-item>
-    <el-form-item>
+    <el-form-item prop="phone">
       <el-input type="text" v-model="regisForm.phone"
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
@@ -26,9 +27,11 @@
   </body>
 </template>
 <script>
+import {validatePhone} from '../../utils/validate'
+
 export default{
   data () {
-    let validatePassword = (rule, value, callback) => {
+    const validatePassword =(rule, value, callback) =>{
       if (value === "") {
         callback(new Error("再次输入登陆密码！"));
       } else if (value !== this.regisForm.password) {
@@ -36,22 +39,20 @@ export default{
       } else {
         callback();
       }
-    };
+    }
     return {
       rules: {
         aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
-        verifypwd: [{validator: validatePassword, trigger: 'change'}],
-        phone: [{required: true, message: '电话号码不能为空', trigger: 'blur'}]
+        verifypwd: [{required: true, validator: validatePassword,trigger: 'blur'}],
+        phone: [{required: true, validator: validatePhone, trigger: 'blur'}]
       },
-      // checked: true,
       regisForm: {
         aname: '',
         password: '',
         verifypwd:'',
         phone: ''
       },
-      // loading: false
     }
   },
   methods: {
