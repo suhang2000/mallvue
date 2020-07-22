@@ -37,12 +37,30 @@ export default {
   },
   methods: {
     login () {
+      // '_this' is assigned a value but never used
+      // const _this = this
+
+      // console.log(this.$store.state)
       var _this = this
       this.$axios
         .post('/login/user', {
           uname: this.loginForm.uname,
           password: this.loginForm.password
         })
+        // .then(successResponse => {
+        //   console.log(successResponse.data)
+        //   if (successResponse.data.code === 200) {
+        //     // var data = this.loginForm
+        //     // _this.$store.commit('login', _this.loginForm)
+        //     const path = this.$route.query.redirect
+        //     this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+        //   } else if (successResponse.data.code === 400) {
+        //     alert('账号或密码错误')
+        //   }
+        // })
+        // .catch(failResponse => {
+        //   alert('服务器异常')
+        // })
         .then(resp => {
           if (resp.data.code === 200) {
             _this.$store.commit('loginUser', _this.loginForm)
