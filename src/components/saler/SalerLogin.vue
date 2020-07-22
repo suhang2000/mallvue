@@ -1,18 +1,18 @@
 <template>
   <body id="poster">
-  <el-form class="login-container" label-position="left"
+  <el-form :model="loginForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">商家登录</h3>
-    <el-form-item>
+    <el-form-item prop="sname">
       <el-input type="text" v-model="loginForm.sname"
                 auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item>
+    <el-form-item prop="password">
       <el-input type="password" v-model="loginForm.password"
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">商家登录</el-button>
+      <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">登录</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -35,15 +35,14 @@ export default {
   },
   methods: {
     login () {
-      const _this = this
+      var _this = this
       this.$axios
-        .post('/saler/login', {
+        .post('/login/saler', {
           sname: this.loginForm.sname,
           password: this.loginForm.password
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            // var data = resp.data.result
             _this.$store.commit('loginSaler', _this.loginForm)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
@@ -78,7 +77,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../../assets/admin.jpg") no-repeat center;
+    background: url("../../assets/admin/normalBG.jpeg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
