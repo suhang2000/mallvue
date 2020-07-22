@@ -70,9 +70,9 @@ export default new Router({
           path: '/admin/dashboard',
           name: 'Dashboard',
           component: AdminDashboard,
-          meta: {
-            requireAuth: true
-          }
+          // meta: {
+          //   requireAuth: true
+          // }
         }
       ]
     }

@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// import {createRouter} from '../../../router/index.js'
 
 export default {
   name: 'Header',
@@ -18,16 +17,13 @@ export default {
     logout () {
       var _this = this
       this.$axios
-        .get('/logout')
+        .get('/admin/logout')
+        // 这个api比较特殊！必须在admin/后面加访问地址
         .then(resp => {
           if (resp && resp.data.code === 200) {
-            // _this.$store.commit('logout')
-            // _this.$router.replace('/index')
-            // 清空路由，防止路由重复加载
-            const newRouter = createRouter()
-            _this.$router.matcher = newRouter.matcher
+            // 完全可以仅用下面两行，而不用前后端交互
             var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/login' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           }
         })
         .catch(failResponse => {})

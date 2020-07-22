@@ -19,7 +19,6 @@ Vue.use(ElementUI)
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (store.state.user.uname || store.state.saler.sname || store.state.admin.aname) {
-      // console.log(store.state.user.uname)
       next()
     } else {
       next({

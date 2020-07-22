@@ -72,7 +72,6 @@ export default {
             this.$alert('修改成功', '提示', {
               confirmButtonText: '确定'
             })
-            _this.$store.commit('pwdResetUser', _this.resetForm)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           } else {
@@ -98,7 +97,6 @@ export default {
             this.$alert('修改成功', '提示', {
               confirmButtonText: '确定'
             })
-            _this.$store.commit('pwdRestSaler', _this.resetForm)
             const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
           } else {

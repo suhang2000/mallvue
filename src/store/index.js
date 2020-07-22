@@ -15,30 +15,33 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    login (state, user) {
+    loginUser (state, user) {
       state.user = user
       window.sessionStorage.setItem('user', JSON.stringify(user))
-    },
-    loginAdmin (state, admin) {
-      state.admin = admin
-      window.sessionStorage.setItem('admin', JSON.stringify(admin))
     },
     loginSaler (state, saler) {
       state.saler = saler
       window.sessionStorage.setItem('saler', JSON.stringify(saler))
     },
+    loginAdmin (state, admin) {
+      state.admin = admin
+      window.sessionStorage.setItem('admin', JSON.stringify(admin))
+    },
     logout (state) {
       if (state.user !== []) {
-        state.user = []
+        state.user = ''
         window.sessionStorage.removeItem('user')
+        state.user = []
       }
       if (state.saler !== []) {
-        state.saler = []
+        state.saler = ''
         window.sessionStorage.removeItem('saler')
+        state.saler = []
       }
       if (state.admin !== []) {
-        state.admin = []
+        state.admin = ''
         window.sessionStorage.removeItem('admin')
+        state.admin = []
       }
     }
   }
