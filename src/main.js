@@ -18,11 +18,12 @@ Vue.use(ElementUI)
 // 这里要根据admin和saler的具体返回值（名字）来改
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    if (store.state.user.uname) {
+    if (store.state.user.uname || store.state.saler.sname || store.state.admin.aname) {
+      console.log(store.state.user.uname)
       next()
     } else {
       next({
-        path: 'login',
+        path: '/login',
         query: {redirect: to.fullPath}
       })
     }
