@@ -3,10 +3,6 @@
   <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">管理人员注册</h3>
-    <el-form-item>
-      <el-input type="text" v-model="regisForm.aid"
-                auto-complete="off" placeholder="唯一标识"></el-input>
-    </el-form-item>
     <el-form-item prop="username">
       <el-input type="text" v-model="regisForm.aname"
                 auto-complete="off" placeholder="真实姓名"></el-input>
@@ -43,7 +39,6 @@ export default{
     };
     return {
       rules: {
-        aid: [{required: true, message: '唯一标识不能为空', trigger: 'blur'}],
         aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
         verifypwd: [{validator: validatePassword, trigger: 'change'}],
@@ -51,7 +46,6 @@ export default{
       },
       // checked: true,
       regisForm: {
-        aid: '',
         aname: '',
         password: '',
         verifypwd:'',
@@ -65,7 +59,6 @@ export default{
       var _this = this
       this.$axios
         .post('/admin/register', {
-          aid: this.regisForm.aid,
           aname: this.regisForm.aname,
           password: this.regisForm.password,
           phone: this.regisForm.phone,
