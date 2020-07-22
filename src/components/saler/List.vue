@@ -1,6 +1,19 @@
 <template>
   <div>
     <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+    <el-card>
+      <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input placeholder="请输入内容"
+        v-model="queryInfo.query" clearable @clear="clearInput">
+          <el-button slot="append" icon="el-icon-search"
+                     @click="showGoodsList">
+          </el-button>
+        </el-input>
+      </el-col>
+      </el-row>
+    </el-card>
+
     <el-table
       ref="multipleTable"
       :data="products"
@@ -48,28 +61,36 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <div style="margin-top: 20px;float:left">
+      <el-button type = "primary" icon = "el-icon-plus"
+                 size = "mini"   @click="addGoods(scope.row)">
+      </el-button>
+    </div>
     <div style="margin-top: 20px;float: left">
       <el-button @click="toggleSelection()">取消选择</el-button>
-    </div>
+    </div >
+
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'List',
-  data() {
+  data () {
     return {
       products: [],
-      url: "www.baidu.com",
+      url: 'www.baidu.com',
       multipleSelection: []
     }
   },
-  created() {
+  created () {
     this.showGoodsList()
   },
   methods: {
     // 分页式展示商品信息
-    async showGoodsList() {
+    async showGoodsList () {
       const _this = this
       this.$axios
         .post('/list/product')
@@ -84,7 +105,7 @@ export default {
         })
     },
 
-    toggleSelection(rows) {
+    toggleSelection (rows) {
       if (rows) {
         rows.forEach(row => {
           this.$refs.multipleTable.toggleRowSelection(row)
@@ -93,7 +114,7 @@ export default {
         this.$refs.multipleTable.clearSelection()
       }
     },
-    handleSelectionChange(val) {
+    handleSelectionChange (val) {
       this.multipleSelection = val
       console.log(val)
     },
@@ -102,23 +123,23 @@ export default {
       //  var path = _this.$route.query.redirect
       // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
-    async dropGoods(row) {
+    async dropGoods (row) {
       const confirmResult = await
-        this.$confirm("是否删除"+row.pname+"?","提示",{
-        confirmButtonText:"确认",
-        cancelButtonText:"取消",
-        type:'warning'
+      this.$confirm('是否删除' + row.pname + '?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
       }).catch(err => err)
 
-      if(confirmResult !== 'confirm'){
-        return this.$message.info("已取消删除")
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除')
       }
 
-      console.log("pid为"+row.pid)
-      var _this = this
+      console.log('pid为' + row.pid)
+      // var _this = this
       this.$axios
         .post('/list/dropGoodsById', {
-          pid : row.pid,
+          pid: row.pid
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -134,11 +155,10 @@ export default {
 
       this.showGoodsList()
     }
-  },
+  }
 }
 </script>
 
 <style scoped>
-
 
 </style>

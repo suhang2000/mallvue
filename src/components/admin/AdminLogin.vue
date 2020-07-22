@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       rules: {
-        aname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        aname: [{required: true, message: '账号不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
       },
       loginForm: {
@@ -46,8 +46,8 @@ export default {
         .then(resp => {
           if (resp.data.code === 200) {
             // var data = resp.data.result
-            // _this.$store.commit('login', data)
-            var path = _this.$route.query.redirect
+            _this.$store.commit('loginAdmin', _this.loginForm)
+            const path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/admin/dashboard' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
@@ -55,7 +55,9 @@ export default {
             })
           }
         })
-        .catch(failResponse => {})
+        .catch(failResponse => {
+          this.$message('服务器异常')
+        })
     }
   }
 }
