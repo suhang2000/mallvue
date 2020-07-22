@@ -23,6 +23,10 @@ export default {
   name: 'login',
   data () {
     return {
+      rules: {
+        uname: [{required: true, message: '账号不能为空', trigger: 'blur'}],
+        password: [{required: true, message: '密码不能为空', trigger: 'blur'}]
+      },
       loginForm: {
         uname: '',
         password: ''
