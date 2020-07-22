@@ -8,6 +8,7 @@ import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 import SalerLogin from '../components/saler/SalerLogin'
+import GoodsInfo from '../components/saler/GoodsInfo'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/list',
       name: 'List',
       component: List
+    },
+    {
+      path: '/list/apple',
+      name: 'apple',
+      component: GoodsInfo
     },
     {
       path: '/admin/login',
