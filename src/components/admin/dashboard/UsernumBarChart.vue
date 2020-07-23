@@ -75,27 +75,26 @@ export default {
             show: false
           }
         }],
-        // 假数据
         series: [{
           name: 'user',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [79, 52, 200, 334, 390, 330, 220],
+          data: [0, 1, 3, 5, 5, 10, 10],
           animationDuration
         }, {
           name: 'saler',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [80, 52, 200, 334, 390, 330, 220],
+          data: [0, 0, 3, 5, 7, 9, 9],
           animationDuration
         }, {
           name: 'order',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [30, 52, 200, 334, 390, 330, 220],
+          data: [0, 0, 0, 1, 1, 4, 7],
           animationDuration
         }]
       })

@@ -2,9 +2,25 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '../components/HelloWorld'
 import List from '../components/saler/List'
-import Login from '../components/user/Login'
-import AdminLogin from '../components/admin/AdminLogin'
+import Login from '../components/Login'
+import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
+import AdminIndex from '../components/admin/AdminIndex'
+import AdminDashboard from '../components/admin/function/dashbordIndex'
+import AdminLogout from '../components/admin/function/AdminLogout'
+import AdminManage from '../components/admin/function/AdminManage'
+import OrderManage from '../components/admin/function/OrderManage'
+import ProductManage from '../components/admin/function/ProductManage'
+import SalerManage from '../components/admin/function/SalerManage'
+import UserManage from '../components/admin/function/UserManage'
+import SalerRegister from '../components/saler/SalerRegister'
+import UserRegister from '../components/user/UserRegister'
+import Home from '../components/user/Home'
+import Index from '../components/user/common/Index'
+import Cart from '../components/user/common/Cart'
+import Order from '../components/user/common/Order'
+import UserInfo from '../components/user/common/UserInfo'
+
 import AdminIndex from '../components/admin/surface/AdminIndex'
 import AdminDashboard from '../components/admin/index'
 import SalerLogin from '../components/saler/SalerLogin'
@@ -14,6 +30,14 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/',
+      name: 'whitePage',
+      redirect: '/login',
+      meta: {
+        requireAuth: true
+      }
+    },
     {
       path: '/hello',
       name: 'HelloWorld',
@@ -28,9 +52,47 @@ export default new Router({
       component: Login
     },
     {
-      path: '/saler/login',
-      name: 'SalerLogin',
-      component: SalerLogin
+      path: '/pwdReset',
+      name: 'PwdReset',
+      component: PwdReset
+    },
+    {
+      path: '/register/user',
+      name: 'UserRegister',
+      component: UserRegister
+    },
+    {
+      path: '/register/saler',
+      name: 'SalerRegister',
+      component: SalerRegister
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
+      redirect: '/home/index',
+      children: [
+        {
+          path: '/home/index',
+          name: 'Index',
+          component: Index
+        },
+        {
+          path: '/home/cart',
+          name: 'Cart',
+          component: Cart
+        },
+        {
+          path: '/home/order',
+          name: 'Order',
+          component: Order
+        },
+        {
+          path: '/home/userinfo',
+          name: 'UserInfo',
+          component: UserInfo
+        }
+      ]
     },
     {
       path: '/list',
@@ -38,17 +100,7 @@ export default new Router({
       component: List
     },
     {
-      path: '/list/apple',
-      name: 'apple',
-      component: GoodsInfo
-    },
-    {
-      path: '/admin/login',
-      name: 'AdminLogin',
-      component: AdminLogin
-    },
-    {
-      path: '/admin/register',
+      path: '/register/admin',
       name: 'AdminRegister',
       component: AdminRegister
     },
@@ -64,10 +116,40 @@ export default new Router({
           path: '/admin/dashboard',
           name: 'Dashboard',
           component: AdminDashboard,
-          meta: {
-            requireAuth: true
-          }
-        }
+          // meta: {
+          //   requireAuth: true
+          // }
+        },
+        {
+          path: '/admin/product',
+          name: 'ProductManage',
+          component: ProductManage,
+        },
+        {
+          path: '/admin/user',
+          name: 'UserManage',
+          component: UserManage,
+        },
+        {
+          path: '/admin/saler',
+          name: 'SalerManage',
+          component: SalerManage,
+        },
+        {
+          path: '/admin/order',
+          name: 'OrderManage',
+          component: OrderManage,
+        },
+        {
+          path: '/admin/admin',
+          name: 'AdminManage',
+          component: AdminManage,
+        },
+        {
+          path: '/admin/logout',
+          name: 'AdminLogout',
+          component: AdminLogout,
+        },
       ]
     }
   ]

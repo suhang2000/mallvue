@@ -1,54 +1,54 @@
 <template>
   <el-row :gutter="40" class="panel-group">
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('newVisitis')">
+      <div class="card-panel" @click="handleSetLineChartData('usernum')">
         <div class="card-panel-icon-wrapper icon-people">
           <i class="el-icon-user-solid" style="font-size: 50px"></i>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            New Visits
+            user num
           </div>
-          <count-to :start-val="0" :end-val="3734" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="10" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('messages')">
+      <div class="card-panel" @click="handleSetLineChartData('salernum')">
         <div class="card-panel-icon-wrapper icon-message">
-          <i class="el-icon-message" style="font-size: 50px"></i>
+          <i class="el-icon-s-shop" style="font-size: 50px"></i>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Messages
+            saler num
           </div>
-          <count-to :start-val="0" :end-val="676" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="9" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('purchases')">
+      <div class="card-panel" @click="handleSetLineChartData('productnum')">
         <div class="card-panel-icon-wrapper icon-money">
-          <i class="el-icon-star-on" style="font-size: 50px"></i>
+          <i class="el-icon-s-goods" style="font-size: 50px"></i>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Stars
+            product num
           </div>
-          <count-to :start-val="0" :end-val="292" :duration="3200" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="8" :duration="3200" class="card-panel-num" />
         </div>
       </div>
     </el-col>
     <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel" @click="handleSetLineChartData('shoppings')">
+      <div class="card-panel" @click="handleSetLineChartData('ordernum')">
         <div class="card-panel-icon-wrapper icon-shopping">
-          <i class="el-icon-money" style="font-size: 50px"></i>
+          <i class="el-icon-document" style="font-size: 50px"></i>
         </div>
         <div class="card-panel-description">
           <div class="card-panel-text">
-            Donations
+            order num
           </div>
-          <count-to :start-val="0" :end-val="7690" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="7" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -75,11 +75,11 @@ export default {
   margin-top: 18px;
 
   .card-panel-col {
-    margin-bottom: 32px;
+    margin-bottom: 16px;
   }
 
   .card-panel {
-    height: 108px;
+    height: 80px;
     cursor: pointer;
     font-size: 12px;
     position: relative;
@@ -129,7 +129,7 @@ export default {
 
     .card-panel-icon-wrapper {
       float: left;
-      margin: 14px 0 0 14px;
+      margin: 0 0 14px;
       padding: 16px;
       transition: all 0.38s ease-out;
       border-radius: 6px;
@@ -137,17 +137,17 @@ export default {
 
     .card-panel-icon {
       float: left;
-      font-size: 48px;
+      font-size: 50px;
     }
 
     .card-panel-description {
       float: right;
       font-weight: bold;
-      margin: 26px;
+      margin: 15px;
       margin-left: 0px;
 
       .card-panel-text {
-        line-height: 18px;
+        line-height: 15px;
         color: rgba(0, 0, 0, 0.45);
         font-size: 16px;
         margin-bottom: 12px;

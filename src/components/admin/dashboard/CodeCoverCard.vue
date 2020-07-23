@@ -1,9 +1,10 @@
 <template>
   <el-card class="box-card-component" style="margin-left:8px;">
     <div slot="header" class="box-card-header">
-      <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png">
+      <img src="../../../assets/admin/codeCoverBG.jpg">
     </div>
     <div style="position:relative;">
+      <!--完成项目时改动数值-->
       <div style="padding-top:35px;" class="progress-item">
         <span>Vue</span>
         <el-progress :percentage="70" />

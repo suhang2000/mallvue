@@ -19,3 +19,14 @@ export function validateEmail(rule, value,callback) {
     callback();
   }
 }
+
+export function validateBanknum(rule, value,callback) {
+  const reg =/^([1-9]{1})(\d{14}|\d{18})$/;
+  if(value==''||value==undefined||value==null){
+    callback(new Error('银行卡号不得为空'));
+  }else if (!reg.test(value)){
+    callback(new Error('银行卡号不符规范'));
+  } else {
+    callback();
+  }
+}
