@@ -18,7 +18,7 @@ Vue.use(ElementUI)
 // 这里要根据admin和saler的具体返回值（名字）来改
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    if (store.state.user.uname || store.state.saler.sname || store.state.admin.aname) {
+    if (store.state.user.name || store.state.saler.name || store.state.admin.name) {
       next()
     } else {
       next({

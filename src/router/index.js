@@ -86,7 +86,10 @@ export default new Router({
         {
           path: '/home/userinfo',
           name: 'UserInfo',
-          component: UserInfo
+          component: UserInfo,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
@@ -116,7 +119,7 @@ export default new Router({
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
-          component: AdminDashboard,
+          component: AdminDashboard
           // meta: {
           //   requireAuth: true
           // }
@@ -124,33 +127,33 @@ export default new Router({
         {
           path: '/admin/product',
           name: 'ProductManage',
-          component: ProductManage,
+          component: ProductManage
         },
         {
           path: '/admin/user',
           name: 'UserManage',
-          component: UserManage,
+          component: UserManage
         },
         {
           path: '/admin/saler',
           name: 'SalerManage',
-          component: SalerManage,
+          component: SalerManage
         },
         {
           path: '/admin/order',
           name: 'OrderManage',
-          component: OrderManage,
+          component: OrderManage
         },
         {
           path: '/admin/admin',
           name: 'AdminManage',
-          component: AdminManage,
+          component: AdminManage
         },
         {
           path: '/admin/logout',
           name: 'AdminLogout',
-          component: AdminLogout,
-        },
+          component: AdminLogout
+        }
       ]
     }
   ]

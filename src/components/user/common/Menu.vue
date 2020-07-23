@@ -13,7 +13,7 @@
     <el-button class="el-icon-switch-button"
                @click="logout"
                style="float:right;font-size: 20px;color: #222;padding-top: 8px"
-               v-show="true"></el-button>
+               v-show="isLogin"></el-button>
     <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">SCU25-购物商城</span>
   </el-menu>
 </template>
@@ -35,20 +35,19 @@ export default {
   },
   methods: {
     logout () {
-      // this.$store.state.commit('logout')
+      this.$store.commit('logout')
       this.$message('退出了')
       this.$router.push('/login')
     },
     checkLogin () {
-      console.log(this.$store.state.user.uname)
-      if (this.$store.state.user.uname) {
+      if (this.$store.state.user.name) {
         this.isLogin = true
       }
     }
   },
   mounted () {
     this.checkLogin()
-    this.uname = this.$store.state.user.uname
+    this.uname = this.$store.state.user.name
   }
 }
 </script>
