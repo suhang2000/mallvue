@@ -75,7 +75,7 @@ export default {
           if (resp.data.code === 200) {
             _this.$store.commit('loginSaler', _this.loginForm)
             const path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/home/index' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

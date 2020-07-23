@@ -8,14 +8,16 @@
       </div>
     </el-carousel-item>
   </el-carousel>
+  <Products class="products_area"></Products>
 </div>
 </template>
 
 <script>
 import SearchBar from './SearchBar'
+import Products from './Products'
 export default {
   name: 'Index',
-  components: {SearchBar},
+  components: {SearchBar, Products},
   data () {
     return {
       carousel: [
@@ -63,5 +65,10 @@ export default {
     margin-left: 440px;
     margin-right: 440px;
     margin-bottom: 100px;
+  }
+  .products_area {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
