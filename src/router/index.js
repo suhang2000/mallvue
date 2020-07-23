@@ -86,7 +86,10 @@ export default new Router({
         {
           path: '/home/userinfo',
           name: 'UserInfo',
-          component: UserInfo
+          component: UserInfo,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },

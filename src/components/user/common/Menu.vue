@@ -13,7 +13,7 @@
     <el-button class="el-icon-switch-button"
                @click="logout"
                style="float:right;font-size: 20px;color: #222;padding-top: 8px"
-               v-show="true"></el-button>
+               v-show="isLogin"></el-button>
     <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">SCU25-购物商城</span>
   </el-menu>
 </template>
@@ -40,7 +40,6 @@ export default {
       this.$router.push('/login')
     },
     checkLogin () {
-      console.log(this.$store.state.user.name)
       if (this.$store.state.user.name) {
         this.isLogin = true
       }
