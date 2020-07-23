@@ -35,20 +35,20 @@ export default {
   },
   methods: {
     logout () {
-      // this.$store.state.commit('logout')
+      this.$store.commit('logout')
       this.$message('退出了')
       this.$router.push('/login')
     },
     checkLogin () {
-      console.log(this.$store.state.user.uname)
-      if (this.$store.state.user.uname) {
+      console.log(this.$store.state.user.name)
+      if (this.$store.state.user.name) {
         this.isLogin = true
       }
     }
   },
   mounted () {
     this.checkLogin()
-    this.uname = this.$store.state.user.uname
+    this.uname = this.$store.state.user.name
   }
 }
 </script>
