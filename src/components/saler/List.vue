@@ -99,10 +99,7 @@ export default {
       console.log(_this.product)
       this.$axios
         .post('/list/product',{
-          pid: this.product.pid,
-          sid: this.product.sid,
           pname: this.product.pname,
-
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
