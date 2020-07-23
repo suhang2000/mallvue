@@ -100,6 +100,11 @@ export default new Router({
       component: List
     },
     {
+      path: '/list/apple',
+      name: 'apple',
+      component: GoodsInfo
+    },
+    {
       path: '/register/admin',
       name: 'AdminRegister',
       component: AdminRegister
