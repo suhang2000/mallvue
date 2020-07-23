@@ -1,138 +1,112 @@
 <template>
   <div>
-    <el-row style="margin: 18px 0px 0px 18px ">
+    <el-row style="margin: 0px 0px 0px 0px ">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/admin/dashboard' }">管理中心</el-breadcrumb-item>
         <el-breadcrumb-item>内容管理</el-breadcrumb-item>
         <el-breadcrumb-item>商品管理</el-breadcrumb-item>
       </el-breadcrumb>
     </el-row>
-    <edit-form @onSubmit="loadProducts()" ref="edit"></edit-form>
-    <el-card style="margin: 18px 2%;width: 95%">
-      <el-table
-        :data="products"
-        stripe
-        style="width: 100%"
-        :max-height="tableHeight">
-        <el-table-column
-          type="selection"
-          width="55">
-        </el-table-column>
-        <el-table-column type="expand">
-          <template slot-scope="props">
-            <el-form label-position="left" inline>
-              <el-form-item>
-                <span>{{ props.row.description }}</span>
-              </el-form-item>
-            </el-form>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="名称（展开查看简介）"
-          fit>
-        </el-table-column>
-        <el-table-column
-          prop="saler"
-          label="商家"
-          fit>
-        <el-table-column
-          prop="price"
-          label="价格"
-          width="100">
-        </el-table-column>
-        </el-table-column>
-        <el-table-column
-          prop="number"
-          label="余量"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-          <template slot-scope="scope">
-            <el-button
-              @click.native.prevent="editProduct(scope.row)"
-              type="text"
-              size="small">
-              编辑
-            </el-button>
-            <el-button
-              @click.native.prevent="deleteProduct(scope.row.pid)"
-              type="text"
-              size="small">
-              移除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div style="margin: 20px 0 20px 0;float: left">
-        <el-button>取消选择</el-button>
-        <el-button>批量删除</el-button>
-      </div>
-    </el-card>
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input placeholder="请输入商品名" type="text" auto-complete="off"
+                  v-model="product.pname" clearable @clear="clearInput">
+          <el-button slot="append" icon="el-icon-search"
+                     @click="findProduct">
+          </el-button>
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-table ref="multipleTable" :data="productList" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" border stripe>
+      <el-table-column type="selection" width="55"></el-table-column >
+      <el-table-column label="商品名" width="200" prop = "pname">
+        <template slot-scope="scope">
+          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}" style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
+        </template>
+      </el-table-column>
+      <el-table-column prop="price" label="价格" width="100"></el-table-column>
+      <el-table-column prop="number" label="数量" width="100"></el-table-column>
+      <el-table-column prop="description" label="描述" show-overflow-tooltip></el-table-column>
+      <el-table-column label="操作" width="400">
+        <template slot-scope="scope">
+          <el-button type = "danger" icon = "el-icon-delete" size = "mini" @click="dropGoods(scope.row)"></el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div style="margin-top: 20px;float:left">
+      <el-button type = "primary" icon = "el-icon-plus" size = "mini"  @click="addGoods(scope.row)"></el-button>
+    </div>
+    <div style="margin-top: 20px;float: left"><el-button @click="toggleSelection()">取消选择</el-button></div >
   </div>
 </template>
 
 <script>
-import ProductEditForm from './ProductEditForm'
 export default {
   name: "ProductManage",
-  components: {ProductEditForm},
   data () {
     return {
-      products: []
+      productList:[],
+      multipleSelection: [],
+      product:{
+        pid:0,
+        pname:'',
+      }
     }
   },
-  mounted() {
-    this.loadProducts()
-  },
-  computed: {
-    tableHeight () {
-      return window.innerHeight-320
-    }
+  created() {
+    this.findProduct()
   },
   methods: {
-    loadProducts () {
-      var _this = this
-      this.$axios.get('/product/load').then(resp => {
-        if (resp && resp.data.code === 200) {
-          _this.products = resp.data.result
-        }
-      })
+    async findProduct () {
+      const _this = this
+      this.$axios
+        .post('/list/product',{
+          pname: this.product.pname,
+        })
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.productList= successResponse.data
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
-    editProduct (item) {
-      this.$refs.edit.dialogFormVisible = true
-      this.$refs.edit.form = {
-        pid: item.pid,
-        name: item.name,
-        saler: item.saler,
-        price: item.price,
-        number: item.number,
-        description: item.description,
-        cover: item.cover,
+    toggleSelection (rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
+      } else {
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    deleteProduct (pid) {
-      this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
-        confirmButtonText: '确定',
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+      console.log(val)
+    },
+    async deleteProduct (row) {
+      const confirmResult = await
+      this.$confirm('是否删除' + row.pname + '?', '提示', {
+        confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(() => {
-          this.$axios
-            .post('/product/delete', {pid: pid}).then(resp => {
-            if (resp && resp.data.code === 200) {
-              this.loadProducts()
-            }
-          })
-        }
-      ).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消删除'
+      }).catch(err => err)
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除')
+      }
+      this.$axios
+        .post('/list/dropGoodsById', {
+          pid: row.pid
         })
-      })
+        .then(resp => {
+          if (resp.data.code !== 200) {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+      this.findProduct()
     }
   }
 }

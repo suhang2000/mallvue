@@ -6,7 +6,7 @@
           <template slot="title"><img src="../../assets/admin/admin.jpg" alt="" width="40px" style="float: left;margin-top: 10px;">mall管理</template>
         </el-submenu>
       </el-menu>
-      <el-menu default-active="1" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      <el-menu default-active="1" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" @select="select">
         <el-menu-item index="1"><i class="el-icon-s-management"></i>运营报表</el-menu-item>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-s-custom"></i>内容管理</template>
@@ -44,6 +44,34 @@ export default {
   data () {
     return {
       dialogVisible: false
+    }
+  },
+  methods: {
+    select(key) {
+      switch (key) {
+        case '1':
+          this.$router.push('/admin/dashboard');
+          break;
+        case '2-1':
+          this.$router.push('/admin/product');
+          break;
+        case '2-2':
+          this.$router.push('/admin/order');
+          break;
+        case '3-1':
+          this.$router.push('/admin/user');
+          break;
+        case '3-2':
+          this.$router.push('/admin/saler');
+          break;
+        case '4-1':
+          this.$router.push('/admin/admin');
+          break;
+        case '4-2':
+          this.$store.commit('logout');
+          this.$router.push('/login');
+          break;
+      }
     }
   }
 }

@@ -89,7 +89,7 @@ export default {
       })
     },
     uploadImg () {
-      this.form.cover = this.$refs.imgUpload.url
+      // this.form.cover = this.$refs.imgUpload.url
     }
   }
 }

@@ -7,7 +7,6 @@ import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
 import AdminIndex from '../components/admin/AdminIndex'
 import AdminDashboard from '../components/admin/function/dashbordIndex'
-import AdminLogout from '../components/admin/function/AdminLogout'
 import AdminManage from '../components/admin/function/AdminManage'
 import OrderManage from '../components/admin/function/OrderManage'
 import ProductManage from '../components/admin/function/ProductManage'
@@ -112,9 +111,10 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       component: AdminIndex,
-      meta: {
-        requireAuth: true
-      },
+      redirect: '/admin/dashboard',
+      // meta: {
+      //   requireAuth: true
+      // },
       children: [
         {
           path: '/admin/dashboard',
@@ -148,11 +148,6 @@ export default new Router({
           path: '/admin/admin',
           name: 'AdminManage',
           component: AdminManage
-        },
-        {
-          path: '/admin/logout',
-          name: 'AdminLogout',
-          component: AdminLogout
         }
       ]
     }
