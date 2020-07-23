@@ -1,6 +1,6 @@
 <template>
   <body id="poster">
-  <el-form :model="resetForm" :rules="rules" class="login-container" label-position="left"
+  <el-form ref="resetForm" :model="resetForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">重置密码</h3>
     <el-form-item prop="name">
@@ -20,8 +20,8 @@
                 auto-complete="off" placeholder="再次输入新密码" show-password></el-input>
     </el-form-item>
     <el-row>
-      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" v-on:click="user_reset">用户</el-button>
-      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" v-on:click="saler_reset">商家</el-button>
+      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_reset">用户</el-button>
+      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_reset">商家</el-button>
     </el-row>
   </el-form>
   </body>
@@ -108,6 +108,26 @@ export default {
         .catch(failResponse => {
           this.$message('服务器异常')
         })
+    },
+    validate_user_reset(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.user_reset()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    validate_saler_reset(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.saler_reset()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }

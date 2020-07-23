@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '../components/HelloWorld'
-import List from '../components/saler/List'
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
@@ -19,7 +17,6 @@ import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 import UserInfo from '../components/user/common/UserInfo'
-import GoodsInfo from '../components/saler/GoodsInfo'
 
 Vue.use(Router)
 
@@ -29,14 +26,6 @@ export default new Router({
       path: '/',
       name: 'whitePage',
       redirect: '/login',
-      meta: {
-        requireAuth: true
-      }
-    },
-    {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld,
       meta: {
         requireAuth: true
       }
@@ -91,16 +80,6 @@ export default new Router({
           }
         }
       ]
-    },
-    {
-      path: '/list',
-      name: 'List',
-      component: List
-    },
-    {
-      path: '/list/apple',
-      name: 'apple',
-      component: GoodsInfo
     },
     {
       path: '/register/admin',
