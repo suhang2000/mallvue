@@ -1,6 +1,6 @@
 <template>
   <body id="paper">
-  <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
+  <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">用户注册</h3>
     <div class="block">
@@ -34,7 +34,7 @@
     <el-radio v-model="regisForm.gender" label="女">女</el-radio>
     <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" ></el-date-picker>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 40%;background: #505458;border: none" v-on:click="register">注册</el-button>
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -103,6 +103,16 @@ export default{
           }
         })
         .catch(failResponse => {})
+    },
+    validate_register(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.register()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }

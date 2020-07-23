@@ -1,6 +1,6 @@
 <template>
   <body id="paper">
-  <el-form :model="regisForm" :rules="rules" class="regis-container" label-position="left"
+  <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">管理人员注册</h3>
     <!--使用Prop在父组件内向子组件传递参数!!!prop应为此界面具有的子组件-->
@@ -21,7 +21,7 @@
                 auto-complete="off" placeholder="电话号码"></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 40%;background: #505458;border: none" v-on:click="register">注册</el-button>
+      <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -78,6 +78,16 @@ export default{
           }
         })
         .catch(failResponse => {})
+    },
+    validate_register(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.register()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }
