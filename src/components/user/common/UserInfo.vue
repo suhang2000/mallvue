@@ -8,7 +8,8 @@
             style="float: right;margin-right: 50px;margin-top: 50px">
           </el-image>
         </div>
-        <el-button type="success">修改信息</el-button>
+        <el-button type="success" style="margin-top: 50px" @click="editUser()">修改信息</el-button>
+        <user-form @onSubmit="loadUser()" ref="edit"></user-form>
       </el-aside>
       <el-main>
         <p class="user" align="left">uid: {{user.uid}}</p>
@@ -32,8 +33,10 @@
 </template>
 
 <script>
+import UserForm from './UserForm'
 export default {
   name: 'UserInfo',
+  components: {UserForm},
   data () {
     return {
       user: []
@@ -50,6 +53,18 @@ export default {
       }).catch(failResponse => {
         _this.$message('加载失败')
       })
+    },
+    editUser () {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.form = {
+        uname: this.user.uname,
+        phone: this.user.phone,
+        email: this.user.email,
+        address: this.user.address,
+        gender: this.user.gender,
+        birthday: this.user.birthday,
+        icon: this.user.icon
+      }
     }
   },
   mounted () {
