@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import PanelGroup from './dashboard/PanelGroup'
-import PieChart from './dashboard/CodenumPieChart'
-import LineChart from './dashboard/DataLineChart'
-import BarChart from './dashboard/UsernumBarChart'
-import TodoList from './dashboard/TodoList'
-import BoxCard from './dashboard/CodeCoverCard'
+import PanelGroup from '../dashboard/PanelGroup'
+import PieChart from '../dashboard/CodenumPieChart'
+import LineChart from '../dashboard/DataLineChart'
+import BarChart from '../dashboard/UsernumBarChart'
+import TodoList from '../dashboard/TodoList'
+import BoxCard from '../dashboard/CodeCoverCard'
 
 const lineChartData = {
   usernum: {

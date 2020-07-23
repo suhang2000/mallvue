@@ -5,8 +5,14 @@ import List from '../components/saler/List'
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
 import AdminRegister from '../components/admin/AdminRegister'
-import AdminIndex from '../components/admin/surface/AdminIndex'
-import AdminDashboard from '../components/admin/dashbordIndex'
+import AdminIndex from '../components/admin/AdminIndex'
+import AdminDashboard from '../components/admin/function/dashbordIndex'
+import AdminLogout from '../components/admin/function/AdminLogout'
+import AdminManage from '../components/admin/function/AdminManage'
+import OrderManage from '../components/admin/function/OrderManage'
+import ProductManage from '../components/admin/function/ProductManage'
+import SalerManage from '../components/admin/function/SalerManage'
+import UserManage from '../components/admin/function/UserManage'
 import SalerRegister from '../components/saler/SalerRegister'
 import UserRegister from '../components/user/UserRegister'
 import Home from '../components/user/Home'
@@ -14,6 +20,7 @@ import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 import UserInfo from '../components/user/common/UserInfo'
+
 
 Vue.use(Router)
 
@@ -100,7 +107,37 @@ export default new Router({
           // meta: {
           //   requireAuth: true
           // }
-        }
+        },
+        {
+          path: '/admin/product',
+          name: 'ProductManage',
+          component: ProductManage,
+        },
+        {
+          path: '/admin/user',
+          name: 'UserManage',
+          component: UserManage,
+        },
+        {
+          path: '/admin/saler',
+          name: 'SalerManage',
+          component: SalerManage,
+        },
+        {
+          path: '/admin/order',
+          name: 'OrderManage',
+          component: OrderManage,
+        },
+        {
+          path: '/admin/admin',
+          name: 'AdminManage',
+          component: AdminManage,
+        },
+        {
+          path: '/admin/logout',
+          name: 'AdminLogout',
+          component: AdminLogout,
+        },
       ]
     }
   ]
