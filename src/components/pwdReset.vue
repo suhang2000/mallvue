@@ -20,8 +20,8 @@
                 auto-complete="off" placeholder="再次输入新密码" show-password></el-input>
     </el-form-item>
     <el-row>
-      <el-button type="primary" class="el-icon-user" style="width: 25%;background: #505458;border: none" v-on:click="user_reset">用户</el-button>
-      <el-button type="primary" class="el-icon-goods" style="width: 25%;background: #505458;border: none" v-on:click="saler_reset">商家</el-button>
+      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" v-on:click="user_reset">用户</el-button>
+      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" v-on:click="saler_reset">商家</el-button>
     </el-row>
   </el-form>
   </body>
@@ -130,7 +130,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/admin/normalBG.jpeg") no-repeat center;
+    background: url("../assets/admin/loginBG.jpeg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

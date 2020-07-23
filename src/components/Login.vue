@@ -12,13 +12,13 @@
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="el-icon-user" style="width: 25%;background: #505458;border: none" v-on:click="user_login">用户</el-button>
-      <el-button type="primary" class="el-icon-goods" style="width: 25%;background: #505458;border: none" v-on:click="saler_login">商家</el-button>
+      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" v-on:click="user_login">用户</el-button>
+      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" v-on:click="saler_login">商家</el-button>
       <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" v-on:click="admin_login">管理</el-button>
     </el-form-item>
     <el-form-item>
       <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
-      <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-goods" type="primary">注册成为商家</el-link>
+      <el-link :underline="false" href="http://localhost:8080/#/register/saler" icon="el-icon-s-shop" type="primary">注册成为商家</el-link>
     </el-form-item>
     <el-link :underline="false" href="http://localhost:8080/#/pwdreset" icon="el-icon-s-help" type="warning">找回密码</el-link>
   </el-form>
@@ -129,7 +129,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/admin.jpg") no-repeat center;
+    background: url("../assets/admin/loginBG.jpeg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

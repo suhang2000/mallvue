@@ -1,11 +1,8 @@
 <template>
   <el-card class="admin-header">
-    <a href="/index">
-      <!--须得修改文件路径-->
-      <img src="../../../assets/admin/admin.jpg" alt="" width="55px" style="float: left;margin-top: -5px;">
-    </a>
-    <span style="font-size: 32px;font-weight: bold;position:absolute;left: 100px">mall管理</span>
-    <i class="el-icon-switch-button" v-on:click="logout" style="font-size: 40px;float: right"></i>
+    <img src="../../../assets/admin/admin.jpg" alt="" width="40px" style="float: left;margin-top: -10px;">
+    <span style="font-size: 32px;font-weight: bold;position:absolute;left: 80px">mall管理</span>
+    <i class="el-icon-switch-button" v-on:click="logout" style="font-size: 40px;margin-top: -10px;float: right"></i>
   </el-card>
 </template>
 
@@ -34,13 +31,13 @@ export default {
 
 <style scoped>
   .admin-header {
-    height: 80px;
+    height: 60px;
     opacity: 0.85;
-    line-height: 40px;
+    line-height: 20px;
     min-width: 900px;
   }
   .el-icon-switch-button {
     cursor: pointer;
-    outline:0;
+    outline: 0;
   }
 </style>
