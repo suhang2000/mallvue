@@ -12,6 +12,7 @@
             <span>{{item.pname}}</span>
             <div class="bottom clearfix">
 <!--              <time class="time">{{ currentDate }}</time>-->
+              <div class="price">{{item.price}}</div>
               <el-button type="text" class="el-icon-shopping-cart-2" @click="addCart"></el-button>
             </div>
           </div>
@@ -37,17 +38,19 @@ export default {
       products: [],
       currentPage: 1,
       pageSize: 10,
-      userName: ''
+      uname: ''
     }
   },
   mounted: function () {
-    this.loadBooks()
-    this.autoBorrow()
+    if (this.$store.state.user.uname) {
+      this.uname = this.$store.state.user.uname
+    }
+    this.loadProducts()
   },
   methods: {
-    loadBooks () {
+    loadProducts () {
       const _this = this
-      this.$axios.get('/books/').then(resp => {
+      this.$axios.get('/products/').then(resp => {
         if (resp && resp.status === 200) {
           _this.products = resp.data
         }
@@ -57,62 +60,32 @@ export default {
       this.currentPage = currentPage
       console.log(this.currentPage)
     },
-    editBook (item) {
-      // alert(typeof item)
-      this.$refs.edit.dialogFormVisible = true
+    subProductNumber (item) {
       this.$refs.edit.form = {
-        bookid: item.bookid,
-        call_number: item.call_number,
-        bname: item.bname,
-        image: item.image,
-        summary: item.summary,
-        author: item.author,
-        isbn: item.isbn,
+        pid: item.pid,
+        sid: item.sid,
+        pname: item.pname,
         price: item.price,
-        publisher: item.publisher,
-        number: item.number,
-        borrowed_number: item.borrowed_number,
-        reserved_number: item.reserved_number,
-        category: {
-          id: item.category.cid.toString(),
-          name: item.category.name
-        }
+        description: item.description,
+        cover: item.cover,
+        number: Number(item.number) - 1
       }
+      // this.$refs.edit.onSubmit()
+    // 提交修改至后端，调用一个保存的函数
     },
-    subBookNumber (item) {
-      this.$refs.edit.form = {
-        bookid: item.bookid,
-        call_number: item.call_number,
-        bname: item.bname,
-        image: item.image,
-        summary: item.summary,
-        author: item.author,
-        isbn: item.isbn,
-        price: item.price,
-        publisher: item.publisher,
-        number: Number(item.number) - 1,
-        borrowed_number: Number(item.borrowed_number) + 1,
-        reserved_number: item.reserved_number,
-        category: {
-          cid: item.category.cid.toString(),
-          name: item.category.name
-        }
-      }
-      this.$refs.edit.onSubmit()
-    },
-    // eslint-disable-next-line camelcase
-    deleteBook (book) {
-      const _this = this
-      this.$confirm('此操作将永久删除该书籍, 是否继续?', '提示', {
+    deleteProduct (product) {
+      // const _this = this
+      this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         this.$axios
-          .post('/delete', {bookid: book.bookid}).then(resp => {
+          .post('/delete', {pid: product.pid}).then(resp => {
             if (resp && resp.status === 200) {
               // _this.addBookNumber()
-              _this.loadBooks()
+              // _this.loadBooks()
+            // 重新加载
             }
           })
       }
@@ -122,129 +95,26 @@ export default {
           message: '已取消删除'
         })
       })
-    },
-    searchResult () {
-      const _this = this
-      console.log(_this.$refs.searchBar.keywords)
-      this.$axios
-        .get('/search?keywords=' + this.$refs.searchBar.keywords, {}).then(resp => {
-          if (resp && resp.status === 200) {
-            _this.products = resp.data
-          }
-        })
-    },
-    autoBorrow () {
-      const _this = this
-      this.$axios
-        .post('/borrow/auto-borrow/' + _this.userName + '/').then(resp => {
-          if (resp && resp.status === 200) {
-            _this.$message('您的预约有余量的已经成功转为借阅', '消息', {
-              confirmButtonText: '确定'
-            })
-          }
-        })
-    },
-    rentBook (item) {
-      const _this = this
-      this.$confirm('确认是否借阅此书, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        if (item.number <= 0) {
-          this.$confirm('目前该书籍没有副本, 是否预约?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).then(() => {
-            this.$axios
-              .post('/borrow/reserve/' + _this.userName + '/' + item.bookid + '/').then(resp => {
-                // console.log(resp)
-                if (resp.data === '') {
-                  _this.$alert('您已借阅了或者预约过此书，不能二次借阅', '消息', {
-                    confirmButtonText: '确定'
-                  })
-                } else if (resp && resp.status === 200) {
-                  _this.$alert('您已经成功预约该图书', '消息', {
-                    confirmButtonText: '确定'
-                  })
-                  _this.subBookNumber(item)
-                  this.loadBooks()
-                }
-              })
-          }
-          ).catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消预约'
-            })
-          })
-        } else {
-          this.$axios
-            .post('/borrow/rent/' + _this.userName + '/' + item.bookid + '/').then(resp => {
-              // console.log(resp)
-              if (resp.data === '') {
-                _this.$alert('您已借阅了此书，不能二次借阅', '消息', {
-                  confirmButtonText: '确定'
-                })
-              } else if (resp && resp.status === 200) {
-                _this.$alert('借书成功', '消息', {
-                  confirmButtonText: '确定'
-                })
-                _this.subBookNumber(item)
-                this.loadBooks()
-              }
-            })
-        }
-      }
-      ).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消借阅'
-        })
-      })
     }
+    // searchResult () {
+    //   const _this = this
+    //   console.log(_this.$refs.searchBar.keywords)
+    //   this.$axios
+    //     .get('/search?keywords=' + this.$refs.searchBar.keywords, {}).then(resp => {
+    //       if (resp && resp.status === 200) {
+    //         _this.products = resp.data
+    //       }
+    //     })
+    // },
   }
 }
 </script>
 
 <style scoped>
-  .cover {
-    width: 155px;
-    height: 212px;
-    margin-bottom: 7px;
-    overflow: hidden;
-    cursor: pointer;
-  }
   img {
     width: 115px;
     height: 172px;
     /*margin: 0 auto;*/
-  }
-  .bname {
-    font-size: 14px;
-    text-align: left;
-  }
-  .author {
-    color: #333;
-    width: 102px;
-    font-size: 13px;
-    margin-bottom: 6px;
-    text-align: left;
-  }
-  .summary {
-    display: block;
-    line-height: 25px;
-  }
-  .el-icon-delete {
-    cursor: pointer;
-    float: right;
-  }
-  .switch {
-    display: flex;
-    position: absolute;
-    left: 780px;
-    top: 25px;
   }
   a {
     text-decoration: none;
@@ -252,7 +122,7 @@ export default {
   a:link, a:visited, a:focus {
     color: #3377aa;
   }
-  .time {
+  .price {
     font-size: 13px;
     color: #999;
   }
@@ -260,11 +130,6 @@ export default {
   .bottom {
     margin-top: 13px;
     line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
   }
 
   .image {
