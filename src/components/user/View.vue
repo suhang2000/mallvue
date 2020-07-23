@@ -49,81 +49,77 @@
       <el-button @click="toggleSelection()">取消选择</el-button>
     </div >
 
-
-
-
-
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'View',
-    data () {
-      return {
-        products: [],
-        multipleSelection: []
+export default {
+  name: 'View',
+  data () {
+    return {
+      products: [],
+      multipleSelection: []
+    }
+  },
+  created () {
+    this.showGoodsList()
+  },
+  methods: {
+
+    // 分页式展示商品信息
+    async showGoodsList () {
+      const _this = this
+      this.$axios
+        .post('/list/product')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.products = successResponse.data
+            console.log(_this.products)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+
+    toggleSelection (rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
+      } else {
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    created () {
-      this.showGoodsList()
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+      console.log(val)
     },
-    methods: {
-
-      // 分页式展示商品信息
-      async showGoodsList () {
-        const _this = this
-        this.$axios
-          .post('/list/product')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.products = successResponse.data
-              console.log(_this.products)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-
-      toggleSelection (rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row)
-          })
-        } else {
-          this.$refs.multipleTable.clearSelection()
-        }
-      },
-      handleSelectionChange (val) {
-        this.multipleSelection = val
-        console.log(val)
-      },
-      showDetailedInfo (row) {
-        console.log(row)
-        //  var path = _this.$route.query.redirect
-        // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-      },
-      addcart(row) {
-        this.$axios
-          .post('/list/addCart', {
-            pid: row.pid
-          })
-          .then(resp => {
-            if (resp.data.code === 200) {
-              System.out.println("增加成功");
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            } else {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            }
-          })
-      }
+    showDetailedInfo (row) {
+      console.log(row)
+      //  var path = _this.$route.query.redirect
+      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+    },
+    addcart (row) {
+      this.$axios
+        .post('/list/addCart', {
+          pid: row.pid
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // System.out.println('增加成功')
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
     }
   }
+}
 </script>
 
 <style scoped>

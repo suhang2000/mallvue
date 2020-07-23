@@ -8,6 +8,7 @@
             style="float: right;margin-right: 50px;margin-top: 50px">
           </el-image>
         </div>
+        <el-button type="success">修改信息</el-button>
       </el-aside>
       <el-main>
         <p class="user" align="left">uid: {{user.uid}}</p>
