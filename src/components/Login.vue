@@ -1,6 +1,6 @@
 <template>
   <body id="poster">
-  <el-form :model="loginForm" :rules="rules" class="login-container" label-position="left"
+  <el-form ref="loginForm" :model="loginForm" :rules="rules" class="login-container" label-position="left"
            label-width="0px">
     <h3 class="login_title">登录</h3>
     <el-form-item prop="name">
@@ -12,9 +12,9 @@
                 auto-complete="off" placeholder="密码" show-password></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" v-on:click="user_login">用户</el-button>
-      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" v-on:click="saler_login">商家</el-button>
-      <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" v-on:click="admin_login">管理</el-button>
+      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_login('loginForm')">用户</el-button>
+      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_login('loginForm')">商家</el-button>
+      <el-button type="primary" class="el-icon-setting" style="width: 25%;background: #505458;border: none" @click="validate_admin_login('loginForm')">管理</el-button>
     </el-form-item>
     <el-form-item>
       <el-link :underline="false" href="http://localhost:8080/#/register/user" icon="el-icon-user-solid" type="primary">注册成为用户</el-link>
@@ -107,6 +107,38 @@ export default {
         .catch(failResponse => {
           this.$message('服务器异常')
         })
+    },
+    validate_user_login(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.user_login()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    validate_saler_login(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.saler_login()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    validate_admin_login(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          // 我吐了，调用自己的方法要加括号
+          this.admin_login()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   }
 }
