@@ -20,10 +20,6 @@ import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 import UserInfo from '../components/user/common/UserInfo'
-
-import AdminIndex from '../components/admin/surface/AdminIndex'
-import AdminDashboard from '../components/admin/index'
-import SalerLogin from '../components/saler/SalerLogin'
 import GoodsInfo from '../components/saler/GoodsInfo'
 
 Vue.use(Router)
