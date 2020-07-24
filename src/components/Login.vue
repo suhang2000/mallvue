@@ -75,7 +75,7 @@ export default {
           if (resp.data.code === 200) {
             _this.$store.commit('loginSaler', _this.loginForm)
             const path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/home/index' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/saler/dashboard' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -161,7 +161,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/admin/loginBG.jpeg") no-repeat center;
+    background: url("../assets/loginBG.jpeg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;
