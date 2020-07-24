@@ -28,12 +28,11 @@
       <el-table-column
         label="商品名"
         width="250"
-        prop = "pname"
-        >
-        <template slot-scope="scope">
-          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"
-                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
-        </template>
+        prop = "pname">
+<!--        <template slot-scope="scope">-->
+<!--          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
+<!--                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>-->
+<!--        </template>-->
       </el-table-column>
       <el-table-column
         prop="price"
@@ -64,11 +63,11 @@
       </el-table-column>
     </el-table>
       <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
-    <div style="margin-top: 3px">
-      <el-button type = "primary" icon = "el-icon-plus"
-                 size = "mini"   @click="addGoods()">
-      </el-button>
-    </div>
+<!--    <div style="margin-top: 3px">-->
+<!--      <el-button type = "primary" icon = "el-icon-plus"-->
+<!--                 size = "mini"   @click="addGoods()">-->
+<!--      </el-button>-->
+<!--    </div>-->
     </el-card>
 
   </div>
@@ -97,7 +96,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     this.showGoodsList()
   },
   methods: {
@@ -194,6 +193,9 @@ export default {
         description: item.description,
         cover: item.cover
       }
+    },
+    getSid () {
+      // const _this = this
     }
   }
 }
