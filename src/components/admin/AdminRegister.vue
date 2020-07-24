@@ -1,5 +1,5 @@
 <template>
-  <body id="paper">
+  <body>
   <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">管理人员注册</h3>
@@ -107,13 +107,6 @@ export default{
     margin: 0 auto 40px auto;
     text-align: center;
     color: #505458;
-  }
-  #paper {
-    background: url("../../assets/regisBG.jpg") no-repeat center;
-    height: 100%;
-    width: 90%;
-    background-size: cover;
-    position: fixed;
   }
   body{
     margin: -5px 0;
