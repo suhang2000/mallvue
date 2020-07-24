@@ -4,7 +4,8 @@
       <el-tooltip effect="dark" placement="right"
                   v-for="item in products.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                   :key="item.pid">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.description}}</p>
+        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">详情：{{item.description}}</p>
+        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">剩余数量：{{item.number}}</p>
         <el-card style="margin-bottom: 20px;float: left;margin-right: 15px;height: 300px;width: 300px"
                  bodyStyle="padding:0px" shadow="hover">
 <!--          在此将图片src改为item.cover-->
@@ -106,13 +107,13 @@ export default {
         })
       })
     },
-    //加入购物车这个方法的pid我是真的不会传5555
+    // 加入购物车这个方法的pid我是真的不会传5555
     addCart (product) {
       const _this = this
       this.$axios
         .post('/list/addCart', {
           pid: _this.product.pid
-       })
+        })
         .then(resp => {
           if (resp.data.code === 200) {
             // System.out.println('增加成功')

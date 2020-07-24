@@ -4,7 +4,7 @@
       <el-aside>
         <div>
           <el-image
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            :src="user.icon"
             style="float: right;margin-right: 50px;margin-top: 50px">
           </el-image>
         </div>
@@ -57,7 +57,7 @@ export default {
     editUser () {
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.form = {
-        uname: this.user.uname,
+        // uname: this.user.uname,
         phone: this.user.phone,
         email: this.user.email,
         address: this.user.address,

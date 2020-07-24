@@ -1,7 +1,8 @@
 <template>
   <div>
-    <el-card>
-    <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+    <el-card >
+    <p style="font-size: xx-large;font-family: Arial">商品管理</p>
+
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
@@ -12,7 +13,6 @@
           </el-input>
         </el-col>
       </el-row>
-
     <el-table
       ref="multipleTable"
       :data="goodsList"
@@ -52,42 +52,50 @@
       </el-table-column>
       <el-table-column
       label="操作"
-      width="400">
+      width="200">
         <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                  size = "mini" @click="dropGoods(scope.row)">
             </el-button>
+            <el-button type = "primary" icon = "el-icon-edit"
+                 size = "mini" @click="editGoods(scope.row)">
+            </el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <div style="margin-top: 20px;float:left">
+      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
+    <div style="margin-top: 3px">
       <el-button type = "primary" icon = "el-icon-plus"
-                 size = "mini"   @click="addGoods(scope.row)">
+                 size = "mini"   @click="addGoods()">
       </el-button>
     </div>
-    <div style="margin-top: 20px;float: left">
-      <el-button @click="toggleSelection()">取消选择</el-button>
-    </div >
-
     </el-card>
 
   </div>
 </template>
 
 <script>
+import ProductForm from '../../saler/function/ProductForm'
 export default {
   name: 'List',
+  components: {ProductForm},
   data () {
     return {
-      goodsList:[],
+      goodsList: [],
       multipleSelection: [],
-      product:{
-        pid:0,
-        pname:'',
+      product: {
+        pid: 0,
+        pname: ''
+      },
+      testProductData: {
+        sid: 1,
+        pname: '帽子',
+        price: 20,
+        number: 20,
+        description: '这是一顶帽子',
+        cover: ''
       }
     }
-
   },
   created () {
     this.showGoodsList()
@@ -98,12 +106,12 @@ export default {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product',{
-          pname: this.product.pname,
+        .post('/list/product', {
+          pname: this.product.pname
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
-            _this.goodsList= successResponse.data
+            _this.goodsList = successResponse.data
             console.log(_this.goodsList)
           }
         })
@@ -127,12 +135,26 @@ export default {
     },
     showDetailedInfo (row) {
       console.log(row)
-      //  var path = _this.$route.query.redirect
-      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
-    clearInput(){
+    addGoods () {
+      const _this = this
+      this.$axios
+        .post('/list/addGoods', {
+          sid: _this.testProductData.sid,
+          pname: _this.testProductData.pname,
+          price: _this.testProductData.price,
+          number: _this.testProductData.number,
+          description: _this.testProductData.description,
+          cover: _this.testProductData.cover
+        })
+        .then(resp => {
+          this.$alert('添加成功', '提示', {
+            confirmButtonText: '确定'
+          })
+        })
+      // 刷新有问题，不能自动刷新
+      this.showGoodsList()
     },
-
     async dropGoods (row) {
       console.log(row)
       const confirmResult = await
@@ -143,7 +165,7 @@ export default {
       }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+        return this.$message.info('已取消')
       }
 
       console.log('pid为' + row.pid)
@@ -153,17 +175,25 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('已删除')
           } else {
-            this.$alert(resp.data.message, '提示', {
+            this.$alert('删除失败', '提示', {
               confirmButtonText: '确定'
             })
           }
+          this.showGoodsList()
         })
-
-      this.showGoodsList()
+    },
+    editGoods (item) {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.pid = item.pid
+      this.$refs.edit.form = {
+        pname: item.pname,
+        price: item.price,
+        number: item.number,
+        description: item.description,
+        cover: item.cover
+      }
     }
   }
 }
