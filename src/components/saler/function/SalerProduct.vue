@@ -28,12 +28,11 @@
         <el-table-column
           label="商品名"
           width="250"
-          prop = "pname"
-        >
-          <template slot-scope="scope">
-            <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"
-                         style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
-          </template>
+          prop = "pname">
+<!--          <template slot-scope="scope">-->
+<!--            <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
+<!--                         style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>-->
+<!--          </template>-->
         </el-table-column>
         <el-table-column
           prop="price"
@@ -57,6 +56,9 @@
             <el-button type = "danger" icon = "el-icon-delete"
                        size = "mini" @click="dropGoods(scope.row)">
             </el-button>
+            <el-button type = "primary" icon = "el-icon-edit"
+                       size = "mini" @click="editGoods(scope.row)">
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -69,15 +71,17 @@
       <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
-
+      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
   </div>
 </template>
 
 <script>
+import ProductForm from './ProductForm'
 export default {
   name: 'List',
+  components: {ProductForm},
   data () {
     return {
       goodsList: [],
@@ -129,7 +133,7 @@ export default {
     },
     async dropGoods (row) {
       console.log(row)
-      const _this = this
+      // const _this = this
       const confirmResult = await
       this.$confirm('是否删除' + row.pname + '?', '提示', {
         confirmButtonText: '确认',
@@ -155,6 +159,17 @@ export default {
             })
           }
         })
+    },
+    editGoods (item) {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.pid = item.pid
+      this.$refs.edit.form = {
+        pname: item.pname,
+        price: item.price,
+        number: item.number,
+        description: item.description,
+        cover: item.cover
+      }
     }
   }
 }

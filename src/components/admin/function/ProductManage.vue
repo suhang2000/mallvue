@@ -28,12 +28,11 @@
       <el-table-column
         label="商品名"
         width="250"
-        prop = "pname"
-        >
-        <template slot-scope="scope">
-          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"
-                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>
-        </template>
+        prop = "pname">
+<!--        <template slot-scope="scope">-->
+<!--          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
+<!--                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>-->
+<!--        </template>-->
       </el-table-column>
       <el-table-column
         prop="price"
