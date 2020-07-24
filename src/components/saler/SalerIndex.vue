@@ -16,7 +16,7 @@
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">
-          <template slot="title"><i class="el-icon-setting"></i>管理人员</template>
+          <template slot="title"><i class="el-icon-setting"></i>信息管理</template>
           <el-menu-item-group>
             <el-menu-item index="3-1"><i class="el-icon-edit"></i>商家信息</el-menu-item>
             <el-menu-item index="3-2"><i class="el-icon-switch-button"></i>退出登录</el-menu-item>
@@ -39,24 +39,24 @@ export default {
     }
   },
   methods: {
-    select(key) {
+    select (key) {
       switch (key) {
         case '1':
-          this.$router.push('/saler/dashboard');
-          break;
+          this.$router.push('/saler/dashboard')
+          break
         case '2-1':
-          this.$router.push('/saler/product');
-          break;
+          this.$router.push('/saler/product')
+          break
         case '2-2':
-          this.$router.push('/saler/order');
-          break;
+          this.$router.push('/saler/order')
+          break
         case '3-1':
-          this.$router.push('/saler/salerinfo');
-          break;
+          this.$router.push('/saler/salerinfo')
+          break
         case '3-2':
-          this.$store.commit('logout');
-          this.$router.push('/login');
-          break;
+          this.$store.commit('logout')
+          this.$router.push('/login')
+          break
       }
     }
   }

@@ -2,7 +2,7 @@
   <div>
   <div class="line"></div>
   <el-menu
-    :default-active="activeIndex2"
+    default-active="1"
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
@@ -50,86 +50,86 @@
 </template>
 
 <script>
-  import {AxiosInstance as $axios} from "axios";
+// import {AxiosInstance as $axios} from 'axios'
 
-  export default {
-    name: "Order",
-    data() {
-      return {
-        orders:[]
-      }
+export default {
+  name: 'Order',
+  data () {
+    return {
+      orders: []
+    }
+  },
+  created () {
+    this.showCartsList()
+  },
+  methods: {
+    // 分页式展示商品信息
+    async showOrdersList () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view', {
+          cid: this.orders.cid,
+          pname: this.orders.pname
+        })
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
-    created() {
-      this.showCartsList()
+    async showOrdersList1 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view1')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
-    methods: {
-      // 分页式展示商品信息
-      async showOrdersList() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view',{
-            cid:this.orders.cid,
-            pname:this.orders.pname
-          })
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList1() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view1')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList2() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view2')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList3() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view3')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      showDetailedInfo (row) {
-        console.log(row)
-        //  var path = _this.$route.query.redirect
-        // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-      }
+    async showOrdersList2 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view2')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+    async showOrdersList3 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view3')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+    showDetailedInfo (row) {
+      console.log(row)
+      //  var path = _this.$route.query.redirect
+      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     }
   }
+}
 </script>
 
 <style scoped>

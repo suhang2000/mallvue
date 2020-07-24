@@ -15,7 +15,12 @@
 
         <el-table-column prop="5" label="性别" width="50"></el-table-column>
 
-        <el-table-column prop="6" label="头像" width="50"></el-table-column>
+        <el-table-column prop="6" label="头像" width="50">
+          <el-image
+            :src="6"
+            style="float: right;margin-right: 50px;margin-top: 50px">
+          </el-image>
+        </el-table-column>
 
         <el-table-column prop="7" label="生日" width="100" align="center"></el-table-column>
 
@@ -38,7 +43,7 @@ export default {
   name: 'UserManage',
   data () {
     return {
-      usersList:[]
+      usersList: []
     }
   },
   created () {
@@ -51,7 +56,7 @@ export default {
         .post('/admin/user')
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
-            _this.usersList= successResponse.data
+            _this.usersList = successResponse.data
           }
         })
         .catch(failResponse => {
@@ -60,11 +65,11 @@ export default {
     },
     async deleUser (row) {
       const confirmResult = await
-        this.$confirm('是否删除用户' + row[1] + '?', '提示', {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).catch(err => err)
+      this.$confirm('是否删除用户' + row[1] + '?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
@@ -73,9 +78,7 @@ export default {
           uid: row[0]
         })
         .then(resp => {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+          this.$message('删除成功')
         })
       this.findUser()
     }
