@@ -96,7 +96,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     this.showGoodsList()
   },
   methods: {
@@ -193,6 +193,9 @@ export default {
         description: item.description,
         cover: item.cover
       }
+    },
+    getSid () {
+      // const _this = this
     }
   }
 }
