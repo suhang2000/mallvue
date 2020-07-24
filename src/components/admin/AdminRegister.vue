@@ -70,7 +70,7 @@ export default{
               confirmButtonText: '确定'
             })
             var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/admininfo' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -111,15 +111,11 @@ export default{
   #paper {
     background: url("../../assets/regisBG.jpg") no-repeat center;
     height: 100%;
-    width: 100%;
+    width: 90%;
     background-size: cover;
     position: fixed;
   }
   body{
     margin: -5px 0;
-  }
-  .login_remember {
-    margin: 0 0 35px 0;
-    text-align: left;
   }
 </style>

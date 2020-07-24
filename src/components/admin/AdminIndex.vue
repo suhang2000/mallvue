@@ -9,7 +9,7 @@
       <el-menu default-active="1" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" @select="select">
         <el-menu-item index="1"><i class="el-icon-s-management"></i>运营报表</el-menu-item>
         <el-submenu index="2">
-          <template slot="title"><i class="el-icon-s-custom"></i>内容管理</template>
+          <template slot="title"><i class="el-icon-document-copy"></i>内容管理</template>
           <el-menu-item-group>
             <el-menu-item index="2-1"><i class="el-icon-s-goods"></i>商品管理</el-menu-item>
             <el-menu-item index="2-2"><i class="el-icon-s-order"></i>订单管理</el-menu-item>
@@ -25,8 +25,9 @@
         <el-submenu index="4">
           <template slot="title"><i class="el-icon-setting"></i>管理人员</template>
           <el-menu-item-group>
-            <el-menu-item index="4-1"><i class="el-icon-edit"></i>信息管理</el-menu-item>
-            <el-menu-item index="4-2"><i class="el-icon-switch-button"></i>退出登录</el-menu-item>
+            <el-menu-item index="4-1"><i class="el-icon-refresh"></i>密码重置</el-menu-item>
+            <el-menu-item index="4-2"><i class="el-icon-circle-plus-outline"></i>人员注册</el-menu-item>
+            <el-menu-item index="4-3"><i class="el-icon-switch-button"></i>退出登录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -68,6 +69,9 @@ export default {
           this.$router.push('/admin/admininfo');
           break;
         case '4-2':
+          this.$router.push('/admin/register');
+          break;
+        case '4-3':
           this.$store.commit('logout');
           this.$router.push('/login');
           break;
