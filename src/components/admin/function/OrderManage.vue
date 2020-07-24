@@ -34,7 +34,7 @@
       <el-table-column
         label="商品编号"
         width="100"
-        prop ="1"
+        prop ="0"
       >
       </el-table-column>>
       <el-table-column

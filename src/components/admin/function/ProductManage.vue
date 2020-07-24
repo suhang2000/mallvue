@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column
       label="操作"
-      width="400">
+      width="100">
         <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                  size = "mini" @click="dropGoods(scope.row)">
@@ -60,16 +60,11 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <div style="margin-top: 20px;float:left">
+    <div style="margin-top: 3px">
       <el-button type = "primary" icon = "el-icon-plus"
-                 size = "mini"   @click="addGoods(scope.row)">
+                 size = "mini"   @click="addGoods()">
       </el-button>
     </div>
-    <div style="margin-top: 20px;float: left">
-      <el-button @click="toggleSelection()">取消选择</el-button>
-    </div >
-
     </el-card>
 
   </div>
@@ -85,6 +80,14 @@ export default {
       product:{
         pid:0,
         pname:'',
+      },
+      testProductData:{
+        sid:1,
+        pname:"帽子",
+        price:20,
+        number:20,
+        description:"这是一顶帽子",
+        cover:''
       },
     }
 
@@ -132,7 +135,25 @@ export default {
     },
     clearInput(){
     },
-
+    addGoods(){
+      const _this = this
+      this.$axios
+        .post('/list/addGoods', {
+          sid:_this.testProductData.sid,
+          pname:_this.testProductData.pname,
+          price:_this.testProductData.price,
+          number:_this.testProductData.number,
+          description:_this.testProductData.description,
+          cover:_this.testProductData.cover
+        })
+        .then(resp => {
+          this.$alert('添加成功', '提示', {
+              confirmButtonText: '确定'
+            })
+        })
+      //刷新有问题，不能自动刷新
+      this.showGoodsList()
+    },
     async dropGoods (row) {
       console.log(row)
       const confirmResult = await
@@ -153,16 +174,17 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert(resp.data.message, '提示', {
+            this.$alert('删除成功', '提示', {
+
               confirmButtonText: '确定'
             })
           } else {
-            this.$alert(resp.data.message, '提示', {
+            this.$alert('删除失败', '提示', {
               confirmButtonText: '确定'
             })
           }
         })
-
+      //刷新有问题，不能自动刷新
       this.showGoodsList()
     }
   }
