@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">订单信息</p><el-container>
+    <p style="font-size: xx-large;font-family: Arial">订单信息</p>
+    <el-container>
     <el-select v-model="value" placeholder="请选择" style="width: 120px">
       <el-option
         v-for="item in options"
@@ -14,10 +15,10 @@
     <el-row :gutter="20">
       <el-col :span="20">
         <el-input placeholder="请输入内容" type="text" auto-complete="off"
-                  v-model="product.pname" clearable @clear="clearInput">
+                  v-model="input" clearable @clear="clearInput">
 
           <el-button slot="append" icon="el-icon-search"
-                     @click="showGoodsList">
+                     @click="showAllOrders">
           </el-button>
         </el-input>
       </el-col>
@@ -88,16 +89,18 @@
           deliver_or_not:0
         },
         options: [{
-          value: '选项1',
+          value: '搜索商品',
           label: '搜索商品'
         }, {
-          value: '选项2',
+          value: '搜索商家',
           label: '搜索商家'
         }, {
-          value: '选项3',
+          value:'搜索用户',
           label: '搜索用户'
         }],
-        value: ''
+        value: '',
+        input:'',
+        oper:'/searchBy/sid'
       }
     },
     created() {
@@ -107,22 +110,33 @@
       // 分页式展示商品信息
       async showAllOrders() {
         const _this = this
+        switch (_this.value) {
+          case"搜索商家":
+            _this.oper = '/searchBy/sname'
+            break;
+          case "搜索商品":
+            _this.oper = '/searchBy/pname'
+            break;
+          case "搜索用户":
+            _this.oper = '/searchBy/uname'
+            break;
+        }
         this.$axios
-          .post("/apple",{
-            uid: this.order.uid
-          })
+          .post(_this.oper,{input:_this.input})
           .then(successResponse => {
             if (successResponse && successResponse.status === 200) {
               _this.orders = successResponse.data
               _this.order = successResponse.data
               console.log(_this.order)
-              console.log(_this.order.pname)
             }
           })
           .catch(failResponse => {
             alert('服务器异常')
           })
       },
+      clearInput(){
+
+      }
     },
   }
 </script>
