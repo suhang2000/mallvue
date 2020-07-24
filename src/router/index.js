@@ -1,25 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//import HelloWorld from '../components/HelloWorld'
-//import List from '../components/saler/List'
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
-import AdminRegister from '../components/admin/AdminRegister'
-import AdminIndex from '../components/admin/AdminIndex'
-import AdminDashboard from '../components/admin/function/dashbordIndex'
-import AdminManage from '../components/admin/function/AdminManage'
-import OrderManage from '../components/admin/function/OrderManage'
-import ProductManage from '../components/admin/function/ProductManage'
-import SalerManage from '../components/admin/function/SalerManage'
-import UserManage from '../components/admin/function/UserManage'
-import SalerRegister from '../components/saler/SalerRegister'
+
 import UserRegister from '../components/user/UserRegister'
+import SalerRegister from '../components/saler/SalerRegister'
+import AdminRegister from '../components/admin/AdminRegister'
+
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 import UserInfo from '../components/user/common/UserInfo'
-//import GoodsInfo from '../components/saler/GoodsInfo'
+
+import AdminIndex from '../components/admin/AdminIndex'
+import AdminDashboard from '../components/admin/function/dashbordIndex'
+import OrderManage from '../components/admin/function/OrderManage'
+import ProductManage from '../components/admin/function/ProductManage'
+import SalerManage from '../components/admin/function/SalerManage'
+import UserManage from '../components/admin/function/UserManage'
+import AdminManage from '../components/admin/function/AdminManage'
+
+import SalerIndex from '../components/saler/SalerIndex'
+import SalerDashboard from '../components/saler/function/dashboardIndex'
+import SalerInfo from '../components/saler/function/SalerInfo'
+import SalerOrder from '../components/saler/function/SalerOrder'
+import SalerProduct from '../components/saler/function/SalerProduct'
 
 Vue.use(Router)
 
@@ -33,15 +39,6 @@ export default new Router({
         requireAuth: true
       }
     },
-    /*
-    {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      meta: {
-        requireAuth: true
-      }
-    },*/
     {
       path: '/login',
       name: 'Login',
@@ -61,6 +58,11 @@ export default new Router({
       path: '/register/saler',
       name: 'SalerRegister',
       component: SalerRegister
+    },
+    {
+      path: '/register/admin',
+      name: 'AdminRegister',
+      component: AdminRegister
     },
     {
       path: '/home',
@@ -93,21 +95,36 @@ export default new Router({
         }
       ]
     },
-    /*
     {
-      path: '/list',
-      name: 'List',
-      component: List
-    },
-    {
-      path: '/list/apple',
-      name: 'apple',
-      component: GoodsInfo
-    },*/
-    {
-      path: '/register/admin',
-      name: 'AdminRegister',
-      component: AdminRegister
+      path: '/saler',
+      name: 'Saler',
+      component: SalerIndex,
+      redirect: '/saler/dashboard',
+      // meta: {
+      //   requireAuth: true
+      // },
+      children: [
+        {
+          path: '/saler/dashboard',
+          name: 'Dashboard',
+          component: SalerDashboard
+        },
+        {
+          path: '/saler/order',
+          name: 'SalerOrder',
+          component: SalerOrder
+        },
+        {
+          path: '/saler/product',
+          name: 'SalerProduct',
+          component: SalerProduct
+        },
+        {
+          path: '/saler/saler',
+          name: 'SalerInfo',
+          component: SalerInfo
+        }
+      ]
     },
     {
       path: '/admin',
