@@ -51,7 +51,7 @@ export default {
           this.$router.push('/saler/order');
           break;
         case '3-1':
-          this.$router.push('/saler/saler');
+          this.$router.push('/saler/salerinfo');
           break;
         case '3-2':
           this.$store.commit('logout');

@@ -120,7 +120,7 @@ export default new Router({
           component: SalerProduct
         },
         {
-          path: '/saler/saler',
+          path: '/saler/salerinfo',
           name: 'SalerInfo',
           component: SalerInfo
         }
@@ -164,7 +164,7 @@ export default new Router({
           component: OrderManage
         },
         {
-          path: '/admin/admin',
+          path: '/admin/admininfo',
           name: 'AdminManage',
           component: AdminManage
         },
