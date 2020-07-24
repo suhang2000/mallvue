@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="修改商品信息"
+      title="商品信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">

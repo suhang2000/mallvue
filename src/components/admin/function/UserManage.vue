@@ -71,16 +71,16 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+        return this.$message.info('已取消')
       }
       this.$axios
         .post('/admin/deleuser', {
           uid: row[0]
         })
         .then(resp => {
-          this.$message('删除成功')
+          this.$message.info('已删除')
+          this.findUser()
         })
-      this.findUser()
     }
   }
 }

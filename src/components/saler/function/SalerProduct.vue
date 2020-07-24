@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+      <p style="font-size: xx-large;font-family: Arial">商品管理</p>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
@@ -126,12 +126,7 @@ export default {
     },
     showDetailedInfo (row) {
       console.log(row)
-      //  var path = _this.$route.query.redirect
-      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
-    clearInput () {
-    },
-
     async dropGoods (row) {
       console.log(row)
       const _this = this
@@ -146,23 +141,20 @@ export default {
         return this.$message.info('已取消删除')
       }
 
-      console.log('pid为' + row.pid)
       this.$axios
         .post('/list/dropGoodsById', {
           pid: row.pid
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$message('删除成功')
-            _this.showGoodsList()
+            this.$message.info('已删除')
+            this.showGoodsList()
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
             })
           }
         })
-
-      this.showGoodsList()
     }
   }
 }

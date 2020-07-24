@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card >
-    <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+    <p style="font-size: xx-large;font-family: Arial">商品管理</p>
 
       <el-row :gutter="20">
         <el-col :span="8">
@@ -135,10 +135,6 @@ export default {
     },
     showDetailedInfo (row) {
       console.log(row)
-      //  var path = _this.$route.query.redirect
-      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-    },
-    clearInput () {
     },
     addGoods () {
       const _this = this
@@ -169,7 +165,7 @@ export default {
       }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+        return this.$message.info('已取消')
       }
 
       console.log('pid为' + row.pid)
@@ -179,18 +175,14 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert('删除成功', '提示', {
-
-              confirmButtonText: '确定'
-            })
+            this.$message.info('已删除')
           } else {
             this.$alert('删除失败', '提示', {
               confirmButtonText: '确定'
             })
           }
+          this.showGoodsList()
         })
-      // 刷新有问题，不能自动刷新
-      this.showGoodsList()
     },
     editGoods (item) {
       this.$refs.edit.dialogFormVisible = true

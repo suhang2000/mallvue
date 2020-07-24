@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">订单信息</p>
+    <p style="font-size: xx-large;font-family: Arial">订单管理</p>
     <el-table
       ref="multipleTable"
       :data="orders"

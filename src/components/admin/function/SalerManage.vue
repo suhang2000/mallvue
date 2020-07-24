@@ -62,18 +62,16 @@
             type: 'warning'
           }).catch(err => err)
         if (confirmResult !== 'confirm') {
-          return this.$message.info('已取消删除')
+          return this.$message.info('已取消')
         }
         this.$axios
           .post('/admin/delesaler', {
             sid: row[0]
           })
           .then(resp => {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('已删除')
+            this.findSaler()
           })
-        this.findSaler()
       }
     }
   }

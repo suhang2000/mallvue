@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <p style="font-size: xx-large;font-family: Arial">信息管理</p>
+      <p style="font-size: xx-large;font-family: Arial">密码重置</p>
       <el-table ref="multipleTable" :data="adminList" tooltip-effect="dark"
                 style="width: 100%" :header-cell-style="{'text-align':'center'}" border stripe>
 
@@ -63,11 +63,9 @@
             aid: row[0]
           })
           .then(resp => {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('已重置')
+            this.findAdmin()
           })
-        this.findAdmin()
       }
     }
   }
