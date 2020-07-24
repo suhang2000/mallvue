@@ -1,11 +1,10 @@
 <template>
   <div>
-    <el-card >
+    <el-card>
     <p style="font-size: xx-large;font-family: Arial">全部商品</p>
-
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" type="text" auto-complete="off"
+          <el-input placeholder="请输入商品名称" type="text" auto-complete="off"
           v-model="product.pname" clearable @clear="clearInput">
               <el-button slot="append" icon="el-icon-search"
                      @click="showGoodsList">
@@ -52,7 +51,7 @@
       </el-table-column>
       <el-table-column
       label="操作"
-      width="100">
+      width="400">
         <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                  size = "mini" @click="dropGoods(scope.row)">
@@ -60,11 +59,16 @@
         </template>
       </el-table-column>
     </el-table>
-    <div style="margin-top: 3px">
+
+    <div style="margin-top: 20px;float:left">
       <el-button type = "primary" icon = "el-icon-plus"
-                 size = "mini"   @click="addGoods()">
+                 size = "mini"   @click="addGoods(scope.row)">
       </el-button>
     </div>
+    <div style="margin-top: 20px;float: left">
+      <el-button @click="toggleSelection()">取消选择</el-button>
+    </div >
+
     </el-card>
 
   </div>
@@ -79,16 +83,8 @@ export default {
       multipleSelection: [],
       product:{
         pid:0,
-        pname:'',
-      },
-      testProductData:{
-        sid:1,
-        pname:"帽子",
-        price:20,
-        number:20,
-        description:"这是一顶帽子",
-        cover:''
-      },
+        pname:''
+      }
     }
 
   },
@@ -135,25 +131,7 @@ export default {
     },
     clearInput(){
     },
-    addGoods(){
-      const _this = this
-      this.$axios
-        .post('/list/addGoods', {
-          sid:_this.testProductData.sid,
-          pname:_this.testProductData.pname,
-          price:_this.testProductData.price,
-          number:_this.testProductData.number,
-          description:_this.testProductData.description,
-          cover:_this.testProductData.cover
-        })
-        .then(resp => {
-          this.$alert('添加成功', '提示', {
-              confirmButtonText: '确定'
-            })
-        })
-      //刷新有问题，不能自动刷新
-      this.showGoodsList()
-    },
+
     async dropGoods (row) {
       console.log(row)
       const confirmResult = await
@@ -174,17 +152,16 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert('删除成功', '提示', {
-
+            this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
             })
           } else {
-            this.$alert('删除失败', '提示', {
+            this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
             })
           }
         })
-      //刷新有问题，不能自动刷新
+
       this.showGoodsList()
     }
   }

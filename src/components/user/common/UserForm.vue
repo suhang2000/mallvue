@@ -5,10 +5,10 @@
       title="修改信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
-      <el-form v-model="form" style="text-align: left" ref="dataForm">
-        <el-form-item label="昵称" :label-width="formLabelWidth" prop="uname">
-          <el-input v-model="form.uname" autocomplete="off"></el-input>
-        </el-form-item>
+      <el-form v-model="form" :rules="rules" style="text-align: left" ref="dataForm">
+<!--        <el-form-item label="昵称" :label-width="formLabelWidth" prop="uname">-->
+<!--          <el-input v-model="form.uname" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="电话" :label-width="formLabelWidth" prop="phone">
           <el-input v-model="form.phone" autocomplete="off"></el-input>
         </el-form-item>
@@ -23,8 +23,8 @@
         </el-form-item>
         <el-form-item label="性别" :label-width="formLabelWidth" prop="gender">
           <el-select v-model="form.gender" placeholder="请选择性别">
-            <el-option label="男" value="1"></el-option>
-            <el-option label="女" value="2"></el-option>
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="生日" :label-width="formLabelWidth" prop="birthday">
@@ -32,7 +32,8 @@
             <el-date-picker
               v-model="form.birthday"
               type="date"
-              placeholder="选择日期">
+              placeholder="选择日期"
+              value-format="yyyy-MM-dd">
             </el-date-picker>
           </div>
         </el-form-item>
@@ -49,13 +50,20 @@
 </template>
 
 <script>
+// import {validateEmail, validatePhone} from '../../../utils/validate'
+
 export default {
   name: 'UserForm',
   data () {
     return {
+      rules: {
+        // uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
+        // phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
+        // email: [{required: true, validator: validateEmail, trigger: 'blur'}]
+      },
       dialogFormVisible: false,
       form: {
-        uname: '',
+        // uname: '',
         phone: '',
         email: '',
         address: '',
@@ -69,7 +77,7 @@ export default {
   methods: {
     clear () {
       this.form = {
-        uname: '',
+        // uname: '',
         phone: '',
         email: '',
         address: '',
@@ -79,9 +87,11 @@ export default {
       }
     },
     onSubmit () {
+      console.log(this.form)
+      const _this = this
       this.$axios
         .post('/home/user/info', {
-          uname: this.form.uname,
+          uname: _this.$store.state.user.name,
           password: 'password',
           phone: this.form.phone,
           email: this.form.email,
@@ -95,6 +105,17 @@ export default {
             this.$emit('onSubmit')
           }
         })
+    },
+    validate_info (formName) {
+      const _this = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.onSubmit()
+        } else {
+          _this.$message('error submit!!')
+          return false
+        }
+      })
     }
   }
 }
