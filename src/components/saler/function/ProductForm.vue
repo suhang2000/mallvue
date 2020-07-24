@@ -43,7 +43,8 @@ export default {
         cover: ''
       },
       formLabelWidth: '120px',
-      pid: ''
+      pid: '',
+      sid: 0
     }
   },
   methods: {
@@ -63,7 +64,7 @@ export default {
       this.$axios
         .post('/home/product/info', {
           pid: this.pid,
-          sid: 0,
+          sid: this.sid,
           pname: this.form.pname,
           price: this.form.price,
           number: this.form.number,
