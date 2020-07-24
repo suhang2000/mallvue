@@ -1,7 +1,8 @@
 <template>
   <div>
-    <el-card>
+    <el-card >
     <p style="font-size: xx-large;font-family: Arial">全部商品</p>
+
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
@@ -12,7 +13,6 @@
           </el-input>
         </el-col>
       </el-row>
-
     <el-table
       ref="multipleTable"
       :data="goodsList"
@@ -85,7 +85,7 @@ export default {
       product:{
         pid:0,
         pname:'',
-      }
+      },
     }
 
   },

@@ -1,6 +1,28 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">订单信息</p>
+    <p style="font-size: xx-large;font-family: Arial">订单信息</p><el-container>
+    <el-select v-model="value" placeholder="请选择" style="width: 120px">
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      >
+      </el-option>
+    </el-select>
+
+    <el-row :gutter="20">
+      <el-col :span="20">
+        <el-input placeholder="请输入内容" type="text" auto-complete="off"
+                  v-model="product.pname" clearable @clear="clearInput">
+
+          <el-button slot="append" icon="el-icon-search"
+                     @click="showGoodsList">
+          </el-button>
+        </el-input>
+      </el-col>
+    </el-row>
+  </el-container>
     <el-table
       ref="multipleTable"
       :data="orders"
@@ -64,7 +86,18 @@
           address:'北京市',
           pay_or_not:0,
           deliver_or_not:0
-        }
+        },
+        options: [{
+          value: '选项1',
+          label: '搜索商品'
+        }, {
+          value: '选项2',
+          label: '搜索商家'
+        }, {
+          value: '选项3',
+          label: '搜索用户'
+        }],
+        value: ''
       }
     },
     created() {
