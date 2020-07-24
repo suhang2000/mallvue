@@ -14,7 +14,8 @@
     <el-submenu index="2" >
       <template slot="title">未支付订单</template>
       <el-menu-item index="2-1" @click="showOrdersList1">订单查看</el-menu-item>
-      <el-menu-item index="2-2">继续支付</el-menu-item>
+      <router-link to="/login">
+      <el-menu-item index="2-2" >继续支付</el-menu-item></router-link>
       </el-submenu>
     <el-menu-item index="3" @click="showOrdersList2">待发货订单</el-menu-item>
     <el-menu-item index="4" @click="showOrdersList3">已发货订单</el-menu-item>

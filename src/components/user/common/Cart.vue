@@ -34,8 +34,8 @@
               <el-button type = "danger" icon = "el-icon-delete"
                          size = "mini" @click="dropGoods(scope.row)">
               </el-button>
-              <el-button type="primary">确认支付</el-button>
-
+              <el-button type="primary" @click="goodsBuy()">确认支付</el-button>
+              <cart-form @onSubmit="loadUser()" ref="edit"></cart-form>
             </template>
           </el-table-column>
         </el-table>
@@ -44,8 +44,10 @@
 
 
 <script>
+  import CartForm from "./CartForm";
   export default {
     name: 'Cart',
+    components: {CartForm},
     data () {
       return {
         carts:[],
@@ -90,6 +92,14 @@
         //  var path = _this.$route.query.redirect
         // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
       },
+
+      goodsBuy () {
+        this.$refs.edit.dialogFormVisible = true
+        this.$refs.edit.form = {
+          address: form.address
+        }
+        },
+
 
       plusGoods(row) {
         this.$axios
