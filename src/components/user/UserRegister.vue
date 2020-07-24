@@ -32,7 +32,7 @@
     </el-form-item>
     <el-radio v-model="regisForm.gender" label="男">男</el-radio>
     <el-radio v-model="regisForm.gender" label="女">女</el-radio>
-    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" ></el-date-picker>
+    <el-date-picker v-model="regisForm.birthday" type="date" placeholder="选择生日" value-format="yyyy-MM-dd"></el-date-picker>
     <el-form-item style="width: 100%">
       <el-button type="primary" style="width: 40%;background: #505458;border: none" @click="validate_register('regisForm')">注册</el-button>
     </el-form-item>
