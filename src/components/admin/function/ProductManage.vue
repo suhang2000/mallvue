@@ -63,6 +63,7 @@
         </template>
       </el-table-column>
     </el-table>
+      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
     <div style="margin-top: 3px">
       <el-button type = "primary" icon = "el-icon-plus"
                  size = "mini"   @click="addGoods()">
@@ -74,8 +75,10 @@
 </template>
 
 <script>
+import ProductForm from '../../saler/function/ProductForm'
 export default {
   name: 'List',
+  components: {ProductForm},
   data () {
     return {
       goodsList: [],
@@ -188,6 +191,17 @@ export default {
         })
       // 刷新有问题，不能自动刷新
       this.showGoodsList()
+    },
+    editGoods (item) {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.pid = item.pid
+      this.$refs.edit.form = {
+        pname: item.pname,
+        price: item.price,
+        number: item.number,
+        description: item.description,
+        cover: item.cover
+      }
     }
   }
 }

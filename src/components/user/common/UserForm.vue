@@ -2,10 +2,10 @@
   <div>
 <!--    <i class="el-icon-circle-plus-outline"  @click="dialogFormVisible = true"></i>-->
     <el-dialog
-      title="修改信息"
+      title="修改用户信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
-      <el-form v-model="form" :rules="rules" style="text-align: left" ref="dataForm">
+      <el-form v-model="form" style="text-align: left" ref="dataForm">
 <!--        <el-form-item label="昵称" :label-width="formLabelWidth" prop="uname">-->
 <!--          <el-input v-model="form.uname" autocomplete="off"></el-input>-->
 <!--        </el-form-item>-->
@@ -122,10 +122,4 @@ export default {
 </script>
 
 <style scoped>
-  .el-icon-circle-plus-outline {
-    margin: 50px 0 0 20px;
-    font-size: 100px;
-    float: left;
-    cursor: pointer;
-  }
 </style>
