@@ -1,7 +1,5 @@
 <template>
   <div>
-      <p style="font-size: xx-large;font-family: Arial">购物车情况</p>
-
         <el-table ref="multipleTable"
                   :data="carts"
                   tooltip-effect="dark"
@@ -29,13 +27,27 @@
           </el-table-column>
           <el-table-column prop="4" label="小计">
           </el-table-column>
-          <el-table-column label="操作" width="400">
+
+          <el-table-column label="支付操作">
+            <template slot-scope="scope">
+              <el-popover
+                placement="top"
+                width="160">
+                <p>已成功提交订单！</p>
+                <div style="text-align: right; margin: 0">
+                  <el-button size="mini" type="text" @click="addOrder_later(scope.row),visible =true">稍后支付</el-button>
+                  <el-button type="primary" size="mini" @click="addOrder_now(scope.row)">确认支付</el-button>
+                </div>
+                <el-button slot="reference" >提交订单</el-button>
+              </el-popover>
+            </template>
+          </el-table-column>
+
+          <el-table-column label="删除操作" >
             <template slot-scope="scope">
               <el-button type = "danger" icon = "el-icon-delete"
                          size = "mini" @click="dropGoods(scope.row)">
               </el-button>
-              <el-button type="primary">确认支付</el-button>
-
             </template>
           </el-table-column>
         </el-table>
@@ -49,7 +61,8 @@ export default {
   data () {
     return {
       carts: [],
-      multipleSelection: []
+      multipleSelection: [],
+      visible: false,
     }
   },
   created () {
@@ -87,10 +100,7 @@ export default {
       },
       showDetailedInfo (row) {
         console.log(row)
-        //  var path = _this.$route.query.redirect
-        // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
       },
-
     plusGoods (row) {
       const _this = this
       this.$axios
@@ -99,10 +109,6 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            // System.out.println('增加成功')
-            // this.$alert(resp.data.message, '提示', {
-            //   confirmButtonText: '确定'
-            // })
             _this.showCartsList()
           } else {
             this.$alert(resp.data.message, '提示', {
@@ -111,7 +117,46 @@ export default {
           }
         })
     },
+      //生成未支付订单
+      addOrder_later(row){
+        console.log(row)
+        console.log('cid为' + row[0])
+        const _this = this
+        this.$axios
+          .post('/order/addPayOrder1', {
+            cid: row[0]
+          })
+          .then(resp => {
+            if (resp.data.code === 200) {
+              _this.showCartsList()
+            } else {
+              this.$alert(resp.data.message, '提示', {
+                confirmButtonText: '确定'
+              })
+            }
+          })
+      },
 
+      //生成已支付订单
+      addOrder_now(row){
+        console.log(row)
+        console.log('cid为' + row[0])
+        this.$axios
+          .post('/order/addPayOrder2', {
+            cid: row[0]
+          })
+          .then(resp => {
+            if (resp.data.code === 200) {
+              this.$alert(resp.data.message, '提示', {
+                confirmButtonText: '确定'
+              })
+            } else {
+              this.$alert(resp.data.message, '提示', {
+                confirmButtonText: '确定'
+              })
+            }
+          })
+      },
     removeGoods (row) {
       const _this = this
       this.$axios
@@ -120,10 +165,6 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            // System.out.println('删减成功')
-            // this.$alert(resp.data.message, '提示', {
-            //   confirmButtonText: '确定'
-            // })
             _this.showCartsList()
           } else {
             this.$alert(resp.data.message, '提示', {
@@ -143,11 +184,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err => err)
-
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-
       console.log('cid为' + row[0])
       this.$axios
         .post('/cart/dropGoods', {
