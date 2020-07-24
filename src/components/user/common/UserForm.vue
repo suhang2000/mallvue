@@ -79,6 +79,7 @@ export default {
       }
     },
     onSubmit () {
+      console.log(this.form)
       this.$axios
         .post('/home/user/info', {
           uname: this.form.uname,

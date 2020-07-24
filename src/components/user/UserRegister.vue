@@ -40,39 +40,38 @@
   </body>
 </template>
 <script>
-import {validatePhone} from '../../utils/validate'
-import {validateEmail} from '../../utils/validate'
+import {validatePhone, validateEmail} from '../../utils/validate'
 
 export default{
   data () {
-    const validatePassword =(rule, value, callback) =>{
-      if (value === "") {
-        callback(new Error("再次输入登陆密码！"));
+    const validatePassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('再次输入登陆密码！'))
       } else if (value !== this.regisForm.password) {
-        callback(new Error("两次密码必须相同！"));
+        callback(new Error('两次密码必须相同！'))
       } else {
-        callback();
+        callback()
       }
     }
     return {
       rules: {
         uname: [{required: true, message: '姓名不能为空', trigger: 'blur'}],
         password: [{required: true, message: '密码不能为空', trigger: 'blur'}],
-        verifypwd: [{required: true, validator: validatePassword,trigger: 'blur'}],
+        verifypwd: [{required: true, validator: validatePassword, trigger: 'blur'}],
         phone: [{required: true, validator: validatePhone, trigger: 'blur'}],
         email: [{required: true, validator: validateEmail, trigger: 'blur'}]
       },
       regisForm: {
         uname: '',
         password: '',
-        verifypwd:'',
+        verifypwd: '',
         phone: '',
         email: '',
         address: '',
         icon: '',
         gender: '',
         birthday: ''
-      },
+      }
     }
   },
   methods: {
@@ -87,7 +86,7 @@ export default{
           address: this.regisForm.address,
           icon: this.regisForm.icon,
           gender: this.regisForm.gender,
-          birthday: this.regisForm.birthday,
+          birthday: this.regisForm.birthday
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -104,15 +103,15 @@ export default{
         })
         .catch(failResponse => {})
     },
-    validate_register(formName) {
+    validate_register (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.register()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
 }
