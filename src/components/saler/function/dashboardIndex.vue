@@ -1,50 +1,18 @@
 <template>
   <div class="dashboard-editor-container">
     <panel-group @handleSetLineChartData="handleSetLineChartData" />
-
-    <el-row style="background:#fff" class="chart-wrapper">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <line-chart :chart-data="lineChartData" />
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8" push="2">
-        <div>
-          <bar-chart />
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="64">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <pie-chart />
-        </div>
-      </el-col>
-      <el-col :xs="{span: 24}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 6}" :xl="{span: 6}" style="margin-bottom:30px;">
-        <todo-list />
-      </el-col>
-      <el-col :xs="{span: 24}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 6}" :xl="{span: 6}" style="margin-bottom:30px;">
-        <box-card />
-      </el-col>
-    </el-row>
+    <line-chart :chart-data="lineChartData" />
   </div>
 </template>
 
 <script>
-import PanelGroup from '../../admin/dashboard/PanelGroup'
-import PieChart from '../../admin/dashboard/CodenumPieChart'
-import LineChart from '../../admin/dashboard/DataLineChart'
-import BarChart from '../../admin/dashboard/UsernumBarChart'
-import TodoList from '../../admin/dashboard/TodoList'
-import BoxCard from '../../admin/dashboard/CodeCoverCard'
+import PanelGroup from '../dashboard/PanelGroup'
+import LineChart from '../dashboard/DataLineChart'
 
 const lineChartData = {
-  usernum: {
+  customernum: {
     expectedData: [1, 10, 20, 40, 80, 160, 250],
     actualData: [0, 1, 3, 5, 5, 10, 10]
-  },
-  salernum: {
-    expectedData: [1, 5, 10, 20, 20, 40, 80],
-    actualData: [0, 0, 3, 5, 7, 9, 9]
   },
   productnum: {
     expectedData: [1, 5, 10, 20, 30, 40, 50],
@@ -57,18 +25,14 @@ const lineChartData = {
 }
 
 export default {
-  name: 'DashboardAdmin',
+  name: 'DashboardSaler',
   components: {
     PanelGroup,
-    LineChart,
-    PieChart,
-    BarChart,
-    TodoList,
-    BoxCard
+    LineChart
   },
   data () {
     return {
-      lineChartData: lineChartData.usernum
+      lineChartData: lineChartData.customernum
     }
   },
   methods: {
