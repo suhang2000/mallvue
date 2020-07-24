@@ -63,10 +63,10 @@
 
       <div style="margin-top: 20px;float:left">
         <el-button type = "primary" icon = "el-icon-plus"
-                   size = "mini"   @click="addGoods(scope.row)">
+                   size = "medium"   @click="addGoods(scope.row)">
         </el-button>
       </div>
-      <div style="margin-top: 20px;float: left">
+      <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
 
@@ -80,14 +80,13 @@ export default {
   name: 'List',
   data () {
     return {
-      goodsList:[],
+      goodsList: [],
       multipleSelection: [],
-      product:{
-        pid:0,
-        pname:'',
+      product: {
+        pid: 0,
+        pname: ''
       }
     }
-
   },
   created () {
     this.showGoodsList()
@@ -98,12 +97,12 @@ export default {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product',{
-          pname: this.product.pname,
+        .post('/list/product', {
+          pname: this.product.pname
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
-            _this.goodsList= successResponse.data
+            _this.goodsList = successResponse.data
             console.log(_this.goodsList)
           }
         })
@@ -130,17 +129,18 @@ export default {
       //  var path = _this.$route.query.redirect
       // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
-    clearInput(){
+    clearInput () {
     },
 
     async dropGoods (row) {
       console.log(row)
+      const _this = this
       const confirmResult = await
-        this.$confirm('是否删除' + row.pname + '?', '提示', {
-          confirmButtonText: '确认',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).catch(err => err)
+      this.$confirm('是否删除' + row.pname + '?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
@@ -153,9 +153,8 @@ export default {
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message('删除成功')
+            _this.showGoodsList()
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

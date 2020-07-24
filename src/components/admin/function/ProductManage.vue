@@ -52,10 +52,13 @@
       </el-table-column>
       <el-table-column
       label="操作"
-      width="100">
+      width="200">
         <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                  size = "mini" @click="dropGoods(scope.row)">
+            </el-button>
+            <el-button type = "primary" icon = "el-icon-edit"
+                 size = "mini" @click="editGoods(scope.row)">
             </el-button>
         </template>
       </el-table-column>
@@ -75,22 +78,21 @@ export default {
   name: 'List',
   data () {
     return {
-      goodsList:[],
+      goodsList: [],
       multipleSelection: [],
-      product:{
-        pid:0,
-        pname:'',
+      product: {
+        pid: 0,
+        pname: ''
       },
-      testProductData:{
-        sid:1,
-        pname:"帽子",
-        price:20,
-        number:20,
-        description:"这是一顶帽子",
-        cover:''
-      },
+      testProductData: {
+        sid: 1,
+        pname: '帽子',
+        price: 20,
+        number: 20,
+        description: '这是一顶帽子',
+        cover: ''
+      }
     }
-
   },
   created () {
     this.showGoodsList()
@@ -101,12 +103,12 @@ export default {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product',{
-          pname: this.product.pname,
+        .post('/list/product', {
+          pname: this.product.pname
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
-            _this.goodsList= successResponse.data
+            _this.goodsList = successResponse.data
             console.log(_this.goodsList)
           }
         })
@@ -133,25 +135,25 @@ export default {
       //  var path = _this.$route.query.redirect
       // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
     },
-    clearInput(){
+    clearInput () {
     },
-    addGoods(){
+    addGoods () {
       const _this = this
       this.$axios
         .post('/list/addGoods', {
-          sid:_this.testProductData.sid,
-          pname:_this.testProductData.pname,
-          price:_this.testProductData.price,
-          number:_this.testProductData.number,
-          description:_this.testProductData.description,
-          cover:_this.testProductData.cover
+          sid: _this.testProductData.sid,
+          pname: _this.testProductData.pname,
+          price: _this.testProductData.price,
+          number: _this.testProductData.number,
+          description: _this.testProductData.description,
+          cover: _this.testProductData.cover
         })
         .then(resp => {
           this.$alert('添加成功', '提示', {
-              confirmButtonText: '确定'
-            })
+            confirmButtonText: '确定'
+          })
         })
-      //刷新有问题，不能自动刷新
+      // 刷新有问题，不能自动刷新
       this.showGoodsList()
     },
     async dropGoods (row) {
@@ -184,7 +186,7 @@ export default {
             })
           }
         })
-      //刷新有问题，不能自动刷新
+      // 刷新有问题，不能自动刷新
       this.showGoodsList()
     }
   }

@@ -42,125 +42,129 @@
   </div >
 </template>
 
-
 <script>
-  export default {
-    name: 'Cart',
-    data () {
-      return {
-        carts:[],
-        multipleSelection: []
+export default {
+  name: 'Cart',
+  data () {
+    return {
+      carts: [],
+      multipleSelection: []
+    }
+  },
+  created () {
+    this.showCartsList()
+  },
+  methods: {
+    // 分页式展示商品信息
+    showCartsList () {
+      const _this = this
+      this.$axios
+        .post('/cart/view')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.carts = successResponse.data
+            console.log(_this.carts)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+
+    toggleSelection (rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row)
+        })
+      } else {
+        this.$refs.multipleTable.clearSelection()
       }
     },
-    created () {
+    handleSelectionChange (val) {
+      this.multipleSelection = val
+      console.log(val)
+    },
+    showDetailedInfo (row) {
+      console.log(row)
+      //  var path = _this.$route.query.redirect
+      // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
+    },
+
+    plusGoods (row) {
+      const _this = this
+      this.$axios
+        .post('/cart/addGoods', {
+          cid: row[0]
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // System.out.println('增加成功')
+            // this.$alert(resp.data.message, '提示', {
+            //   confirmButtonText: '确定'
+            // })
+            _this.showCartsList()
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+    },
+
+    removeGoods (row) {
+      const _this = this
+      this.$axios
+        .post('/cart/removeGoods', {
+          cid: row[0]
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // System.out.println('删减成功')
+            // this.$alert(resp.data.message, '提示', {
+            //   confirmButtonText: '确定'
+            // })
+            _this.showCartsList()
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
       this.showCartsList()
     },
-    methods: {
-      // 分页式展示商品信息
-      async showCartsList () {
-        const _this = this
-        this.$axios
-          .post('/cart/view')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.carts= successResponse.data
-              console.log(_this.carts)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
 
-      toggleSelection (rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row)
-          })
-        } else {
-          this.$refs.multipleTable.clearSelection()
-        }
-      },
-      handleSelectionChange (val) {
-        this.multipleSelection = val
-        console.log(val)
-      },
-      showDetailedInfo (row) {
-        console.log(row)
-        //  var path = _this.$route.query.redirect
-        // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-      },
+    async dropGoods (row) {
+      console.log(row)
+      const _this = this
+      const confirmResult = await
+      this.$confirm('是否删除' + row[1] + '?', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
 
-      plusGoods(row) {
-        this.$axios
-          .post('/cart/addGoods', {
-            cid: row[0]
-          })
-          .then(resp => {
-            if (resp.data.code === 200) {
-              System.out.println("增加成功");
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            } else {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            }
-          })
-      },
-
-      removeGoods(row) {
-        this.$axios
-          .post('/cart/removeGoods', {
-            cid: row[0]
-          })
-          .then(resp => {
-            if (resp.data.code === 200) {
-              System.out.println("删减成功");
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            } else {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            }
-          })
-      },
-
-      async dropGoods (row) {
-        console.log(row)
-        const confirmResult = await
-          this.$confirm('是否删除' + row[1] + '?', '提示', {
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
-            type: 'warning'
-          }).catch(err => err)
-
-        if (confirmResult !== 'confirm') {
-          return this.$message.info('已取消删除')
-        }
-
-        console.log('cid为' + row[0])
-        this.$axios
-          .post('/cart/dropGoods', {
-            cid: row[0]
-          })
-          .then(resp => {
-            if (resp.data.code === 200) {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            } else {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            }
-          })
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('已取消删除')
       }
+
+      console.log('cid为' + row[0])
+      this.$axios
+        .post('/cart/dropGoods', {
+          cid: row[0]
+        })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            this.$message(resp.data.message)
+            _this.showCartsList()
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
     }
   }
+}
 </script>
 
 <style scoped>

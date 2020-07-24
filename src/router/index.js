@@ -163,12 +163,71 @@ export default new Router({
           name: 'AdminManage',
           component: AdminManage
         },
+        /*
         {
-          path: '/admin/register',
-          name: 'AdminRegister',
-          component: AdminRegister
-        }
+          path: '/admin/logout',
+          name: 'AdminLogout',
+          component: AdminLogout
+        }*/
       ]
     }
   ]
 })
+
+// 用于创建默认路由
+// export const createRouter = routes => new Router({
+//   mode: 'history',
+//   routes: [
+//     {
+//       path: '/hello',
+//       name: 'HelloWorld',
+//       component: HelloWorld,
+//       meta: {
+//         requireAuth: true
+//       }
+//     },
+//     {
+//       path: '/login',
+//       name: 'Login',
+//       component: Login
+//     },
+//     {
+//       path: '/saler/login',
+//       name: 'SalerLogin',
+//       component: SalerLogin
+//     },
+//     {
+//       path: '/list',
+//       name: 'List',
+//       component: List
+//     },
+//     {
+//       path: '/admin/login',
+//       name: 'AdminLogin',
+//       component: AdminLogin
+//     },
+//     {
+//       path: '/admin/register',
+//       name: 'AdminRegister',
+//       component: AdminRegister
+//     },
+//     {
+//       path: '/admin',
+//       name: 'Admin',
+//       component: AdminIndex,
+//       meta: {
+//         requireAuth: true
+//       },
+//       children: [
+//         {
+//           path: '/admin/dashboard',
+//           name: 'Dashboard',
+//           component: AdminDashboard,
+//           meta: {
+//             requireAuth: true
+//           }
+//         }
+//       ]
+//     }
+//   ]
+// })
