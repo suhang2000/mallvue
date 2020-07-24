@@ -54,36 +54,21 @@
     data() {
       return {
         orders : [],
-        order:{
-          pname:'苹果',
-          oid:0,
-          uid:0,
-          pid:0,
-          trade_time:2000-1-1,
-          trade_num:0,
-          address:'北京市',
-          pay_or_not:0,
-          deliver_or_not:0
-        }
       }
     },
     created() {
       this.showAllOrders()
     },
     methods: {
-      // 分页式展示商品信息
       async showAllOrders() {
         const _this = this
         this.$axios
           .post("/apple",{
-            uid: this.order.uid
+            sid:"123"
           })
           .then(successResponse => {
             if (successResponse && successResponse.status === 200) {
               _this.orders = successResponse.data
-              _this.order = successResponse.data
-              console.log(_this.order)
-              console.log(_this.order.pname)
             }
           })
           .catch(failResponse => {

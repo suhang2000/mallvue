@@ -4,7 +4,7 @@
     <p style="font-size: xx-large;font-family: Arial">全部商品</p>
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" type="text" auto-complete="off"
+          <el-input placeholder="请输入商品名称" type="text" auto-complete="off"
           v-model="product.pname" clearable @clear="clearInput">
               <el-button slot="append" icon="el-icon-search"
                      @click="showGoodsList">
@@ -12,7 +12,6 @@
           </el-input>
         </el-col>
       </el-row>
-
     <el-table
       ref="multipleTable"
       :data="goodsList"
@@ -84,7 +83,7 @@ export default {
       multipleSelection: [],
       product:{
         pid:0,
-        pname:'',
+        pname:''
       }
     }
 
