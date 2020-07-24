@@ -106,8 +106,25 @@ export default {
         })
       })
     },
-    addCart () {
-      this.$message('购物车在哪呢╮(╯▽╰)╭')
+    //加入购物车这个方法的pid我是真的不会传5555
+    addCart (product) {
+      const _this = this
+      this.$axios
+        .post('/list/addCart', {
+          pid: _this.product.pid
+       })
+        .then(resp => {
+          if (resp.data.code === 200) {
+            // System.out.println('增加成功')
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          } else {
+            this.$alert(resp.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
     }
     // searchResult () {
     //   const _this = this

@@ -36,7 +36,6 @@ export default {
   methods: {
     logout () {
       this.$store.commit('logout')
-      this.$message('退出了')
       this.$router.push('/login')
     },
     checkLogin () {

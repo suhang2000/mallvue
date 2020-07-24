@@ -3,9 +3,9 @@
 </template>
 
 <script>
-export default {
-  name: 'AdminLogout'
-}
+    export default {
+        name: "SalerProduct"
+    }
 </script>
 
 <style scoped>
