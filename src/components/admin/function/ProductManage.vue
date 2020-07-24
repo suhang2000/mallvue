@@ -64,11 +64,11 @@
       </el-table-column>
     </el-table>
       <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
-    <div style="margin-top: 3px">
-      <el-button type = "primary" icon = "el-icon-plus"
-                 size = "mini"   @click="addGoods()">
-      </el-button>
-    </div>
+<!--    <div style="margin-top: 3px">-->
+<!--      <el-button type = "primary" icon = "el-icon-plus"-->
+<!--                 size = "mini"   @click="addGoods()">-->
+<!--      </el-button>-->
+<!--    </div>-->
     </el-card>
 
   </div>
