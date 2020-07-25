@@ -22,7 +22,7 @@
               <div class="price">
                 <i class="el-icon-price-tag"></i>
                 ￥{{item.price}}
-                <el-button type="text" class="el-icon-shopping-cart-2" @click="addCart" style="font-size: 20px"></el-button>
+                <el-button type="text" class="el-icon-shopping-cart-2" @click="addCart(item)" style="font-size: 20px"></el-button>
               </div>
             </div>
           </div>
@@ -71,55 +71,14 @@ export default {
       this.currentPage = currentPage
       console.log(this.currentPage)
     },
-    subProductNumber (item) {
-      this.$refs.edit.form = {
-        pid: item.pid,
-        sid: item.sid,
-        pname: item.pname,
-        price: item.price,
-        description: item.description,
-        cover: item.cover,
-        number: Number(item.number) - 1
-      }
-      // this.$refs.edit.onSubmit()
-    // 提交修改至后端，调用一个保存的函数
-    },
-    deleteProduct (product) {
-      // const _this = this
-      this.$confirm('此操作将永久删除该商品, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios
-          .post('/delete', {pid: product.pid}).then(resp => {
-            if (resp && resp.status === 200) {
-              // _this.addProductNumber()
-              // _this.loadProducts()
-            // 重新加载
-            }
-          })
-      }
-      ).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-    },
-    // 加入购物车这个方法的pid我是真的不会传5555
-    addCart (product) {
-      const _this = this
+    addCart (item) {
       this.$axios
         .post('/list/addCart', {
-          pid: _this.product.pid
+          pid: item.pid
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            // System.out.println('增加成功')
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('已添加')
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -127,16 +86,6 @@ export default {
           }
         })
     }
-    // searchResult () {
-    //   const _this = this
-    //   console.log(_this.$refs.searchBar.keywords)
-    //   this.$axios
-    //     .get('/search?keywords=' + this.$refs.searchBar.keywords, {}).then(resp => {
-    //       if (resp && resp.status === 200) {
-    //         _this.products = resp.data
-    //       }
-    //     })
-    // },
   }
 }
 </script>
