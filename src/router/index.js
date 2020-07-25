@@ -11,7 +11,7 @@ import SalerManage from '../components/admin/function/SalerManage'
 import UserManage from '../components/admin/function/UserManage'
 import AdminManage from '../components/admin/function/AdminManage'
 import AdminRegister from '../components/admin/function/AdminRegister'
-import AdminPwdReset from "../components/admin/function/AdminPwdReset";
+import AdminPwdReset from '../components/admin/function/AdminPwdReset'
 
 import SalerIndex from '../components/saler/SalerIndex'
 import SalerDashboard from '../components/saler/function/dashboardIndex'
@@ -26,8 +26,8 @@ import Index from '../components/user/common/Index'
 import Cart from '../components/user/common/Cart'
 import Order from '../components/user/common/Order'
 import UserInfo from '../components/user/common/UserInfo'
-import OrderToPay from "../components/user/common/OrderToPay";
-import OrderToSend from "../components/user/common/OrderToSend";
+import OrderToPay from '../components/user/common/OrderToPay'
+import OrderToSend from '../components/user/common/OrderToSend'
 
 Vue.use(Router)
 
@@ -36,10 +36,7 @@ export default new Router({
     {
       path: '/',
       name: 'whitePage',
-      redirect: '/login',
-      meta: {
-        requireAuth: true
-      }
+      redirect: '/login'
     },
     {
       path: '/login',
@@ -75,25 +72,37 @@ export default new Router({
         {
           path: '/home/cart',
           name: 'Cart',
-          component: Cart
+          component: Cart,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/home/order',
           name: 'Order',
-          component: Order
+          component: Order,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/home/orderToPay',
           name: 'OrderToPay',
-          component: OrderToPay
+          component: OrderToPay,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/home/orderToSend',
           name: 'OrderToSend',
-          component: OrderToSend
+          component: OrderToSend,
+          meta: {
+            requireAuth: true
+          }
         },
         {
-          path: '/home/userinfo',
+          path: '/home/userInfo',
           name: 'UserInfo',
           component: UserInfo,
           meta: {
@@ -115,22 +124,34 @@ export default new Router({
         {
           path: '/saler/dashboard',
           name: 'Dashboard',
-          component: SalerDashboard
+          component: SalerDashboard,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/saler/order',
           name: 'SalerOrder',
-          component: SalerOrder
+          component: SalerOrder,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/saler/product',
           name: 'SalerProduct',
-          component: SalerProduct
+          component: SalerProduct,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/saler/salerinfo',
           name: 'SalerInfo',
-          component: SalerInfo
+          component: SalerInfo,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
@@ -146,45 +167,66 @@ export default new Router({
         {
           path: '/admin/dashboard',
           name: 'Dashboard',
-          component: AdminDashboard
-          // meta: {
-          //   requireAuth: true
-          // }
+          component: AdminDashboard,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/product',
           name: 'ProductManage',
-          component: ProductManage
+          component: ProductManage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/user',
           name: 'UserManage',
-          component: UserManage
+          component: UserManage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/saler',
           name: 'SalerManage',
-          component: SalerManage
+          component: SalerManage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/order',
           name: 'OrderManage',
-          component: OrderManage
+          component: OrderManage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/admininfo',
           name: 'AdminManage',
-          component: AdminManage
+          component: AdminManage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/register',
           name: 'AdminRegister',
-          component: AdminRegister
+          component: AdminRegister,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/admin/pwdreset',
           name: 'AdminPwdReset',
-          component: AdminPwdReset
+          component: AdminPwdReset,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     }
