@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">订单信息</p>
+    <p style="font-size: xx-large;font-family: Arial">订单管理</p>
     <el-container>
     <el-select v-model="value" placeholder="请选择" style="width: 120px">
       <el-option

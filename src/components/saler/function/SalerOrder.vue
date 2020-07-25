@@ -24,6 +24,7 @@
         </el-col>
       </el-row>
     </el-container>
+    <p style="font-size: xx-large;font-family: Arial">订单管理</p>
     <el-table
       ref="multipleTable"
       :data="orders"
@@ -152,6 +153,8 @@
             if (successResponse && successResponse.status === 200) {
               _this.orders = successResponse.data
               _this.order = successResponse.data
+            console.log(_this.order)
+            console.log(_this.order.pname)
             }
           })
           .catch(failResponse => {

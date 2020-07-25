@@ -2,21 +2,26 @@
   <div>
   <div class="line"></div>
   <el-menu
-    :default-active="activeIndex2"
+    default-active="1"
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b">
-    <el-menu-item index="1" @click="showOrdersList">全部订单查询
-    </el-menu-item>
+    <el-menu-item index="1" @click="showOrdersList">全部订单查询</el-menu-item>
     <el-submenu index="2" >
       <template slot="title">未支付订单</template>
       <el-menu-item index="2-1" @click="showOrdersList1">订单查看</el-menu-item>
-      <el-menu-item index="2-2">继续支付</el-menu-item>
+      <router-link to="/home/orderToPay">
+      <el-menu-item index="2-2" >订单撤回/支付</el-menu-item></router-link>
       </el-submenu>
-    <el-menu-item index="3" @click="showOrdersList2">待发货订单</el-menu-item>
+    <el-submenu index="3" >
+      <template slot="title">待发货订单</template>
+      <el-menu-item index="3-1" @click="showOrdersList2">订单查看</el-menu-item>
+      <router-link to="/home/orderToSend">
+        <el-menu-item index="3-2" >订单撤回</el-menu-item></router-link>
+    </el-submenu>
     <el-menu-item index="4" @click="showOrdersList3">已发货订单</el-menu-item>
   </el-menu>
 
@@ -39,97 +44,89 @@
       </el-table-column>
       <el-table-column prop="8" label="订单状态">
       </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type = "primary" icon = "el-icon-search"
-                     size = "mini" @click="dropGoods(scope.row)">查看详情</el-button>
-        </template>
-      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-  import {AxiosInstance as $axios} from "axios";
+// import {AxiosInstance as $axios} from 'axios'
 
-  export default {
-    name: "Order",
-    data() {
-      return {
-        orders:[]
-      }
+export default {
+  name: 'Order',
+  data () {
+    return {
+      orders: []
+    }
+  },
+  created () {
+    this.showCartsList()
+  },
+  methods: {
+    // 分页式展示商品信息
+    showOrdersList () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view', {
+          cid: this.orders.cid,
+          pname: this.orders.pname
+        })
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
-    created() {
-      this.showCartsList()
+    showOrdersList1 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view1')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
-    methods: {
-      // 分页式展示商品信息
-      async showOrdersList() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view',{
-            cid:this.orders.cid,
-            pname:this.orders.pname
-          })
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList1() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view1')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList2() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view2')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      async showOrdersList3() {
-        const _this = this
-        this.$axios
-          .post('/userorder/view3')
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              console.log(_this.orders)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      showDetailedInfo (row) {
-        console.log(row)
-        //  var path = _this.$route.query.redirect
-        // _this.$router.replace({path: path === '/' || path === undefined ? '/hello' : path})
-      }
+    showOrdersList2 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view2')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+    showOrdersList3 () {
+      const _this = this
+      this.$axios
+        .post('/userorder/view3')
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            console.log(_this.orders)
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
+    showDetailedInfo (row) {
+      console.log(row)
     }
   }
+}
 </script>
 
 <style scoped>

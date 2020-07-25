@@ -1,5 +1,5 @@
 <template>
-  <body id="paper">
+  <body>
   <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
     <h3 class="regis_title">管理人员注册</h3>
@@ -70,7 +70,7 @@ export default{
               confirmButtonText: '确定'
             })
             var path = _this.$route.query.redirect
-            _this.$router.replace({path: path === '/' || path === undefined ? '/login' : path})
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/admininfo' : path})
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -108,18 +108,7 @@ export default{
     text-align: center;
     color: #505458;
   }
-  #paper {
-    background: url("../../assets/regisBG.jpg") no-repeat center;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    position: fixed;
-  }
   body{
     margin: -5px 0;
-  }
-  .login_remember {
-    margin: 0 0 35px 0;
-    text-align: left;
   }
 </style>

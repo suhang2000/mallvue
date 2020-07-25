@@ -1,17 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//import HelloWorld from '../components/HelloWorld'
+//import List from '../components/saler/List'
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
-
-import UserRegister from '../components/user/UserRegister'
-import SalerRegister from '../components/saler/SalerRegister'
 import AdminRegister from '../components/admin/AdminRegister'
-
-import Home from '../components/user/Home'
-import Index from '../components/user/common/Index'
-import Cart from '../components/user/common/Cart'
-import Order from '../components/user/common/Order'
-import UserInfo from '../components/user/common/UserInfo'
 
 import AdminIndex from '../components/admin/AdminIndex'
 import AdminDashboard from '../components/admin/function/dashbordIndex'
@@ -26,6 +19,15 @@ import SalerDashboard from '../components/saler/function/dashboardIndex'
 import SalerInfo from '../components/saler/function/SalerInfo'
 import SalerOrder from '../components/saler/function/SalerOrder'
 import SalerProduct from '../components/saler/function/SalerProduct'
+import SalerRegister from '../components/saler/SalerRegister'
+import UserRegister from '../components/user/UserRegister'
+import Home from '../components/user/Home'
+import Index from '../components/user/common/Index'
+import Cart from '../components/user/common/Cart'
+import Order from '../components/user/common/Order'
+import UserInfo from '../components/user/common/UserInfo'
+import OrderToPay from "../components/user/common/OrderToPay";
+import OrderToSend from "../components/user/common/OrderToSend";
 
 Vue.use(Router)
 
@@ -60,11 +62,6 @@ export default new Router({
       component: SalerRegister
     },
     {
-      path: '/register/admin',
-      name: 'AdminRegister',
-      component: AdminRegister
-    },
-    {
       path: '/home',
       name: 'Home',
       component: Home,
@@ -86,6 +83,16 @@ export default new Router({
           component: Order
         },
         {
+          path: '/home/orderToPay',
+          name: 'OrderToPay',
+          component: OrderToPay
+        },
+        {
+          path: '/home/orderToSend',
+          name: 'OrderToSend',
+          component: OrderToSend
+        },
+        {
           path: '/home/userinfo',
           name: 'UserInfo',
           component: UserInfo,
@@ -95,6 +102,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/saler',
       name: 'Saler',
@@ -120,7 +128,7 @@ export default new Router({
           component: SalerProduct
         },
         {
-          path: '/saler/saler',
+          path: '/saler/salerinfo',
           name: 'SalerInfo',
           component: SalerInfo
         }
@@ -164,75 +172,17 @@ export default new Router({
           component: OrderManage
         },
         {
-          path: '/admin/admin',
+          path: '/admin/admininfo',
           name: 'AdminManage',
           component: AdminManage
         },
-        /*
+
         {
-          path: '/admin/logout',
-          name: 'AdminLogout',
-          component: AdminLogout
-        }*/
+          path: '/admin/register',
+          name: 'AdminRegister',
+          component: AdminRegister
+        }
       ]
     }
   ]
 })
-
-// 用于创建默认路由
-// export const createRouter = routes => new Router({
-//   mode: 'history',
-//   routes: [
-//     {
-//       path: '/hello',
-//       name: 'HelloWorld',
-//       component: HelloWorld,
-//       meta: {
-//         requireAuth: true
-//       }
-//     },
-//     {
-//       path: '/login',
-//       name: 'Login',
-//       component: Login
-//     },
-//     {
-//       path: '/saler/login',
-//       name: 'SalerLogin',
-//       component: SalerLogin
-//     },
-//     {
-//       path: '/list',
-//       name: 'List',
-//       component: List
-//     },
-//     {
-//       path: '/admin/login',
-//       name: 'AdminLogin',
-//       component: AdminLogin
-//     },
-//     {
-//       path: '/admin/register',
-//       name: 'AdminRegister',
-//       component: AdminRegister
-//     },
-//     {
-//       path: '/admin',
-//       name: 'Admin',
-//       component: AdminIndex,
-//       meta: {
-//         requireAuth: true
-//       },
-//       children: [
-//         {
-//           path: '/admin/dashboard',
-//           name: 'Dashboard',
-//           component: AdminDashboard,
-//           meta: {
-//             requireAuth: true
-//           }
-//         }
-//       ]
-//     }
-//   ]
-// })
