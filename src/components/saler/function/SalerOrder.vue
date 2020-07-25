@@ -121,7 +121,7 @@
         console.log(_this.$store.state.saler.name)
         this.$axios
           .post("/searchBy/sname",{
-            myName:_this.$store.state.saler.name})
+            input:_this.$store.state.saler.name})
           .then(successResponse => {
             if (successResponse && successResponse.status === 200) {
               _this.orders = successResponse.data
