@@ -24,7 +24,10 @@
           type="selection"
           width="55">
         </el-table-column >
-
+        <el-table-column
+          prop="pid"
+          label="商品编号">
+        </el-table-column>
         <el-table-column
           label="商品名"
           width="250"
@@ -90,15 +93,15 @@ export default {
 
   },
   created () {
-    this.showGoodsList()
+    this.showAllGoodsList()
   },
   methods: {
     // 分页式展示商品信息
-    async showGoodsList () {
+    async showAllGoodsList () {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product',{
+        .post('/list/product/saler',{
           pname: this.product.pname,
         })
         .then(successResponse => {

@@ -62,8 +62,19 @@
         prop="5">
       </el-table-column>
       <el-table-column
-        label="发货"
+        label="发货状态"
         prop = "6"
+      >
+      </el-table-column>
+
+      <el-table-column
+        label="买家"
+        prop = "7"
+      >
+      </el-table-column>
+      <el-table-column
+        label="卖家"
+        prop = "8"
       >
       </el-table-column>
     </el-table>
