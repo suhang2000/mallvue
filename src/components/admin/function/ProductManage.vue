@@ -193,9 +193,6 @@ export default {
         description: item.description,
         cover: item.cover
       }
-    },
-    getSid () {
-      // const _this = this
     }
   }
 }

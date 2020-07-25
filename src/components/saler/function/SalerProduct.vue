@@ -66,13 +66,13 @@
 
       <div style="margin-top: 20px;float:left">
         <el-button type = "primary" icon = "el-icon-plus"
-                   size = "medium"   @click="addGoods(scope.row)">
+                   size = "medium"   @click="addGoods()">
         </el-button>
       </div>
       <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
-      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
+      <ProductForm @onSubmit="showAllGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
 </div>
@@ -90,7 +90,8 @@ export default {
       product: {
         pid: 0,
         pname: ''
-      }
+      },
+      sid: ''
     }
   },
   created () {
@@ -102,8 +103,8 @@ export default {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product/saler',{
-          myName:_this.$store.state.saler.name
+        .post('/list/product/saler', {
+          myName: _this.$store.state.saler.name
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
@@ -170,6 +171,18 @@ export default {
         number: item.number,
         description: item.description,
         cover: item.cover
+      }
+      // this.showAllGoodsList()
+    },
+    addGoods () {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.pid = ''
+      this.$refs.edit.form = {
+        pname: '',
+        price: '',
+        number: '',
+        description: '',
+        cover: ''
       }
       this.showAllGoodsList()
     }
