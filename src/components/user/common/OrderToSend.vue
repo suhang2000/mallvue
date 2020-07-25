@@ -50,7 +50,9 @@
         showOrdersList() {
           const _this = this
           this.$axios
-            .post('/userorder/viewlistSend')
+            .post('/userorder/viewlistSend',{
+              myName:_this.$store.state.user.name
+            })
             .then(successResponse => {
               if (successResponse && successResponse.status === 200) {
                 _this.orders = successResponse.data

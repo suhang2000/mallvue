@@ -72,8 +72,11 @@ export default {
     // 分页式展示商品信息
     showCartsList () {
       const _this = this
+      console.log(_this.$store.state.user.name)
       this.$axios
-        .post('/cart/view')
+        .post("/cart/view",{
+          myName:_this.$store.state.user.name
+        })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.carts = successResponse.data
@@ -101,11 +104,12 @@ export default {
       showDetailedInfo (row) {
         console.log(row)
       },
+
     plusGoods (row) {
       const _this = this
       this.$axios
         .post('/cart/addGoods', {
-          cid: row[0]
+          cid: row[0],
         })
         .then(resp => {
           if (resp.data.code === 200) {

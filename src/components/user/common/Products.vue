@@ -72,9 +72,11 @@ export default {
       console.log(this.currentPage)
     },
     addCart (item) {
+      const _this = this
       this.$axios
         .post('/list/addCart', {
-          pid: item.pid
+          pid: item.pid,
+          myName:_this.$store.state.user.name
         })
         .then(resp => {
           if (resp.data.code === 200) {

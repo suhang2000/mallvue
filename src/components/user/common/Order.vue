@@ -67,8 +67,7 @@ export default {
       const _this = this
       this.$axios
         .post('/userorder/view', {
-          cid: this.orders.cid,
-          pname: this.orders.pname
+          myName:_this.$store.state.user.name
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
@@ -83,7 +82,9 @@ export default {
     showOrdersList1 () {
       const _this = this
       this.$axios
-        .post('/userorder/view1')
+        .post('/userorder/view1',{
+          myName:_this.$store.state.user.name
+        })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.orders = successResponse.data
@@ -97,7 +98,9 @@ export default {
     showOrdersList2 () {
       const _this = this
       this.$axios
-        .post('/userorder/view2')
+        .post('/userorder/view2',{
+          myName:_this.$store.state.user.name
+        })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.orders = successResponse.data
@@ -111,7 +114,9 @@ export default {
     showOrdersList3 () {
       const _this = this
       this.$axios
-        .post('/userorder/view3')
+        .post('/userorder/view3',{
+          myName:_this.$store.state.user.name
+        })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.orders = successResponse.data
