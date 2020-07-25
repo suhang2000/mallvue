@@ -27,7 +27,7 @@
   </body>
 </template>
 <script>
-import {validatePhone} from '../../utils/validate'
+import {validatePhone} from '../../../utils/validate'
 
 export default{
   data () {

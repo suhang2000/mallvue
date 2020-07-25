@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//import HelloWorld from '../components/HelloWorld'
-//import List from '../components/saler/List'
 import Login from '../components/Login'
 import PwdReset from '../components/pwdReset'
-import AdminRegister from '../components/admin/AdminRegister'
 
 import AdminIndex from '../components/admin/AdminIndex'
 import AdminDashboard from '../components/admin/function/dashbordIndex'
@@ -13,6 +10,8 @@ import ProductManage from '../components/admin/function/ProductManage'
 import SalerManage from '../components/admin/function/SalerManage'
 import UserManage from '../components/admin/function/UserManage'
 import AdminManage from '../components/admin/function/AdminManage'
+import AdminRegister from '../components/admin/function/AdminRegister'
+import AdminPwdReset from "../components/admin/function/AdminPwdReset";
 
 import SalerIndex from '../components/saler/SalerIndex'
 import SalerDashboard from '../components/saler/function/dashboardIndex'
@@ -20,6 +19,7 @@ import SalerInfo from '../components/saler/function/SalerInfo'
 import SalerOrder from '../components/saler/function/SalerOrder'
 import SalerProduct from '../components/saler/function/SalerProduct'
 import SalerRegister from '../components/saler/SalerRegister'
+
 import UserRegister from '../components/user/UserRegister'
 import Home from '../components/user/Home'
 import Index from '../components/user/common/Index'
@@ -176,11 +176,15 @@ export default new Router({
           name: 'AdminManage',
           component: AdminManage
         },
-
         {
           path: '/admin/register',
           name: 'AdminRegister',
           component: AdminRegister
+        },
+        {
+          path: '/admin/pwdreset',
+          name: 'AdminPwdReset',
+          component: AdminPwdReset
         }
       ]
     }

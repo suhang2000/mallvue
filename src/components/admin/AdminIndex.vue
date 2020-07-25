@@ -25,9 +25,10 @@
         <el-submenu index="4">
           <template slot="title"><i class="el-icon-setting"></i>管理人员</template>
           <el-menu-item-group>
-            <el-menu-item index="4-1"><i class="el-icon-refresh"></i>密码重置</el-menu-item>
+            <el-menu-item index="4-1"><i class="el-icon-refresh"></i>人员管理</el-menu-item>
             <el-menu-item index="4-2"><i class="el-icon-circle-plus-outline"></i>人员注册</el-menu-item>
-            <el-menu-item index="4-3"><i class="el-icon-switch-button"></i>退出登录</el-menu-item>
+            <el-menu-item index="4-3"><i class="el-icon-edit"></i>修改密码</el-menu-item>
+            <el-menu-item index="4-4"><i class="el-icon-switch-button"></i>退出登录</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -72,6 +73,9 @@ export default {
           this.$router.push('/admin/register');
           break;
         case '4-3':
+          this.$router.push('/admin/pwdreset');
+          break;
+        case '4-4':
           this.$store.commit('logout');
           this.$router.push('/login');
           break;

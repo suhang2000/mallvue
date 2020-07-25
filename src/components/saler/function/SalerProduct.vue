@@ -136,7 +136,6 @@ export default {
     },
     async dropGoods (row) {
       console.log(row)
-      // const _this = this
       const confirmResult = await
       this.$confirm('是否删除' + row.pname + '?', '提示', {
         confirmButtonText: '确认',
@@ -145,7 +144,7 @@ export default {
       }).catch(err => err)
 
       if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+        return this.$message.info('已取消')
       }
 
       this.$axios
@@ -193,7 +192,6 @@ export default {
       this.$axios.get('/saler/' + _this.$store.state.saler.name + '/').then(resp => {
         if (resp && resp.status === 200) {
           _this.sid = resp.data
-          // console.log(_this.user)
         }
       }).catch(failResponse => {
         _this.$message('加载失败')
