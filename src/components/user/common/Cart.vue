@@ -1,7 +1,6 @@
 <template>
   <div>
-        <el-table ref="multipleTable"
-                  :data="carts"
+        <el-table :data="carts"
                   tooltip-effect="dark"
                   style="width: 100%"
                   @selection-change="handleSelectionChange"
@@ -36,7 +35,7 @@
                 <p>已成功提交订单！</p>
                 <div style="text-align: right; margin: 0">
                   <el-button size="mini" type="text" @click="addOrder_later(scope.row),visible =true">稍后支付</el-button>
-                  <el-button type="primary" size="mini" @click="addOrder_now(scope.row)">确认支付</el-button>
+                  <el-button type="primary" size="mini" @click="addOrder_now(scope.row),visible =true">确认支付</el-button>
                 </div>
                 <el-button slot="reference" >提交订单</el-button>
               </el-popover>
@@ -61,7 +60,6 @@ export default {
   data () {
     return {
       carts: [],
-      multipleSelection: [],
       visible: false,
     }
   },
@@ -69,7 +67,6 @@ export default {
     this.showCartsList()
   },
   methods: {
-    // 分页式展示商品信息
     showCartsList () {
       const _this = this
       console.log(_this.$store.state.user.name)
@@ -87,24 +84,11 @@ export default {
           alert('服务器异常')
         })
     },
-
-      toggleSelection (rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row)
-          })
-        } else {
-          this.$refs.multipleTable.clearSelection()
-        }
-      },
-      handleSelectionChange (val) {
-        this.multipleSelection = val
-        console.log(val)
-      },
       showDetailedInfo (row) {
         console.log(row)
       },
 
+    //增加购物车内商品数量
     plusGoods (row) {
       const _this = this
       this.$axios
@@ -151,9 +135,7 @@ export default {
           })
           .then(resp => {
             if (resp.data.code === 200) {
-              this.$alert(resp.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
+              this.showCartsList()
             } else {
               this.$alert(resp.data.message, '提示', {
                 confirmButtonText: '确定'
@@ -161,6 +143,8 @@ export default {
             }
           })
       },
+
+    //减少购物车内商品数量
     removeGoods (row) {
       const _this = this
       this.$axios
@@ -179,6 +163,7 @@ export default {
       this.showCartsList()
     },
 
+    //删除购物车内商品
     async dropGoods (row) {
       console.log(row)
       const _this = this

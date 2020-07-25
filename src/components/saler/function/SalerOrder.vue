@@ -35,22 +35,22 @@
         label="订单号"
         width="100"
         prop ="0"
+        sortable :sort-orders="['ascending', 'descending']"
       >
       </el-table-column>>
       <el-table-column
         label="商品名"
-        width="100"
         prop ="1">
       </el-table-column>
       <el-table-column
         label="下单时间"
-        width="100"
-        prop="2">
+        prop="2"
+        sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
       <el-table-column
         label="下单数量"
         prop = "3"
-      >
+        sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
       <el-table-column
         label="买家地址"
@@ -183,7 +183,7 @@
             }
           })
       }
-      },
+    },
   }
 </script>
 

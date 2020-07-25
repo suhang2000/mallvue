@@ -26,7 +26,7 @@
         </el-table-column >
         <el-table-column
           prop="pid"
-          label="商品编号">
+          label="商品编号" sortable :sort-orders="['ascending', 'descending']">
         </el-table-column>
         <el-table-column
           label="商品名"
@@ -38,11 +38,11 @@
         </el-table-column>
         <el-table-column
           prop="price"
-          label="价格">
+          label="价格" sortable :sort-orders="['ascending', 'descending']">
         </el-table-column>
         <el-table-column
           prop="number"
-          label="数量">
+          label="数量" sortable :sort-orders="['ascending', 'descending']">
         </el-table-column>
         <el-table-column
           prop="description"

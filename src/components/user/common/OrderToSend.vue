@@ -4,7 +4,6 @@
         <div class="letf-items" style="float: left;">
           <router-link to="/home/order">
           <el-button type="primary" icon="el-icon-back">返回订单管理</el-button></router-link>
-          <el-button type = "text" size = "mini" @click="showOrdersList">点击此处展开待发货订单</el-button>
         </div>
       </div>
     <el-table
@@ -43,10 +42,11 @@
           orders: []
         }
       },
-      created() {
-        this.showCartsList()
+      mounted () {
+        this.showOrdersList()
       },
       methods: {
+        //显示待发货订单
         showOrdersList() {
           const _this = this
           this.$axios
@@ -63,9 +63,9 @@
               alert('服务器异常')
             })
         },
+        //删除订单
         async orderDrop (row) {
           console.log(row)
-          const _this = this
           const confirmResult = await
             this.$confirm('是否撤回订单号为' + row[0] + '的订单?', '提示', {
               confirmButtonText: '确认',
@@ -77,22 +77,21 @@
             return this.$message.info('已取消删除')
           }
           console.log('oid为' + row[0])
+          const _this = this
           this.$axios
             .post('/order/dropSend', {
               oid: row[0]
             })
             .then(resp => {
               if (resp.data.code === 200) {
-                _this.showCartsList()
+                _this.showOrdersList();
+                this.$message.info('删除成功！')
               } else {
                 this.$alert(resp.data.message, '提示', {
                   confirmButtonText: '确定'
                 })
               }
             })
-        },
-        showDetailedInfo (row) {
-          console.log(row)
         }
       }
     }

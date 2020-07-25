@@ -2,14 +2,15 @@
   <div>
   <div class="line"></div>
   <el-menu
-    default-active="1"
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b">
-    <el-menu-item index="1" @click="showOrdersList">全部订单查询</el-menu-item>
+    <el-menu-item
+      defalut-active="true"
+      index="1" @click="showOrdersList">全部订单查询</el-menu-item>
     <el-submenu index="2" >
       <template slot="title">未支付订单</template>
       <el-menu-item index="2-1" @click="showOrdersList1">订单查看</el-menu-item>
@@ -29,18 +30,19 @@
       :data="orders"
       tooltip-effect="dark"
       style="width: 100%"
+      @sort-change="changeSort"
       border stripe>
-      <el-table-column prop = "0" label="订单号">
+      <el-table-column prop = "0" label="订单号" sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
       <el-table-column prop="1" label="商品名称">
       </el-table-column>
-      <el-table-column prop="2" label="数量">
+      <el-table-column prop="2" label="数量" sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
-      <el-table-column prop="3" label="单价">
+      <el-table-column prop="3" label="单价" sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
       <el-table-column prop="4" label="金额">
       </el-table-column>
-      <el-table-column prop="5" label="交易时间">
+      <el-table-column prop="5" label="交易时间" sortable :sort-orders="['ascending', 'descending']">
       </el-table-column>
       <el-table-column prop="8" label="订单状态">
       </el-table-column>
@@ -57,11 +59,11 @@ export default {
       orders: []
     }
   },
-  created () {
-    this.showCartsList()
+  mounted () {
+    this.showOrdersList()
   },
   methods: {
-    // 分页式展示商品信息
+    //显示全部订单
     showOrdersList () {
       const _this = this
       this.$axios
@@ -78,6 +80,7 @@ export default {
           alert('服务器异常')
         })
     },
+    //显示未支付订单
     showOrdersList1 () {
       const _this = this
       this.$axios
@@ -94,6 +97,7 @@ export default {
           alert('服务器异常')
         })
     },
+    //显示待支付订单
     showOrdersList2 () {
       const _this = this
       this.$axios
@@ -110,6 +114,7 @@ export default {
           alert('服务器异常')
         })
     },
+    //显示待收货订单
     showOrdersList3 () {
       const _this = this
       this.$axios
@@ -125,9 +130,6 @@ export default {
         .catch(failResponse => {
           alert('服务器异常')
         })
-    },
-    showDetailedInfo (row) {
-      console.log(row)
     }
   }
 }
