@@ -6,10 +6,11 @@
                   :key="item.pid">
         <p slot="content" style="font-size: 14px;margin-bottom: 6px;">详情：{{item.description}}</p>
         <p slot="content" style="font-size: 14px;margin-bottom: 6px;">剩余数量：{{item.number}}</p>
+<!--        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">图片：{{item.cover}}</p>-->
         <el-card style="margin-bottom: 20px;float: left;margin-right: 15px;height: 300px;width: 300px"
                  bodyStyle="padding:0px" shadow="hover">
 <!--          在此将图片src改为item.cover-->
-<!--          <img src="item.cover" alt="没有图片" class="image">-->
+<!--          <img src="item.cover" alt="没有图片" class="cover">-->
           <el-image :src="item.cover" class="cover">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
