@@ -48,7 +48,6 @@ export default {
       this.$axios.get('/home/user/' + _this.$store.state.user.name + '/').then(resp => {
         if (resp && resp.status === 200) {
           _this.user = resp.data
-          // console.log(_this.user)
         }
       }).catch(failResponse => {
         _this.$message('加载失败')

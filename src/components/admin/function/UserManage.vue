@@ -2,10 +2,18 @@
   <div>
     <el-card>
       <p style="font-size: xx-large;font-family: Arial">普通用户</p>
-      <el-table ref="multipleTable" :data="usersList" tooltip-effect="dark"
+      <el-table :data="usersList" tooltip-effect="dark"
                 style="width: 100%" :header-cell-style="{'text-align':'center'}" border stripe>
 
-        <el-table-column prop = "0" label="id" width="50" align="center"></el-table-column>
+        <el-table-column prop="6" label="头像" width="70">
+          <!--:表示引入变量-->
+          <template slot-scope="scope">
+          <img :src="getSrc(scope.row)" width="50" />
+          </template>
+          <!--<img :src="" width="40" height="40" class="head_pic"/>-->
+        </el-table-column>
+
+        <el-table-column prop="0" label="id" width="50" align="center"></el-table-column>
 
         <el-table-column prop="1" label="名称" width="200" align="center"></el-table-column>
 
@@ -14,13 +22,6 @@
         <el-table-column prop="3" label="电子邮箱" width="200" align="center"></el-table-column>
 
         <el-table-column prop="5" label="性别" width="50"></el-table-column>
-
-        <el-table-column prop="6" label="头像" width="50">
-          <el-image
-            :src="6"
-            style="float: right;margin-right: 50px;margin-top: 50px">
-          </el-image>
-        </el-table-column>
 
         <el-table-column prop="7" label="生日" width="100" align="center"></el-table-column>
 
@@ -43,7 +44,8 @@ export default {
   name: 'UserManage',
   data () {
     return {
-      usersList: []
+      usersList: [],
+      pic: [{}]
     }
   },
   created () {
@@ -57,11 +59,19 @@ export default {
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.usersList = successResponse.data
+            // for ( var i = 0; i < _this.usersList.length; i++) {
+            //   _this.pic[i] = _this.usersList[i][6]
+            // }
+            // console.log("0:"+_this.pic[0])
+            // console.log("1:"+_this.pic[1])
           }
         })
         .catch(failResponse => {
           alert('服务器异常')
         })
+    },
+    getSrc(row) {
+      return row[6]
     },
     async deleUser (row) {
       const confirmResult = await
