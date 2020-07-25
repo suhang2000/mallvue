@@ -49,36 +49,36 @@ export default {
     }
   },
   methods: {
-    select(key) {
+    select (key) {
       switch (key) {
         case '1':
-          this.$router.push('/admin/dashboard');
-          break;
+          this.$router.push('/admin/dashboard')
+          break
         case '2-1':
-          this.$router.push('/admin/product');
-          break;
+          this.$router.push('/admin/product')
+          break
         case '2-2':
-          this.$router.push('/admin/order');
-          break;
+          this.$router.push('/admin/order')
+          break
         case '3-1':
-          this.$router.push('/admin/user');
-          break;
+          this.$router.push('/admin/user')
+          break
         case '3-2':
-          this.$router.push('/admin/saler');
-          break;
+          this.$router.push('/admin/saler')
+          break
         case '4-1':
-          this.$router.push('/admin/admininfo');
-          break;
+          this.$router.push('/admin/admininfo')
+          break
         case '4-2':
-          this.$router.push('/admin/register');
-          break;
+          this.$router.push('/admin/register')
+          break
         case '4-3':
-          this.$router.push('/admin/pwdreset');
-          break;
+          this.$router.push('/admin/pwdreset')
+          break
         case '4-4':
-          this.$store.commit('logout');
-          this.$router.push('/login');
-          break;
+          this.$store.commit('logout')
+          this.$router.push('/login')
+          break
       }
     }
   }
