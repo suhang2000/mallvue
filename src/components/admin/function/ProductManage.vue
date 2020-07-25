@@ -180,6 +180,7 @@ export default {
         })
     },
     editGoods (item) {
+      console.log(item[7])
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.pid = item[0]
       this.$refs.edit.form = {

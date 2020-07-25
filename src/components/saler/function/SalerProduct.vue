@@ -104,7 +104,7 @@ export default {
       // console.log(_this.product)
       this.$axios
         .post('/list/product/saler', {
-          input:_this.product.pname,
+          input: _this.product.pname,
           myName: _this.$store.state.saler.name
         })
         .then(successResponse => {
@@ -159,6 +159,7 @@ export default {
         })
     },
     editGoods (item) {
+      // console.log(item.cover)
       this.$refs.edit.dialogFormVisible = true
       this.$refs.edit.pid = item.pid
       this.$refs.edit.form = {
