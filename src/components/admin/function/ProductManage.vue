@@ -97,13 +97,11 @@ export default {
     this.showGoodsList()
   },
   methods: {
-    // 分页式展示商品信息
     async showGoodsList () {
       const _this = this
-      console.log(_this.product)
       this.$axios
         .post('/list/product', {
-          pname: this.product.pname
+          pname: _this.product.pname
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {

@@ -7,7 +7,7 @@
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
                     v-model="product.pname" clearable @clear="clearInput">
             <el-button slot="append" icon="el-icon-search"
-                       @click="showDetailedInfo">
+                       @click="showGoodsList">
             </el-button>
           </el-input>
         </el-col>
@@ -95,16 +95,16 @@ export default {
     }
   },
   mounted () {
-    this.showAllGoodsList()
+    this.showGoodsList()
     this.getSid()
   },
   methods: {
-    // 分页式展示商品信息
-    async showAllGoodsList () {
+    async showGoodsList () {
       const _this = this
       // console.log(_this.product)
       this.$axios
         .post('/list/product/saler', {
+          input:_this.product.pname,
           myName: _this.$store.state.saler.name
         })
         .then(successResponse => {
@@ -117,7 +117,6 @@ export default {
           alert('服务器异常')
         })
     },
-
     toggleSelection (rows) {
       if (rows) {
         rows.forEach(row => {
@@ -130,9 +129,6 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val
       console.log(val)
-    },
-    showDetailedInfo (row) {
-      console.log(row)
     },
     async dropGoods (row) {
       console.log(row)
