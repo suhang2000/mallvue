@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <p style="font-size: xx-large;font-family: Arial">密码重置</p>
+      <p style="font-size: xx-large;font-family: Arial">人员管理</p>
       <el-table ref="multipleTable" :data="adminList" tooltip-effect="dark"
                 style="width: 100%" :header-cell-style="{'text-align':'center'}" border stripe>
 

@@ -2,7 +2,7 @@
   <body>
   <el-form ref="regisForm" :model="regisForm" :rules="rules" class="regis-container" label-position="left"
            label-width="0px" v-loading="false">
-    <h3 class="regis_title">管理人员注册</h3>
+    <h3 class="regis_title">注册账号</h3>
     <!--使用Prop在父组件内向子组件传递参数!!!prop应为此界面具有的子组件-->
     <el-form-item prop="aname">
       <el-input type="text" v-model="regisForm.aname"
@@ -27,7 +27,7 @@
   </body>
 </template>
 <script>
-import {validatePhone} from '../../utils/validate'
+import {validatePhone} from '../../../utils/validate'
 
 export default{
   data () {
@@ -66,16 +66,10 @@ export default{
         })
         .then(resp => {
           if (resp.data.code === 200) {
-            this.$alert('注册成功', '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info("成功注册账号")
             var path = _this.$route.query.redirect
             _this.$router.replace({path: path === '/' || path === undefined ? '/admin/admininfo' : path})
-          } else {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
-          }
+          } else {}
         })
         .catch(failResponse => {})
     },

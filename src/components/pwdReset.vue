@@ -20,8 +20,8 @@
                 auto-complete="off" placeholder="再次输入新密码" show-password></el-input>
     </el-form-item>
     <el-row>
-      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_reset">用户</el-button>
-      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_reset">商家</el-button>
+      <el-button type="primary" class="el-icon-user-solid" style="width: 25%;background: #505458;border: none" @click="validate_user_reset('resetForm')">用户</el-button>
+      <el-button type="primary" class="el-icon-s-shop" style="width: 25%;background: #505458;border: none" @click="validate_saler_reset('resetForm')">商家</el-button>
     </el-row>
   </el-form>
   </body>
