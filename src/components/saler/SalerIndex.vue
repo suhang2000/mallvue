@@ -9,7 +9,7 @@
       <el-menu default-active="1" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" @select="select">
         <el-menu-item index="1"><i class="el-icon-s-management"></i>运营报表</el-menu-item>
         <el-submenu index="2">
-          <template slot="title"><i class="el-icon-s-custom"></i>内容管理</template>
+          <template slot="title"><i class="el-icon-document-copy"></i>内容管理</template>
           <el-menu-item-group>
             <el-menu-item index="2-1"><i class="el-icon-s-goods"></i>商品管理</el-menu-item>
             <el-menu-item index="2-2"><i class="el-icon-s-order"></i>订单管理</el-menu-item>
