@@ -4,29 +4,18 @@
 
 > A Vue.js project
 
-## Build Setup
+## SCU 25组 购物商城 前端
 
-``` bash
-# install dependencies
-npm install
+框架：Vue.js
 
-# serve with hot reload at localhost:8080
-npm run dev
+前后端交互：axios
 
-# build for production with minification
-npm run build
+组件库：element-ui
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## 界面
 
-# run unit tests
-npm run unit
+user：普通用户访问界面，包含商城界面，购物车，订单管理，个人信息管理
 
-# run e2e tests
-npm run e2e
+saler：商家管理界面，可以管理商品、订单
 
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+admin：管理员界面，可以管理用户、商家、商品，root账号为最高权限账号
