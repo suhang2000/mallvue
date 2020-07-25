@@ -12,7 +12,7 @@
         <user-form @onSubmit="loadUser()" ref="edit"></user-form>
       </el-aside>
       <el-main>
-        <p class="user" align="left">uid: {{user.uid}}</p>
+        <p class="user" align="left">id: {{user.uid}}</p>
         <br>
         <p class="user" align="left">昵称: {{user.uname}}</p>
         <br>
