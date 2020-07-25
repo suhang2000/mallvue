@@ -108,37 +108,37 @@ export default {
           this.$message('服务器异常')
         })
     },
-    validate_user_login(formName) {
+    validate_user_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.user_login()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
-    validate_saler_login(formName) {
+    validate_saler_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.saler_login()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
-    validate_admin_login(formName) {
+    validate_admin_login (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
           // 我吐了，调用自己的方法要加括号
           this.admin_login()
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     }
   }
 }

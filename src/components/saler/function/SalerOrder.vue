@@ -76,8 +76,8 @@
         label="操作"
         width="150">
         <template slot-scope="scope">
-          <el-button type = "primary" icon = "el-icon-goods"
-                     size = "mini" @click="deliver(scope.row)">
+          <el-button type = "primary" size = "mini" @click="deliver(scope.row)">
+            发货
           </el-button>
         </template>
       </el-table-column>
@@ -87,107 +87,106 @@
 </template>
 
 <script>
-  export default {
-    name: 'List',
-    data() {
-      return {
-        orders : [],
-        order:{
-          pname:'苹果',
-          oid:0,
-          uid:0,
-          pid:0,
-          trade_time:2000-1-1,
-          trade_num:0,
-          address:'北京市',
-          pay_or_not:0,
-          deliver_or_not:0
-        },
-        options: [{
-          value: '搜索商品',
-          label: '搜索商品'
-        }, {
-          value:'搜索用户',
-          label: '搜索用户'
-        }],
-        value: '',
-        input:'',
-        oper:'/searchBy/sname'
-      }
-    },
-    created() {
-      this.showAllOrders()
-    },
-    methods: {
-      // 分页式展示商品信息
-      async showAllOrders() {
-        const _this = this
-        console.log(_this.$store.state.saler.name)
-        this.$axios
-          .post("/searchBy/sname",{
-            input:_this.$store.state.saler.name})
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              _this.order = successResponse.data
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
+export default {
+  name: 'List',
+  data () {
+    return {
+      orders: [],
+      order: {
+        pname: '苹果',
+        oid: 0,
+        uid: 0,
+        pid: 0,
+        trade_time: 2000 - 1 - 1,
+        trade_num: 0,
+        address: '北京市',
+        pay_or_not: 0,
+        deliver_or_not: 0
       },
+      options: [{
+        value: '搜索商品',
+        label: '搜索商品'
+      }, {
+        value: '搜索用户',
+        label: '搜索用户'
+      }],
+      value: '',
+      input: '',
+      oper: '/searchBy/sname'
+    }
+  },
+  created () {
+    this.showAllOrders()
+  },
+  methods: {
+    // 分页式展示商品信息
+    async showAllOrders () {
+      const _this = this
+      console.log(_this.$store.state.saler.name)
+      this.$axios
+        .post('/searchBy/sname', {
+          input: _this.$store.state.saler.name})
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            _this.order = successResponse.data
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
+    },
 
-      async showPartialOrders() {
-        const _this = this
-        console.log(_this.$store.state.saler.name)
-        switch (_this.value) {
-          case "搜索商品":
-            _this.oper = '/searchBy/pname/saler'
-            break;
-          case "搜索用户":
-            _this.oper = '/searchBy/uname/saler'
-            break;
-        }
-        this.$axios
-          .post(_this.oper,{
-            input:_this.input,
-            myName:_this.$store.state.saler.name})
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              _this.orders = successResponse.data
-              _this.order = successResponse.data
+    async showPartialOrders () {
+      const _this = this
+      console.log(_this.$store.state.saler.name)
+      switch (_this.value) {
+        case '搜索商品':
+          _this.oper = '/searchBy/pname/saler'
+          break
+        case '搜索用户':
+          _this.oper = '/searchBy/uname/saler'
+          break
+      }
+      this.$axios
+        .post(_this.oper, {
+          input: _this.input,
+          myName: _this.$store.state.saler.name})
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            _this.orders = successResponse.data
+            _this.order = successResponse.data
             console.log(_this.order)
             console.log(_this.order.pname)
-            }
-          })
-          .catch(failResponse => {
-            alert('服务器异常')
-          })
-      },
-      clearInput(){
-        console.log(input)
-      },
-      deliver(row){
-        this.$axios
-          .post("/list/order/deliver",{
-            orderNum: row[0]
-          })
-          .then(successResponse => {
-            if (successResponse && successResponse.status === 200) {
-              this.$message.info('已发货')
-              this.showAllOrders()
-            } else {
-              this.$alert(successResponse.data.message, '提示', {
-                confirmButtonText: '确定'
-              })
-            }
-          })
-      }
+          }
+        })
+        .catch(failResponse => {
+          alert('服务器异常')
+        })
     },
+    clearInput () {
+      console.log(input)
+    },
+    deliver (row) {
+      this.$axios
+        .post('/list/order/deliver', {
+          orderNum: row[0]
+        })
+        .then(successResponse => {
+          if (successResponse && successResponse.status === 200) {
+            this.$message.info('已发货')
+            this.showAllOrders()
+          } else {
+            this.$alert(successResponse.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
+          }
+        })
+    }
   }
+}
 </script>
 
 <style scoped>
-
 
 </style>

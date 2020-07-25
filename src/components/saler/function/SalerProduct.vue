@@ -72,7 +72,7 @@
       <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
-      <ProductForm @onSubmit="showAllGoodsList()" ref="edit"></ProductForm>
+      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
 </div>

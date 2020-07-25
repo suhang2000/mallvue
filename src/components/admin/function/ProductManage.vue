@@ -26,7 +26,8 @@
       </el-table-column >
       <el-table-column
         prop="0"
-        label="商品编号">
+        label="商品编号"
+        width="100">
       </el-table-column>
 
       <el-table-column
@@ -186,7 +187,7 @@ export default {
         price: item[3],
         number: item[4],
         description: item[5],
-        cover: item[6]
+        cover: item[7]
       }
     }
   }
