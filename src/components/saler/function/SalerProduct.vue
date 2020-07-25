@@ -66,13 +66,13 @@
 
       <div style="margin-top: 20px;float:left">
         <el-button type = "primary" icon = "el-icon-plus"
-                   size = "medium"   @click="addGoods(scope.row)">
+                   size = "medium"   @click="addGoods()">
         </el-button>
       </div>
       <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
-      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
+      <ProductForm @onSubmit="showAllGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
 </div>
@@ -90,25 +90,27 @@ export default {
       product: {
         pid: 0,
         pname: ''
-      }
+      },
+      sid: 0
     }
   },
-  created () {
+  mounted () {
     this.showAllGoodsList()
+    this.getSid()
   },
   methods: {
     // 分页式展示商品信息
     async showAllGoodsList () {
       const _this = this
-      console.log(_this.product)
+      // console.log(_this.product)
       this.$axios
-        .post('/list/product/saler',{
-          myName:_this.$store.state.saler.name
+        .post('/list/product/saler', {
+          myName: _this.$store.state.saler.name
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.goodsList = successResponse.data
-            console.log(_this.goodsList)
+            // console.log(_this.goodsList)
           }
         })
         .catch(failResponse => {
@@ -171,7 +173,31 @@ export default {
         description: item.description,
         cover: item.cover
       }
-      this.showAllGoodsList()
+      // this.showAllGoodsList()
+    },
+    addGoods () {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.sid = this.sid
+      this.$refs.edit.pid = ''
+      // this.$refs.edit.form = {
+      //   pname: '',
+      //   price: '',
+      //   number: '',
+      //   description: '',
+      //   cover: ''
+      // }
+      // this.showAllGoodsList()
+    },
+    getSid () {
+      const _this = this
+      this.$axios.get('/saler/' + _this.$store.state.saler.name + '/').then(resp => {
+        if (resp && resp.status === 200) {
+          _this.sid = resp.data
+          // console.log(_this.user)
+        }
+      }).catch(failResponse => {
+        _this.$message('加载失败')
+      })
     }
   }
 }

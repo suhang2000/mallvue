@@ -190,9 +190,6 @@ export default {
         description: item[5],
         cover: item[6]
       }
-    },
-    getSid () {
-      // const _this = this
     }
   }
 }

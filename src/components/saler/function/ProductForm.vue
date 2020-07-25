@@ -56,6 +56,8 @@ export default {
         description: '',
         cover: ''
       }
+      this.pid = ''
+      this.sid = 0
     },
     onSubmit () {
       console.log(this.form)
