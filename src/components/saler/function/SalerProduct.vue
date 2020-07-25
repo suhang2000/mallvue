@@ -151,7 +151,7 @@ export default {
         .then(resp => {
           if (resp.data.code === 200) {
             this.$message.info('已删除')
-            this.showAllGoodsList()
+            this.showGoodsList()
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'

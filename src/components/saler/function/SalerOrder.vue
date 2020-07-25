@@ -32,7 +32,7 @@
       border stripe>
 
       <el-table-column
-        label="商品编号"
+        label="订单号"
         width="100"
         prop ="0"
       >
@@ -73,9 +73,13 @@
       >
       </el-table-column>
       <el-table-column
-        label="卖家"
-        prop = "8"
-      >
+        label="操作"
+        width="150">
+        <template slot-scope="scope">
+          <el-button type = "primary" icon = "el-icon-goods"
+                     size = "mini" @click="deliver(scope.row)">
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -161,9 +165,25 @@
           })
       },
       clearInput(){
-
+        console.log(input)
+      },
+      deliver(row){
+        this.$axios
+          .post("/list/order/deliver",{
+            orderNum: row[0]
+          })
+          .then(successResponse => {
+            if (successResponse && successResponse.status === 200) {
+              this.$message.info('已发货')
+              this.showAllOrders()
+            } else {
+              this.$alert(successResponse.data.message, '提示', {
+                confirmButtonText: '确定'
+              })
+            }
+          })
       }
-    },
+      },
   }
 </script>
 
