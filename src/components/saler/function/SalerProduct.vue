@@ -7,7 +7,7 @@
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
                     v-model="product.pname" clearable @clear="clearInput">
             <el-button slot="append" icon="el-icon-search"
-                       @click="showGoodsList">
+                       @click="showDetailedInfo">
             </el-button>
           </el-input>
         </el-col>
@@ -24,10 +24,12 @@
           type="selection"
           width="55">
         </el-table-column >
-
+        <el-table-column
+          prop="pid"
+          label="商品编号">
+        </el-table-column>
         <el-table-column
           label="商品名"
-          width="250"
           prop = "pname">
 <!--          <template slot-scope="scope">-->
 <!--            <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
@@ -36,22 +38,21 @@
         </el-table-column>
         <el-table-column
           prop="price"
-          label="价格"
-          width="250">
+          label="价格">
         </el-table-column>
         <el-table-column
           prop="number"
-          label="数量"
-          width="250">
+          label="数量">
         </el-table-column>
         <el-table-column
           prop="description"
           label="描述"
+          width="400"
           show-overflow-tooltip>
         </el-table-column>
         <el-table-column
           label="操作"
-          width="400">
+          width="150">
           <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                        size = "mini" @click="dropGoods(scope.row)">
@@ -65,16 +66,16 @@
 
       <div style="margin-top: 20px;float:left">
         <el-button type = "primary" icon = "el-icon-plus"
-                   size = "medium"   @click="addGoods(scope.row)">
+                   size = "medium"   @click="addGoods()">
         </el-button>
       </div>
       <div style="margin-top: 20px;float: left;margin-left: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
       </div >
-      <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
+      <ProductForm @onSubmit="showAllGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
-  </div>
+</div>
 </template>
 
 <script>
@@ -89,25 +90,27 @@ export default {
       product: {
         pid: 0,
         pname: ''
-      }
+      },
+      sid: 0
     }
   },
-  created () {
-    this.showGoodsList()
+  mounted () {
+    this.showAllGoodsList()
+    this.getSid()
   },
   methods: {
     // 分页式展示商品信息
-    async showGoodsList () {
+    async showAllGoodsList () {
       const _this = this
-      console.log(_this.product)
+      // console.log(_this.product)
       this.$axios
-        .post('/list/product', {
-          pname: this.product.pname
+        .post('/list/product/saler', {
+          myName: _this.$store.state.saler.name
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.goodsList = successResponse.data
-            console.log(_this.goodsList)
+            // console.log(_this.goodsList)
           }
         })
         .catch(failResponse => {
@@ -152,7 +155,7 @@ export default {
         .then(resp => {
           if (resp.data.code === 200) {
             this.$message.info('已删除')
-            this.showGoodsList()
+            this.showAllGoodsList()
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -170,6 +173,31 @@ export default {
         description: item.description,
         cover: item.cover
       }
+      // this.showAllGoodsList()
+    },
+    addGoods () {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.sid = this.sid
+      this.$refs.edit.pid = ''
+      // this.$refs.edit.form = {
+      //   pname: '',
+      //   price: '',
+      //   number: '',
+      //   description: '',
+      //   cover: ''
+      // }
+      // this.showAllGoodsList()
+    },
+    getSid () {
+      const _this = this
+      this.$axios.get('/saler/' + _this.$store.state.saler.name + '/').then(resp => {
+        if (resp && resp.status === 200) {
+          _this.sid = resp.data
+          // console.log(_this.user)
+        }
+      }).catch(failResponse => {
+        _this.$message('加载失败')
+      })
     }
   }
 }

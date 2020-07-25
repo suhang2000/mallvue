@@ -1,6 +1,29 @@
 <template>
   <div>
-    <p style="font-size: xx-large;font-family: Arial">订单管理</p>
+    <p style="font-size: xx-large;font-family: Arial">订单信息</p>
+    <el-container>
+      <el-select v-model="value" placeholder="请选择" style="width: 120px">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+
+      <el-row :gutter="20">
+        <el-col :span="20">
+          <el-input placeholder="请输入内容" type="text" auto-complete="off"
+                    v-model="input" clearable @clear="clearInput">
+
+            <el-button slot="append" icon="el-icon-search"
+                       @click="showPartialOrders">
+            </el-button>
+          </el-input>
+        </el-col>
+      </el-row>
+    </el-container>
     <el-table
       ref="multipleTable"
       :data="orders"
@@ -11,7 +34,7 @@
       <el-table-column
         label="商品编号"
         width="100"
-        prop ="1"
+        prop ="0"
       >
       </el-table-column>>
       <el-table-column
@@ -39,8 +62,19 @@
         prop="5">
       </el-table-column>
       <el-table-column
-        label="发货"
+        label="发货状态"
         prop = "6"
+      >
+      </el-table-column>
+
+      <el-table-column
+        label="买家"
+        prop = "7"
+      >
+      </el-table-column>
+      <el-table-column
+        label="卖家"
+        prop = "8"
       >
       </el-table-column>
     </el-table>
@@ -49,49 +83,88 @@
 </template>
 
 <script>
-export default {
-  name: 'List',
-  data() {
-    return {
-      orders : [],
-      order:{
-        pname:'苹果',
-        oid:0,
-        uid:0,
-        pid:0,
-        trade_time:2000-1-1,
-        trade_num:0,
-        address:'北京市',
-        pay_or_not:0,
-        deliver_or_not:0
+  export default {
+    name: 'List',
+    data() {
+      return {
+        orders : [],
+        order:{
+          pname:'苹果',
+          oid:0,
+          uid:0,
+          pid:0,
+          trade_time:2000-1-1,
+          trade_num:0,
+          address:'北京市',
+          pay_or_not:0,
+          deliver_or_not:0
+        },
+        options: [{
+          value: '搜索商品',
+          label: '搜索商品'
+        }, {
+          value:'搜索用户',
+          label: '搜索用户'
+        }],
+        value: '',
+        input:'',
+        oper:'/searchBy/sname'
       }
-    }
-  },
-  created() {
-    this.showAllOrders()
-  },
-  methods: {
-    // 分页式展示商品信息
-    async showAllOrders() {
-      const _this = this
-      this.$axios
-        .post("/apple",{
-          uid: this.order.uid
-        })
-        .then(successResponse => {
-          if (successResponse && successResponse.status === 200) {
-            _this.orders = successResponse.data
-            _this.order = successResponse.data
+    },
+    created() {
+      this.showAllOrders()
+    },
+    methods: {
+      // 分页式展示商品信息
+      async showAllOrders() {
+        const _this = this
+        console.log(_this.$store.state.saler.name)
+        this.$axios
+          .post("/searchBy/sname",{
+            input:_this.$store.state.saler.name})
+          .then(successResponse => {
+            if (successResponse && successResponse.status === 200) {
+              _this.orders = successResponse.data
+              _this.order = successResponse.data
+            }
+          })
+          .catch(failResponse => {
+            alert('服务器异常')
+          })
+      },
+
+      async showPartialOrders() {
+        const _this = this
+        console.log(_this.$store.state.saler.name)
+        switch (_this.value) {
+          case "搜索商品":
+            _this.oper = '/searchBy/pname/saler'
+            break;
+          case "搜索用户":
+            _this.oper = '/searchBy/uname/saler'
+            break;
+        }
+        this.$axios
+          .post(_this.oper,{
+            input:_this.input,
+            myName:_this.$store.state.saler.name})
+          .then(successResponse => {
+            if (successResponse && successResponse.status === 200) {
+              _this.orders = successResponse.data
+              _this.order = successResponse.data
             console.log(_this.order)
             console.log(_this.order.pname)
-          }
-        })
-        .catch(failResponse => {
-          alert('服务器异常')
-        })
+            }
+          })
+          .catch(failResponse => {
+            alert('服务器异常')
+          })
+      },
+      clearInput(){
+
+      }
     },
-  },
-}
+  }
 </script>
 
 <style scoped>

@@ -8,7 +8,7 @@
       </div>
     </el-carousel-item>
   </el-carousel>
-  <Products class="products_area"></Products>
+  <Products class="products_area" ref="products"></Products>
 </div>
 </template>
 
@@ -24,22 +24,25 @@ export default {
         'https://aecpm.alicdn.com/simba/img/TB1XotJXQfb_uJkSnhJSuvdDVXa.jpg',
         'https://aecpm.alicdn.com/simba/img/TB1JNHwKFXXXXafXVXXSutbFXXX.jpg',
         'https://aecpm.alicdn.com/simba/img/TB183NQapLM8KJjSZFBSutJHVXa.jpg',
-        'https://img.alicdn.com/tfs/TB18NsRcsVl614jSZKPXXaGjpXa-520-280.jpg_q90_.webp'],
-      products: []
+        'https://img.alicdn.com/tfs/TB18NsRcsVl614jSZKPXXaGjpXa-520-280.jpg_q90_.webp']
+      // products: []
     }
   },
   methods: {
     searchResult () {
       const _this = this
       console.log(_this.$refs.searchBar.keywords)
-      // this.$axios
-      //   .get('/search?keywords=' + this.$refs.searchBar.keywords, {
-      //   }).then(resp => {
-      //     if (resp && resp.status === 200) {
-      //       _this.books = resp.data
-      //     }
-      //   })
-      this.$message('待整合')
+      this.$axios
+        .get('/home/search?keywords=' + this.$refs.searchBar.keywords, {
+        }).then(resp => {
+          if (resp && resp.status === 200) {
+            // _this.products = resp.data
+            _this.$refs.products.products = resp.data
+            console.log(_this.$refs.products.products)
+          }
+        }).catch(failResponse => {
+          _this.$message('服务器异常')
+        })
     }
   }
 }

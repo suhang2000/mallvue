@@ -18,7 +18,6 @@
           <div style="padding: 14px;">
             <span>{{item.pname}}</span>
             <div class="bottom clearfix">
-<!--              <time class="time">{{ currentDate }}</time>-->
               <div class="price">
                 <i class="el-icon-price-tag"></i>
                 ￥{{item.price}}
@@ -72,9 +71,11 @@ export default {
       console.log(this.currentPage)
     },
     addCart (item) {
+      const _this = this
       this.$axios
         .post('/list/addCart', {
-          pid: item.pid
+          pid: item.pid,
+          myName: _this.$store.state.user.name
         })
         .then(resp => {
           if (resp.data.code === 200) {
