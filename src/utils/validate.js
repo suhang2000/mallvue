@@ -33,9 +33,9 @@ export function validateBanknum (rule, value, callback) {
 
 export function validateAdminOldPwd (rule, value, callback) {
   if (value === '' || value === undefined || value === null) {
-    callback(new Error('旧密码未填写'))
+    callback(new Error('初始密码未填写'))
   } else if (value !== 'rootpassword') {
-    callback(new Error('须得填写默认密码'))
+    callback(new Error('须得填写初始密码'))
   } else {
     callback()
   }

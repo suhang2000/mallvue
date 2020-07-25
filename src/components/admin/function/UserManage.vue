@@ -59,11 +59,6 @@ export default {
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.usersList = successResponse.data
-            // for ( var i = 0; i < _this.usersList.length; i++) {
-            //   _this.pic[i] = _this.usersList[i][6]
-            // }
-            // console.log("0:"+_this.pic[0])
-            // console.log("1:"+_this.pic[1])
           }
         })
         .catch(failResponse => {

@@ -5,7 +5,7 @@
     <h3 class="login_title">修改密码</h3>
     <el-form-item prop="oldpwd">
       <el-input type="password" v-model="resetForm.oldpwd"
-                auto-complete="off" placeholder="旧密码"></el-input>
+                auto-complete="off" placeholder="初始密码"></el-input>
     </el-form-item>
     <el-form-item prop="newpwd">
       <el-input type="password" v-model="resetForm.newpwd"
