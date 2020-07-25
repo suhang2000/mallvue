@@ -7,7 +7,7 @@
           <el-input placeholder="请输入内容" type="text" auto-complete="off"
                     v-model="product.pname" clearable @clear="clearInput">
             <el-button slot="append" icon="el-icon-search"
-                       @click="showGoodsList">
+                       @click="showDetailedInfo">
             </el-button>
           </el-input>
         </el-col>
@@ -30,7 +30,6 @@
         </el-table-column>
         <el-table-column
           label="商品名"
-          width="250"
           prop = "pname">
 <!--          <template slot-scope="scope">-->
 <!--            <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
@@ -39,22 +38,21 @@
         </el-table-column>
         <el-table-column
           prop="price"
-          label="价格"
-          width="250">
+          label="价格">
         </el-table-column>
         <el-table-column
           prop="number"
-          label="数量"
-          width="250">
+          label="数量">
         </el-table-column>
         <el-table-column
           prop="description"
           label="描述"
+          width="400"
           show-overflow-tooltip>
         </el-table-column>
         <el-table-column
           label="操作"
-          width="400">
+          width="150">
           <template slot-scope="scope">
             <el-button type = "danger" icon = "el-icon-delete"
                        size = "mini" @click="dropGoods(scope.row)">
@@ -77,7 +75,7 @@
       <ProductForm @onSubmit="showGoodsList()" ref="edit"></ProductForm>
     </el-card>
 
-  </div>
+</div>
 </template>
 
 <script>
@@ -105,7 +103,7 @@ export default {
       console.log(_this.product)
       this.$axios
         .post('/list/product/saler',{
-          pname: this.product.pname,
+          myName:_this.$store.state.saler.name
         })
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
@@ -155,7 +153,7 @@ export default {
         .then(resp => {
           if (resp.data.code === 200) {
             this.$message.info('已删除')
-            this.showGoodsList()
+            this.showAllGoodsList()
           } else {
             this.$alert(resp.data.message, '提示', {
               confirmButtonText: '确定'
@@ -173,6 +171,7 @@ export default {
         description: item.description,
         cover: item.cover
       }
+      this.showAllGoodsList()
     }
   }
 }
