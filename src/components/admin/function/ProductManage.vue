@@ -24,30 +24,35 @@
         type="selection"
         width="55">
       </el-table-column >
+      <el-table-column
+        prop="0"
+        label="商品编号">
+      </el-table-column>
 
       <el-table-column
-        label="商品名"
-        width="250"
-        prop = "pname">
+        prop = "2"
+        label="商品名">
 <!--        <template slot-scope="scope">-->
 <!--          <router-link tag="a" :to="{path:'/orderDetail',query:{id:scope.row.pid}}"-->
 <!--                       style="color:black;text-decoration:none;">{{scope.row.pname}}</router-link>-->
 <!--        </template>-->
       </el-table-column>
       <el-table-column
-        prop="price"
-        label="价格"
-        width="250">
+        prop="3"
+        label="价格">
       </el-table-column>
       <el-table-column
-        prop="number"
-        label="数量"
-        width="250">
+        prop="4"
+        label="数量">
       </el-table-column>
       <el-table-column
-        prop="description"
-        label="描述"
+        prop="5"
+        label="商品描述"
         show-overflow-tooltip>
+      </el-table-column>
+      <el-table-column
+        prop="6"
+        label="商家">
       </el-table-column>
       <el-table-column
       label="操作"
@@ -86,14 +91,6 @@ export default {
         pid: 0,
         pname: ''
       },
-      testProductData: {
-        sid: 1,
-        pname: '帽子',
-        price: 20,
-        number: 20,
-        description: '这是一顶帽子',
-        cover: ''
-      }
     }
   },
   mounted () {
@@ -135,29 +132,29 @@ export default {
     showDetailedInfo (row) {
       console.log(row)
     },
-    addGoods () {
-      const _this = this
-      this.$axios
-        .post('/list/addGoods', {
-          sid: _this.testProductData.sid,
-          pname: _this.testProductData.pname,
-          price: _this.testProductData.price,
-          number: _this.testProductData.number,
-          description: _this.testProductData.description,
-          cover: _this.testProductData.cover
-        })
-        .then(resp => {
-          this.$alert('添加成功', '提示', {
-            confirmButtonText: '确定'
-          })
-        })
-      // 刷新有问题，不能自动刷新
-      this.showGoodsList()
-    },
+    // addGoods () {
+    //   const _this = this
+    //   this.$axios
+    //     .post('/list/addGoods', {
+    //       sid: _this.testProductData.sid,
+    //       pname: _this.testProductData.pname,
+    //       price: _this.testProductData.price,
+    //       number: _this.testProductData.number,
+    //       description: _this.testProductData.description,
+    //       cover: _this.testProductData.cover
+    //     })
+    //     .then(resp => {
+    //       this.$alert('添加成功', '提示', {
+    //         confirmButtonText: '确定'
+    //       })
+    //     })
+    //   // 刷新有问题，不能自动刷新
+    //   this.showGoodsList()
+    // },
     async dropGoods (row) {
       console.log(row)
       const confirmResult = await
-      this.$confirm('是否删除' + row.pname + '?', '提示', {
+      this.$confirm('是否删除' + row[2] + '?', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
@@ -167,10 +164,10 @@ export default {
         return this.$message.info('已取消')
       }
 
-      console.log('pid为' + row.pid)
+      console.log('pid为' + row[0])
       this.$axios
         .post('/list/dropGoodsById', {
-          pid: row.pid
+          pid: row[0]
         })
         .then(resp => {
           if (resp.data.code === 200) {
@@ -185,13 +182,13 @@ export default {
     },
     editGoods (item) {
       this.$refs.edit.dialogFormVisible = true
-      this.$refs.edit.pid = item.pid
+      this.$refs.edit.pid = item[0]
       this.$refs.edit.form = {
-        pname: item.pname,
-        price: item.price,
-        number: item.number,
-        description: item.description,
-        cover: item.cover
+        pname: item[2],
+        price: item[3],
+        number: item[4],
+        description: item[5],
+        cover: item[6]
       }
     },
     getSid () {

@@ -111,7 +111,7 @@
         }],
         value: '',
         input:'',
-        oper:'/searchBy/sid'
+        oper:'/search'
       }
     },
     created() {
