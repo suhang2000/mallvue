@@ -12,7 +12,7 @@
     </el-menu-item>
     <el-button class="el-icon-switch-button"
                @click="logout"
-               style="float:right;font-size: 20px;color: #222;padding-top: 8px"
+               style="float:right;font-size: 20px;color: #222;padding-top: 8px;margin-top: 10px;margin-right: 20px"
                v-show="isLogin"></el-button>
     <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">SCU25-购物商城</span>
   </el-menu>

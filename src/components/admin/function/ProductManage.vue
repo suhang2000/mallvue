@@ -90,7 +90,7 @@ export default {
       product: {
         pid: 0,
         pname: ''
-      },
+      }
     }
   },
   mounted () {
@@ -102,9 +102,7 @@ export default {
       const _this = this
       console.log(_this.product)
       this.$axios
-        .post('/list/product', {
-          pname: this.product.pname
-        })
+        .post('/list/product')
         .then(successResponse => {
           if (successResponse && successResponse.status === 200) {
             _this.goodsList = successResponse.data
