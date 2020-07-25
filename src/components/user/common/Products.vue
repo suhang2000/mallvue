@@ -11,7 +11,7 @@
                  bodyStyle="padding:0px" shadow="hover">
 <!--          在此将图片src改为item.cover-->
 <!--          <img src="item.cover" alt="没有图片" class="cover">-->
-          <el-image :src="item.cover" class="cover">
+          <el-image :src="item.cover" class="cover" style="width: 200px;height: 200px">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
