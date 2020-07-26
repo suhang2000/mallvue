@@ -62,10 +62,10 @@ export default {
             radius: [15, 95],
             center: ['50%', '45%'],
             data: [
-              { value: 16833, name: '李苏航' },
-              { value: 468, name: '胡文哲' },
-              { value: 5144, name: '胡万龙' },
-              { value: 935, name: '刘音' }
+              { value: 20497, name: '李苏航' },
+              { value: 688, name: '胡文哲' },
+              { value: 6218, name: '胡万龙' },
+              { value: 1023, name: '刘音' }
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600
