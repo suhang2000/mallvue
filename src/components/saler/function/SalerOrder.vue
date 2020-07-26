@@ -76,10 +76,11 @@
         label="操作"
         width="150">
         <template slot-scope="scope">
-          <el-button type = "primary" size = "mini" @click="deliver(scope.row)">
+          <el-button v-if="getDeliverAbility(scope.row)" type = "primary" size = "mini" @click="deliver(scope.row)">
             发货
           </el-button>
         </template>
+
       </el-table-column>
     </el-table>
 
@@ -112,7 +113,7 @@ export default {
       }],
       value: '',
       input: '',
-      oper: '/searchBy/sname'
+      oper: '/searchBy/sname',
     }
   },
   created () {
@@ -120,6 +121,7 @@ export default {
   },
   methods: {
     // 分页式展示商品信息
+
     async showAllOrders () {
       const _this = this
       console.log(_this.$store.state.saler.name)
@@ -136,7 +138,6 @@ export default {
           alert('服务器异常')
         })
     },
-
     async showPartialOrders () {
       const _this = this
       console.log(_this.$store.state.saler.name)
@@ -156,8 +157,10 @@ export default {
           if (successResponse && successResponse.status === 200) {
             _this.orders = successResponse.data
             _this.order = successResponse.data
-            console.log(_this.order)
-            console.log(_this.order.pname)
+            console.log(_this.orders[0])
+            if (_this.orders[5]==1&&_this.orders[6]==0){
+              _this.deliverAbility = 1;
+            }
           }
         })
         .catch(failResponse => {
@@ -182,8 +185,14 @@ export default {
             })
           }
         })
+    },
+    getDeliverAbility(row){
+      console.log(row[5])
+      console.log(row[6])
+      if (row[5]="已付款"&&row[6]=="未发货") {return true;}
+      else {return false}
     }
-  }
+    }
 }
 </script>
 
