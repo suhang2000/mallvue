@@ -56,16 +56,16 @@ export default {
         },
         series: [
           {
-            name: '前端代码量',
+            name: '前端代码行数',
             type: 'pie',
             roseType: 'radius',
             radius: [15, 95],
-            center: ['50%', '38%'],
+            center: ['50%', '45%'],
             data: [
-              { value: 320, name: '李苏航' },
-              { value: 240, name: '胡文哲' },
-              { value: 149, name: '胡万龙' },
-              { value: 100, name: '刘音' },
+              { value: 16833, name: '李苏航' },
+              { value: 468, name: '胡文哲' },
+              { value: 5144, name: '胡万龙' },
+              { value: 935, name: '刘音' }
             ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600

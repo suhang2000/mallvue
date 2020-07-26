@@ -7,7 +7,7 @@
       <!--完成项目时改动数值-->
       <div style="padding-top:35px;" class="progress-item">
         <span>Vue</span>
-        <el-progress :percentage="70" />
+        <el-progress :percentage="80" />
       </div>
       <div class="progress-item">
         <span>JavaScript</span>
@@ -15,7 +15,7 @@
       </div>
       <div class="progress-item">
         <span>Css</span>
-        <el-progress :percentage="12" />
+        <el-progress :percentage="2" />
       </div>
       <div class="progress-item">
         <span>ESLint</span>
