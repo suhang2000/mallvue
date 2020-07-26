@@ -76,7 +76,7 @@
         label="操作"
         width="150">
         <template slot-scope="scope">
-          <el-button v-if="getDeliverAbility(scope.row)" type = "primary" size = "mini" @click="deliver(scope.row)">
+          <el-button v-if="scope.row[5] =='已付款' && scope.row[6] == '未发货'" type = "primary" size = "mini" @click="deliver(scope.row)">
             发货
           </el-button>
         </template>
@@ -124,7 +124,6 @@ export default {
 
     async showAllOrders () {
       const _this = this
-      console.log(_this.$store.state.saler.name)
       this.$axios
         .post('/searchBy/sname', {
           input: _this.$store.state.saler.name})
@@ -140,7 +139,6 @@ export default {
     },
     async showPartialOrders () {
       const _this = this
-      console.log(_this.$store.state.saler.name)
       switch (_this.value) {
         case '搜索商品':
           _this.oper = '/searchBy/pname/saler'
@@ -157,7 +155,6 @@ export default {
           if (successResponse && successResponse.status === 200) {
             _this.orders = successResponse.data
             _this.order = successResponse.data
-            console.log(_this.orders[0])
             if (_this.orders[5]==1&&_this.orders[6]==0){
               _this.deliverAbility = 1;
             }
@@ -168,7 +165,6 @@ export default {
         })
     },
     clearInput () {
-      console.log(input)
     },
     deliver (row) {
       this.$axios
@@ -186,12 +182,6 @@ export default {
           }
         })
     },
-    getDeliverAbility(row){
-      console.log(row[5])
-      console.log(row[6])
-      if (row[5]="已付款"&&row[6]=="未发货") {return true;}
-      else {return false}
-    }
     }
 }
 </script>
