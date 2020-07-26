@@ -172,9 +172,7 @@ export default {
           if (resp.data.code === 200) {
             this.$message.info('已删除')
           } else {
-            this.$alert('删除失败', '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('该商品还有订单未处理')
           }
           this.showGoodsList()
         })

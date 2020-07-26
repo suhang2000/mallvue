@@ -152,9 +152,7 @@ export default {
             this.$message.info('已删除')
             this.showGoodsList()
           } else {
-            this.$alert(resp.data.message, '提示', {
-              confirmButtonText: '确定'
-            })
+            this.$message.info('该商品还有订单未处理')
           }
         })
     },
