@@ -101,7 +101,7 @@ export default {
   methods: {
     async showGoodsList () {
       const _this = this
-      // console.log(_this.product)
+      console.log(_this.goodsList)
       this.$axios
         .post('/list/product/saler', {
           input: _this.product.pname,
