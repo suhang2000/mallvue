@@ -22,7 +22,8 @@
               <div class="price">
                 <i class="el-icon-price-tag"></i>
                 ￥{{item.price}}
-                <el-button type="text" class="el-icon-shopping-cart-2" @click="addCart(item)" style="font-size: 20px"></el-button>
+                <el-button type="text" class="el-icon-shopping-cart-2" @click="addCart(item)" style="font-size: 20px"
+                v-show="isLogin"></el-button>
               </div>
             </div>
           </div>
@@ -48,12 +49,17 @@ export default {
       products: [],
       currentPage: 1,
       pageSize: 8,
+      isLogin: false,
       uname: ''
     }
   },
   mounted: function () {
-    if (this.$store.state.user.uname) {
-      this.uname = this.$store.state.user.uname
+    if (this.$store.state.user.name) {
+      this.uname = this.$store.state.user.name
+      this.isLogin = true
+      // console.log('是否登录')
+      // console.log(this.isLogin)
+      // console.log(this.uname)
     }
     this.loadProducts()
   },
