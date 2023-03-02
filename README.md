@@ -22,4 +22,4 @@ admin：管理员界面，可以管理用户、商家、商品，root账号为�
 
 ## 后端代码
 
-<https://github.com/kamilsh/mallback>
+<https://github.com/suhang2000/mallback>
